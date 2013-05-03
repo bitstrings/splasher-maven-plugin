@@ -3,6 +3,7 @@
 Example:
 
 ```
+
     <plugin>
         <groupId>org.bitstrings.maven.plugins</groupId>
         <artifactId>splasher-maven-plugin</artifactId>
