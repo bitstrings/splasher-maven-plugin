@@ -89,6 +89,18 @@
                     <target>1.6</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-plugin-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>mojo-descriptor</id>
+                        <goals>
+                            <goal>descriptor</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
@@ -114,5 +126,40 @@
         </dependency>
 
     </dependencies>
+
+    <profiles>
+
+        <profile>
+            <id>it</id>
+
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-invoker-plugin</artifactId>
+                            <version>1.8</version>
+                            <configuration>
+                                <projectsDirectory>src/it</projectsDirectory>
+                                <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
+                                <showVersion>true</showVersion>
+                                <pomIncludes>
+                                    <pomInclude>*/pom.xml</pomInclude>
+                                </pomIncludes>
+                                <postBuildHookScript>verify</postBuildHookScript>
+                                <localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>
+                                <goals>
+                                    <goal>clean</goal>
+                                    <goal>${project.groupId}:${project.artifactId}:${project.version}:compose</goal>
+                                </goals>
+                                <settingsFile>src/it/settings.xml</settingsFile>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+
+    </profiles>
 
 </project>
