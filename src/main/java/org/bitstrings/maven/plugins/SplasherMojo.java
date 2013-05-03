@@ -30,6 +30,9 @@ public class SplasherMojo
     @Parameter( required = true )
     private File outputFile;
 
+    @Parameter
+    private String outputFormat;
+
     protected BufferedImage image;
 
     protected int finalWidth;
@@ -123,7 +126,9 @@ public class SplasherMojo
 
                 ImageIO.write(
                             image,
-                            FileUtils.extension( properOutputFile.getName() ),
+                            outputFormat == null
+                                    ? FileUtils.extension( properOutputFile.getName() )
+                                    : outputFormat,
                             properOutputFile );
             }
             catch ( IOException e )
