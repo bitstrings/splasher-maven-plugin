@@ -1,7 +1,9 @@
 package org.bitstrings.maven.plugins;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -26,6 +28,9 @@ public class SplasherMojo
 
     @Parameter( required = true )
     private Canvas canvas;
+
+    @Parameter
+    private DrawText[] drawTexts;
 
     @Parameter( required = true )
     private File outputFile;
@@ -92,6 +97,9 @@ public class SplasherMojo
 
         final Graphics2D g = image.createGraphics();
 
+        g.setRenderingHint( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON );
+        g.setRenderingHint( RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON );
+
         try
         {
             if ( canvas.getColor() != null )
@@ -99,6 +107,7 @@ public class SplasherMojo
                 try
                 {
                     g.setBackground( Color.decode( canvas.getColor() ) );
+                    g.clearRect( 0, 0, finalWidth, finalHeight );
                 }
                 catch ( NumberFormatException e )
                 {
@@ -106,7 +115,27 @@ public class SplasherMojo
                 }
             }
 
-            g.drawString( "PINO RULES!", 16F, 32F );
+            for ( DrawText drawText : drawTexts )
+            {
+                try
+                {
+                    g.setColor( Color.decode( drawText.getColor() ) );
+                }
+                catch ( NumberFormatException e )
+                {
+                    throw new MojoExecutionException( "Unable to decode color " + drawText.getColor() + ".", e );
+                }
+
+                g.setRenderingHint(
+                        RenderingHints.KEY_TEXT_ANTIALIASING,
+                        drawText.isAntialias()
+                                    ? RenderingHints.VALUE_TEXT_ANTIALIAS_ON
+                                    : RenderingHints.VALUE_TEXT_ANTIALIAS_OFF );
+
+                g.setFont( new Font( drawText.getFamily(), Font.BOLD, drawText.getSize() ) );
+
+                g.drawString( drawText.getText(), drawText.getX(), drawText.getY() );
+            }
 
             try
             {
