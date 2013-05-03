@@ -10,6 +10,8 @@ public class Canvas
 
     private int height;
 
+    private String color;
+
     public int getWidth()
     {
         return width;
@@ -23,5 +25,10 @@ public class Canvas
     public File getBackgroundImageFile()
     {
         return backgroundImageFile;
+    }
+
+    public String getColor()
+    {
+        return color;
     }
 }
