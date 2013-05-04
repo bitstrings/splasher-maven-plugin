@@ -48,12 +48,20 @@
                         <backgroundImageFile>@basedir@/src/it/resources/splash.png</backgroundImageFile>
                     </canvas>
 
-                    <drawables>
+                    <draw>
                         <drawImage>
                             <imageFile>@basedir@/src/it/resources/tux.png</imageFile>
                             <position>center,64</position>
                         </drawImage>
-                    </drawables>
+                        <drawImage>
+                            <imageFile>@basedir@/src/it/resources/red-indicator.png</imageFile>
+                            <position>left,top</position>
+                        </drawImage>
+                        <drawImage>
+                            <imageFile>@basedir@/src/it/resources/red-indicator.png</imageFile>
+                            <position>right,bottom</position>
+                        </drawImage>
+                    </draw>
                 </configuration>
             </plugin>
         </plugins>

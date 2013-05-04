@@ -2,6 +2,7 @@ package org.bitstrings.maven.plugins.splasher;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Rectangle2D;
@@ -86,7 +87,9 @@ public class DrawText
 
         awtFont = context.getFont( getFontName(),awtFontStyle, getFontSize() );
 
-        Rectangle2D textBounds = awtFont.getStringBounds( getText(), g.getFontRenderContext() );
+        FontMetrics metrics = g.getFontMetrics( awtFont );
+
+        Rectangle2D textBounds = metrics.getStringBounds( getText(), g );
 
         int[] xy =
                 GraphicsUtil.decodeXY(
@@ -95,7 +98,7 @@ public class DrawText
                         context.getCanvasBounds() );
 
         this.x = xy[0];
-        this.y = xy[1];
+        this.y = xy[1] + metrics.getAscent();
     }
 
     @Override

@@ -47,20 +47,38 @@
                     <canvas>
                         <width>640</width>
                         <height>480</height>
-                        <color>#FFFFFF</color>
+                        <color>#E0FFE0</color>
                     </canvas>
 
-                    <drawables>
+                    <draw>
                         <drawText>
-                            <text>I Rulez!</text>
-                            <fontName>sans-serif</fontName>
+                            <text>--&gt; Center &lt;--</text>
+                            <fontName>monospace</fontName>
                             <fontStyle>bold</fontStyle>
-                            <fontSize>32</fontSize>
+                            <fontSize>48</fontSize>
                             <antialias>true</antialias>
                             <color>#000000</color>
                             <position>center,center</position>
                         </drawText>
-                    </drawables>
+                        <drawText>
+                            <text>:Top Left:</text>
+                            <fontName>serif</fontName>
+                            <fontStyle>bold</fontStyle>
+                            <fontSize>32</fontSize>
+                            <antialias>true</antialias>
+                            <color>#000077</color>
+                            <position>left,top</position>
+                        </drawText>
+                        <drawText>
+                            <text>:Bottom Right:</text>
+                            <fontName>serif</fontName>
+                            <fontStyle>bold</fontStyle>
+                            <fontSize>32</fontSize>
+                            <antialias>true</antialias>
+                            <color>#000077</color>
+                            <position>right,bottom</position>
+                        </drawText>
+                    </draw>
                 </configuration>
             </plugin>
         </plugins>

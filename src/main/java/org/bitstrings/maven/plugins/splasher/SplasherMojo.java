@@ -47,7 +47,7 @@ public class SplasherMojo
     private FontDef[] fonts;
 
     @Parameter
-    private Drawable[] drawables;
+    private Drawable[] draw;
 
     @Parameter( required = true )
     private File outputFile;
@@ -150,7 +150,7 @@ public class SplasherMojo
                 }
             }
 
-            for ( Drawable drawable : drawables )
+            for ( Drawable drawable : draw )
             {
                 drawable.init( graphicsContext, g );
 
