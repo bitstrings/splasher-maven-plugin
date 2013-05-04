@@ -1,4 +1,4 @@
-package org.bitstrings.maven.plugins;
+package org.bitstrings.maven.plugins.splasher;
 
 import java.awt.Color;
 import java.awt.Font;

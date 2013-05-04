@@ -1,4 +1,4 @@
-package org.bitstrings.maven.plugins;
+package org.bitstrings.maven.plugins.splasher;
 
 import org.apache.maven.plugin.MojoExecutionException;
 

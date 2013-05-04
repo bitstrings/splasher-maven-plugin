@@ -1,4 +1,4 @@
-package org.bitstrings.maven.plugins;
+package org.bitstrings.maven.plugins.splasher;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
