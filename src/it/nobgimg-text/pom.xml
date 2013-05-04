@@ -24,10 +24,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.bitstrings.maven.plugins.splasher.its</groupId>
-    <artifactId>text-static</artifactId>
+    <artifactId>nobgimg-text</artifactId>
     <version>1-SNAPSHOT</version>
 
-    <name>IT : static text</name>
+    <name>IT : no background image + text</name>
 
     <packaging>pom</packaging>
 
@@ -50,18 +50,18 @@
                         <color>#FFFFFF</color>
                     </canvas>
 
-                    <drawTexts>
+                    <drawables>
                         <drawText>
                             <text>I Rulez!</text>
-                            <family>sans-serif</family>
-                            <style>bold</style>
+                            <fontName>sans-serif</fontName>
+                            <fontStyle>bold</fontStyle>
+                            <fontSize>32</fontSize>
+                            <antialias>true</antialias>
                             <x>64</x>
                             <y>128</y>
                             <color>#000000</color>
-                            <size>32</size>
-                            <antialias>true</antialias>
                         </drawText>
-                    </drawTexts>
+                    </drawables>
                 </configuration>
             </plugin>
         </plugins>

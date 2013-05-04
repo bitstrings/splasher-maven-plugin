@@ -1,12 +1,13 @@
 package org.bitstrings.maven.plugins;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
@@ -30,7 +31,10 @@ public class SplasherMojo
     private Canvas canvas;
 
     @Parameter
-    private DrawText[] drawTexts;
+    private FontDef[] fonts;
+
+    @Parameter
+    private Drawable[] drawables;
 
     @Parameter( required = true )
     private File outputFile;
@@ -44,15 +48,34 @@ public class SplasherMojo
 
     protected int finalHeight;
 
+    protected final Map<String, String> fontAliasMap = new HashMap<String, String>();
+
+    protected final GraphicsContext graphicsContext = new GraphicsContext();
+
     @Override
     public void execute()
         throws MojoExecutionException, MojoFailureException
     {
+        if ( fonts != null )
+        {
+            for ( FontDef fontDef : fonts )
+            {
+                try
+                {
+                    graphicsContext.loadFont( fontDef.getAlias(), fontDef.getFontFile() );
+                }
+                catch ( Exception e )
+                {
+                    throw new MojoExecutionException( "Unable to load font " + fontDef.getFontFile(), e );
+                }
+            }
+        }
+
         if ( canvas.getBackgroundImageFile() != null )
         {
             try
             {
-                image = ImageIO.read( canvas.getBackgroundImageFile() );
+                image = graphicsContext.loadImage( canvas.getBackgroundImageFile() );
             }
             catch ( IOException e )
             {
@@ -98,7 +121,6 @@ public class SplasherMojo
         final Graphics2D g = image.createGraphics();
 
         g.setRenderingHint( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON );
-        g.setRenderingHint( RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON );
 
         try
         {
@@ -115,26 +137,9 @@ public class SplasherMojo
                 }
             }
 
-            for ( DrawText drawText : drawTexts )
+            for ( Drawable drawable : drawables )
             {
-                try
-                {
-                    g.setColor( Color.decode( drawText.getColor() ) );
-                }
-                catch ( NumberFormatException e )
-                {
-                    throw new MojoExecutionException( "Unable to decode color " + drawText.getColor() + ".", e );
-                }
-
-                g.setRenderingHint(
-                        RenderingHints.KEY_TEXT_ANTIALIASING,
-                        drawText.isAntialias()
-                                    ? RenderingHints.VALUE_TEXT_ANTIALIAS_ON
-                                    : RenderingHints.VALUE_TEXT_ANTIALIAS_OFF );
-
-                g.setFont( new Font( drawText.getFamily(), Font.BOLD, drawText.getSize() ) );
-
-                g.drawString( drawText.getText(), drawText.getX(), drawText.getY() );
+                initComponent( drawable ).draw( graphicsContext, g );
             }
 
             try
@@ -169,5 +174,16 @@ public class SplasherMojo
         {
             g.dispose();
         }
+    }
+
+    protected <T> T initComponent( T component )
+        throws MojoExecutionException
+    {
+        if ( component instanceof LateInitComponent )
+        {
+            ( (LateInitComponent) component ).init();
+        }
+
+        return component;
     }
 }
