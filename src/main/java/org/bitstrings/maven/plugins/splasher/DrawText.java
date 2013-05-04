@@ -39,11 +39,13 @@ public class DrawText
 
     private boolean antialias = true;
 
-    private int x = 0;
-
-    private int y = 0;
+    private String position;
 
     private String color = "#000000";
+
+    protected int x = 0;
+
+    protected int y = 0;
 
     protected int awtFontStyle;
 
@@ -72,14 +74,9 @@ public class DrawText
         return antialias;
     }
 
-    public int getX()
+    public String getPosition()
     {
-        return x;
-    }
-
-    public int getY()
-    {
-        return y;
+        return position;
     }
 
     public String getColor()
@@ -93,18 +90,13 @@ public class DrawText
     {
         if ( fontStyle != null )
         {
-            awtFontStyle = 0;
-
-            for ( String token : fontStyle.split( "\\|" ) )
+            try
             {
-                try
-                {
-                    awtFontStyle |= FontStyle.valueOf( token.toUpperCase() ).getStyle();
-                }
-                catch ( IllegalArgumentException e )
-                {
-                    throw new MojoExecutionException( "Illegal font style " + token + ".", e );
-                }
+                awtFontStyle = GraphicsUtil.decodeFontStyle( fontStyle );
+            }
+            catch ( IllegalArgumentException e )
+            {
+                throw new MojoExecutionException( "Illegal font style " + fontStyle + ".", e );
             }
         }
     }

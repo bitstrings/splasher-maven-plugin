@@ -2,7 +2,7 @@ package org.bitstrings.maven.plugins.splasher;
 
 import java.io.File;
 
-public class Canvas
+public class CanvasDef
 {
     private File backgroundImageFile;
 

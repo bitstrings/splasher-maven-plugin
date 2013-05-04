@@ -28,7 +28,7 @@ public class SplasherMojo
     private MavenProject project;
 
     @Parameter( required = true )
-    private Canvas canvas;
+    private CanvasDef canvas;
 
     @Parameter
     private FontDef[] fonts;
