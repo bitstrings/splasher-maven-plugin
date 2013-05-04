@@ -1,3 +1,18 @@
+/**
+ *  Copyright (c) 2013 bitstrings.org - Pino Silvaggio
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 package org.bitstrings.maven.plugins.splasher;
 
 import java.awt.Color;
@@ -6,8 +21,6 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.imageio.ImageIO;
 
@@ -44,18 +57,65 @@ public class SplasherMojo
 
     protected BufferedImage image;
 
-    protected int finalWidth;
+    protected int canvasWidth;
 
-    protected int finalHeight;
+    protected int canvasHeight;
 
-    protected final Map<String, String> fontAliasMap = new HashMap<String, String>();
-
-    protected final GraphicsContext graphicsContext = new GraphicsContext();
+    protected GraphicsContext graphicsContext;
 
     @Override
     public void execute()
         throws MojoExecutionException, MojoFailureException
     {
+        if ( canvas.getBackgroundImageFile() != null )
+        {
+            try
+            {
+                image = ImageIO.read( canvas.getBackgroundImageFile() );
+            }
+            catch ( IOException e )
+            {
+                throw new MojoExecutionException( "Unable to read background image file.", e );
+            }
+
+            if ( canvas.getWidth() <= 0 )
+            {
+                canvasWidth = image.getWidth();
+            }
+
+            if ( canvas.getHeight() <= 0 )
+            {
+                canvasHeight = image.getHeight();
+            }
+        }
+
+        if ( canvasWidth <= 0 )
+        {
+            canvasWidth = canvas.getWidth();
+
+            if ( canvasWidth <= 0 )
+            {
+                throw new MojoExecutionException( "Canvas width must be greater than 0." );
+            }
+        }
+
+        if ( canvasHeight <= 0 )
+        {
+            canvasHeight = canvas.getHeight();
+
+            if ( canvasHeight <= 0 )
+            {
+                throw new MojoExecutionException( "Canvas height must be greater than 0." );
+            }
+        }
+
+        if ( canvas.getBackgroundImageFile() == null )
+        {
+            image = new BufferedImage( canvasWidth, canvasHeight, BufferedImage.TYPE_INT_RGB );
+        }
+
+        graphicsContext = new GraphicsContext( canvasWidth, canvasHeight );
+
         if ( fonts != null )
         {
             for ( FontDef fontDef : fonts )
@@ -71,53 +131,6 @@ public class SplasherMojo
             }
         }
 
-        if ( canvas.getBackgroundImageFile() != null )
-        {
-            try
-            {
-                image = ImageIO.read( canvas.getBackgroundImageFile() );
-            }
-            catch ( IOException e )
-            {
-                throw new MojoExecutionException( "Unable to read background image file.", e );
-            }
-
-            if ( canvas.getWidth() <= 0 )
-            {
-                finalWidth = image.getWidth();
-            }
-
-            if ( canvas.getHeight() <= 0 )
-            {
-                finalHeight = image.getHeight();
-            }
-        }
-
-        if ( finalWidth <= 0 )
-        {
-            finalWidth = canvas.getWidth();
-
-            if ( finalWidth <= 0 )
-            {
-                throw new MojoExecutionException( "Canvas width must be greater than 0." );
-            }
-        }
-
-        if ( finalHeight <= 0 )
-        {
-            finalHeight = canvas.getHeight();
-
-            if ( finalHeight <= 0 )
-            {
-                throw new MojoExecutionException( "Canvas height must be greater than 0." );
-            }
-        }
-
-        if ( canvas.getBackgroundImageFile() == null )
-        {
-            image = new BufferedImage( finalWidth, finalHeight, BufferedImage.TYPE_INT_RGB );
-        }
-
         final Graphics2D g = image.createGraphics();
 
         g.setRenderingHint( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON );
@@ -129,7 +142,7 @@ public class SplasherMojo
                 try
                 {
                     g.setBackground( Color.decode( canvas.getColor() ) );
-                    g.clearRect( 0, 0, finalWidth, finalHeight );
+                    g.clearRect( 0, 0, canvasWidth, canvasHeight );
                 }
                 catch ( NumberFormatException e )
                 {
@@ -139,7 +152,9 @@ public class SplasherMojo
 
             for ( Drawable drawable : drawables )
             {
-                initComponent( drawable ).draw( graphicsContext, g );
+                drawable.init( graphicsContext, g );
+
+                drawable.draw( graphicsContext, g );
             }
 
             try
@@ -174,16 +189,5 @@ public class SplasherMojo
         {
             g.dispose();
         }
-    }
-
-    protected <T> T initComponent( T component )
-        throws MojoExecutionException
-    {
-        if ( component instanceof ComponentInitLate )
-        {
-            ( (ComponentInitLate) component ).init();
-        }
-
-        return component;
     }
 }

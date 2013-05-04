@@ -51,8 +51,7 @@
                     <drawables>
                         <drawImage>
                             <imageFile>@basedir@/src/it/resources/bullet_128.png</imageFile>
-                            <x>128</x>
-                            <y>64</y>
+                            <position>128,64</position>
                         </drawImage>
                     </drawables>
                 </configuration>

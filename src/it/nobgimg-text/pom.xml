@@ -57,9 +57,8 @@
                             <fontStyle>bold</fontStyle>
                             <fontSize>32</fontSize>
                             <antialias>true</antialias>
-                            <x>64</x>
-                            <y>128</y>
                             <color>#000000</color>
+                            <position>center,center</position>
                         </drawText>
                     </drawables>
                 </configuration>

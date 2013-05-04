@@ -4,31 +4,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.geom.Rectangle2D;
 
 import org.apache.maven.plugin.MojoExecutionException;
 
 public class DrawText
-    implements Drawable, ComponentInitLate
+    implements Drawable
 {
-    public enum FontStyle
-    {
-        PLAIN( Font.PLAIN ),
-        BOLD( Font.BOLD ),
-        ITALIC( Font.ITALIC );
-
-        private int style;
-
-        private FontStyle( int style )
-        {
-            this.style = style;
-        }
-
-        public int getStyle()
-        {
-            return style;
-        }
-    }
-
     private String text;
 
     private String fontName;
@@ -48,6 +30,8 @@ public class DrawText
     protected int y = 0;
 
     protected int awtFontStyle;
+
+    protected Font awtFont;
 
     public String getText()
     {
@@ -85,7 +69,7 @@ public class DrawText
     }
 
     @Override
-    public void init()
+    public void init( GraphicsContext context, Graphics2D g )
         throws MojoExecutionException
     {
         if ( fontStyle != null )
@@ -99,6 +83,19 @@ public class DrawText
                 throw new MojoExecutionException( "Illegal font style " + fontStyle + ".", e );
             }
         }
+
+        awtFont = context.getFont( getFontName(),awtFontStyle, getFontSize() );
+
+        Rectangle2D textBounds = awtFont.getStringBounds( getText(), g.getFontRenderContext() );
+
+        int[] xy =
+                GraphicsUtil.decodeXY(
+                        position,
+                        (int) textBounds.getWidth(), (int) textBounds.getHeight(),
+                        context.getCanvasBounds() );
+
+        this.x = xy[0];
+        this.y = xy[1];
     }
 
     @Override
@@ -120,8 +117,8 @@ public class DrawText
                             ? RenderingHints.VALUE_TEXT_ANTIALIAS_ON
                             : RenderingHints.VALUE_TEXT_ANTIALIAS_OFF );
 
-            g.setFont( context.getFont( getFontName(),awtFontStyle, getFontSize() ) );
+            g.setFont( awtFont );
 
-            g.drawString( getText(), getX(), getY() );
+            g.drawString( getText(), x, y );
     }
 }

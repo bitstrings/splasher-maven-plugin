@@ -3,8 +3,7 @@ package org.bitstrings.maven.plugins.splasher;
 import java.awt.Font;
 import java.awt.Rectangle;
 
-import com.google.common.base.Splitter;
-import com.google.common.collect.Iterables;
+import org.codehaus.plexus.util.StringUtils;
 
 public final class GraphicsUtil
 {
@@ -30,31 +29,49 @@ public final class GraphicsUtil
     private GraphicsUtil() {}
 
     public static int[] decodeXY( String str, int width, int height, Rectangle bounds )
+        throws IllegalArgumentException
     {
-        final int[] coordinate = new int[2];
+        final int[] coordinates = new int[2];
 
-        str = str.trim();
+        String[] xy = StringUtils.split( str, "," );
 
-        if ( str.equalsIgnoreCase( "center" ) )
+        xy[0] = xy[0].trim().toLowerCase();
+
+        if ( xy[0].equals( "center" ) )
         {
-            coordinate[0] = ( ( bounds.width - width ) >> 1 ) + bounds.x;
-            coordinate[1] = ( ( bounds.height - height ) >> 1 ) + bounds.y;
+            coordinates[0] = ( ( bounds.width - width ) >> 1 ) + bounds.x;
         }
         else
         {
-            String[] xy = Iterables.toArray( Splitter.on( ',' ).split( str ), String.class );
-
-            if ( xy.length != 2 )
+            try
             {
-                throw new IllegalArgumentException( "Invalid position " + str + "." );
+                coordinates[0] = Integer.parseInt( xy[0] );
             }
-
-            coordinate[0] = Integer.parseInt( xy[0] );
-            coordinate[1] = Integer.parseInt( xy[1] );
+            catch ( NumberFormatException e )
+            {
+                throw new IllegalArgumentException( "Unable to parse x coordinate " + xy[0], e );
+            }
         }
 
+        xy[1] = xy[1].trim().toLowerCase();
 
-        return coordinate;
+        if ( xy[1].equals( "center" ) )
+        {
+            coordinates[1] = ( ( bounds.height - height ) >> 1 ) + bounds.y;
+        }
+        else
+        {
+            try
+            {
+                coordinates[1] = Integer.parseInt( xy[1] );
+            }
+            catch ( NumberFormatException e )
+            {
+                throw new IllegalArgumentException( "Unable to parse y coordinate " + xy[1], e );
+            }
+        }
+
+        return coordinates;
     }
 
     public static int decodeFontStyle( String str )
@@ -62,7 +79,7 @@ public final class GraphicsUtil
     {
         int awtFontStyle = 0;
 
-        for ( String token : Splitter.on( '|' ).split( str ) )
+        for ( String token : StringUtils.split( str, "," ) )
         {
             awtFontStyle |= FontStyle.valueOf( token.toUpperCase() ).getStyle();
         }

@@ -3,6 +3,7 @@ package org.bitstrings.maven.plugins.splasher;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -13,6 +14,18 @@ public class GraphicsContext
     protected final GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
 
     protected final Map<String, String> fontAliasMap = new HashMap<String, String>();
+
+    protected final Rectangle canvasBounds;
+
+    public GraphicsContext( int canvasWidth, int canvasHeight )
+    {
+        this.canvasBounds = new Rectangle( canvasWidth, canvasHeight );
+    }
+
+    public Rectangle getCanvasBounds()
+    {
+        return canvasBounds;
+    }
 
     public GraphicsEnvironment getGraphicsEnvironment()
     {
