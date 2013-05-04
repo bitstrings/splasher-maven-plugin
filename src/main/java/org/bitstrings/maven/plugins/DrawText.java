@@ -8,7 +8,7 @@ import java.awt.RenderingHints;
 import org.apache.maven.plugin.MojoExecutionException;
 
 public class DrawText
-    implements Drawable, LateInitComponent
+    implements Drawable, ComponentInitLate
 {
     public enum FontStyle
     {

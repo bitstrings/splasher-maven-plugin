@@ -10,7 +10,7 @@ import javax.imageio.ImageIO;
 import org.apache.maven.plugin.MojoExecutionException;
 
 public class DrawImage
-    implements Drawable, LateInitComponent
+    implements Drawable, ComponentInitLate
 {
     private File imageFile;
 

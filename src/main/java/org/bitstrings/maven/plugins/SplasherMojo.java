@@ -75,7 +75,7 @@ public class SplasherMojo
         {
             try
             {
-                image = graphicsContext.loadImage( canvas.getBackgroundImageFile() );
+                image = ImageIO.read( canvas.getBackgroundImageFile() );
             }
             catch ( IOException e )
             {
@@ -179,9 +179,9 @@ public class SplasherMojo
     protected <T> T initComponent( T component )
         throws MojoExecutionException
     {
-        if ( component instanceof LateInitComponent )
+        if ( component instanceof ComponentInitLate )
         {
-            ( (LateInitComponent) component ).init();
+            ( (ComponentInitLate) component ).init();
         }
 
         return component;

@@ -3,13 +3,10 @@ package org.bitstrings.maven.plugins;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.imageio.ImageIO;
 
 public class GraphicsContext
 {
@@ -40,11 +37,5 @@ public class GraphicsContext
         final String fontName = fontAliasMap.get( name );
 
         return new Font( fontName == null ? name : fontName, style, size );
-    }
-
-    public BufferedImage loadImage( File file )
-        throws IOException
-    {
-        return ImageIO.read( file );
     }
 }
