@@ -24,10 +24,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.bitstrings.maven.plugins.splasher.its</groupId>
-    <artifactId>text-on-image</artifactId>
+    <artifactId>draw-image</artifactId>
     <version>1-SNAPSHOT</version>
 
-    <name>IT : text on image</name>
+    <name>IT : draw image</name>
 
     <packaging>pom</packaging>
 
@@ -50,8 +50,8 @@
 
                     <drawables>
                         <drawImage>
-                            <imageFile>@basedir@/src/it/resources/bullet_128.png</imageFile>
-                            <position>128,64</position>
+                            <imageFile>@basedir@/src/it/resources/tux.png</imageFile>
+                            <position>center,64</position>
                         </drawImage>
                     </drawables>
                 </configuration>

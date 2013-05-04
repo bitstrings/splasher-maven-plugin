@@ -7,6 +7,16 @@ import org.codehaus.plexus.util.StringUtils;
 
 public final class GraphicsUtil
 {
+    private static final String POSITION_CENTER_STR = "center";
+
+    private static final String POSITION_LEFT_STR = "left";
+
+    private static final String POSITION_RIGHT_STR = "right";
+
+    private static final String POSITION_TOP_STR = "top";
+
+    private static final String POSITION_BOTTOM_STR = "bottom";
+
     public enum FontStyle
     {
         PLAIN( Font.PLAIN ),
@@ -37,9 +47,17 @@ public final class GraphicsUtil
 
         xy[0] = xy[0].trim().toLowerCase();
 
-        if ( xy[0].equals( "center" ) )
+        if ( xy[0].equals( POSITION_CENTER_STR ) )
         {
             coordinates[0] = ( ( bounds.width - width ) >> 1 ) + bounds.x;
+        }
+        else if ( xy[0].equals( POSITION_LEFT_STR ) )
+        {
+            coordinates[0] = 0;
+        }
+        else if ( xy[0].equals( POSITION_RIGHT_STR ) )
+        {
+            coordinates[0] = bounds.width - width;
         }
         else
         {
@@ -55,9 +73,17 @@ public final class GraphicsUtil
 
         xy[1] = xy[1].trim().toLowerCase();
 
-        if ( xy[1].equals( "center" ) )
+        if ( xy[1].equals( POSITION_CENTER_STR ) )
         {
             coordinates[1] = ( ( bounds.height - height ) >> 1 ) + bounds.y;
+        }
+        else if ( xy[1].equals( POSITION_TOP_STR ) )
+        {
+            coordinates[1] = 0;
+        }
+        else if ( xy[1].equals( POSITION_BOTTOM_STR ) )
+        {
+            coordinates[1] = bounds.height - height;
         }
         else
         {
