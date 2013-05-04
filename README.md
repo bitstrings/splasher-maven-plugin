@@ -1,6 +1,8 @@
-# Splash creator
+# Splash generator
 
-Example:
+In the event you need to generate a splash screen using some build time info, this plugin can help.
+
+Example 1:
 
 ```
 
@@ -9,38 +11,77 @@ Example:
         <artifactId>splasher-maven-plugin</artifactId>
         <version>1.0.0-SNAPSHOT</version>
         <configuration>
-
             <outputFile>image.png</outputFile>
 
             <canvas>
-                <backgroundImageFile>src/it/resources/splashA.png</backgroundImageFile>
+                <width>640</width>
+                <height>480</height>
+                <color>#E0FFE0</color>
             </canvas>
 
-            <fonts>
-                <font>
-                    <fontFile>src/it/resources/EurostileLTStd.otf</fontFile>
-                    <alias>font1</alias>
-                </font>
-            </fonts>
-
-            <drawables>
+            <draw>
                 <drawText>
-                    <text>Version 3.0</text>
-                    <fontName>font1</fontName>
-                    <fontSize>13</fontSize>
+                    <text>--&gt; Center &lt;--</text>
+                    <fontName>monospace</fontName>
+                    <fontStyle>bold</fontStyle>
+                    <fontSize>48</fontSize>
                     <antialias>true</antialias>
-                    <x>203</x>
-                    <y>86</y>
-                    <color>#222222</color>
+                    <color>#000000</color>
+                    <position>center,center</position>
                 </drawText>
+                <drawText>
+                    <text>:Top Left:</text>
+                    <fontName>serif</fontName>
+                    <fontStyle>bold</fontStyle>
+                    <fontSize>32</fontSize>
+                    <antialias>true</antialias>
+                    <color>#000077</color>
+                    <position>left,top</position>
+                </drawText>
+                <drawText>
+                    <text>:Bottom Right:</text>
+                    <fontName>serif</fontName>
+                    <fontStyle>bold</fontStyle>
+                    <fontSize>32</fontSize>
+                    <antialias>true</antialias>
+                    <color>#000077</color>
+                    <position>right,bottom</position>
+                </drawText>
+            </draw>
+        </configuration>
+    </plugin>
 
+```
+
+Example 2:
+
+```
+
+    <plugin>
+        <groupId>org.bitstrings.maven.plugins</groupId>
+        <artifactId>splasher-maven-plugin</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <configuration>
+            <outputFile>image.png</outputFile>
+
+            <canvas>
+                <backgroundImageFile>src/it/resources/splash.png</backgroundImageFile>
+            </canvas>
+
+            <draw>
                 <drawImage>
-                    <imageFile>src/it/resources/serv_black_24.png</imageFile>
-                    <x>372</x>
-                    <y>5</y>
+                    <imageFile>src/it/resources/tux.png</imageFile>
+                    <position>center,64</position>
                 </drawImage>
-            </drawables>
-
+                <drawImage>
+                    <imageFile>src/it/resources/red-indicator.png</imageFile>
+                    <position>left,top</position>
+                </drawImage>
+                <drawImage>
+                    <imageFile>src/it/resources/red-indicator.png</imageFile>
+                    <position>right,bottom</position>
+                </drawImage>
+            </draw>
         </configuration>
     </plugin>
 
