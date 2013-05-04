@@ -9,26 +9,38 @@ Example:
         <artifactId>splasher-maven-plugin</artifactId>
         <version>1.0.0-SNAPSHOT</version>
         <configuration>
+
             <outputFile>image.png</outputFile>
 
             <canvas>
-                <width>640</width>
-                <height>480</height>
-                <color>#FFFFFF</color>
+                <backgroundImageFile>src/it/resources/splashA.png</backgroundImageFile>
             </canvas>
 
-            <drawTexts>
+            <fonts>
+                <font>
+                    <fontFile>src/it/resources/EurostileLTStd.otf</fontFile>
+                    <alias>font1</alias>
+                </font>
+            </fonts>
+
+            <drawables>
                 <drawText>
-                    <text>I Rulez!</text>
-                    <family>sans-serif</family>
-                    <style>bold</style>
-                    <x>64</x>
-                    <y>128</y>
-                    <color>#000000</color>
-                    <size>32</size>
+                    <text>Version 3.0</text>
+                    <fontName>font1</fontName>
+                    <fontSize>13</fontSize>
                     <antialias>true</antialias>
+                    <x>203</x>
+                    <y>86</y>
+                    <color>#222222</color>
                 </drawText>
-            </drawTexts>
+
+                <drawImage>
+                    <imageFile>src/it/resources/serv_black_24.png</imageFile>
+                    <x>372</x>
+                    <y>5</y>
+                </drawImage>
+            </drawables>
+
         </configuration>
     </plugin>
 
