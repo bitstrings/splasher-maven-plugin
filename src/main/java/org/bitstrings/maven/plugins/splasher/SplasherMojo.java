@@ -152,9 +152,18 @@ public class SplasherMojo
 
             for ( Drawable drawable : draw )
             {
-                drawable.init( graphicsContext, g );
+                Graphics2D dg = (Graphics2D) g.create();
 
-                drawable.draw( graphicsContext, g );
+                try
+                {
+                    drawable.init( graphicsContext, g );
+
+                    drawable.draw( graphicsContext, g );
+                }
+                finally
+                {
+                    dg.dispose();
+                }
             }
 
             try

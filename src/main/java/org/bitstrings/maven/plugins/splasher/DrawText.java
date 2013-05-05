@@ -15,6 +15,8 @@
  */
 package org.bitstrings.maven.plugins.splasher;
 
+import static org.bitstrings.maven.plugins.splasher.GraphicsUtil.*;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -25,8 +27,10 @@ import java.awt.geom.Rectangle2D;
 import org.apache.maven.plugin.MojoExecutionException;
 
 public class DrawText
-    implements Drawable
+    extends Drawable
 {
+    // - parameters --[
+
     private String text;
 
     private String fontName;
@@ -37,13 +41,11 @@ public class DrawText
 
     private boolean antialias = true;
 
-    private String position;
+    private String position = "0,0";
 
     private String color = "#000000";
 
-    protected int x = 0;
-
-    protected int y = 0;
+    // ]--
 
     protected int awtFontStyle;
 
@@ -92,7 +94,7 @@ public class DrawText
         {
             try
             {
-                awtFontStyle = GraphicsUtil.decodeFontStyle( fontStyle );
+                awtFontStyle = decodeFontStyle( fontStyle );
             }
             catch ( IllegalArgumentException e )
             {
@@ -106,14 +108,9 @@ public class DrawText
 
         Rectangle2D textBounds = metrics.getStringBounds( getText(), g );
 
-        int[] xy =
-                GraphicsUtil.decodeXY(
-                        position,
-                        (int) textBounds.getWidth(), (int) textBounds.getHeight(),
-                        context.getCanvasBounds() );
+        bounds = textBounds.getBounds();
 
-        this.x = xy[0];
-        this.y = xy[1] + metrics.getAscent();
+        decodeAndSetXY( position, this, g.getDeviceConfiguration().getBounds(), 0, metrics.getAscent() );
     }
 
     @Override

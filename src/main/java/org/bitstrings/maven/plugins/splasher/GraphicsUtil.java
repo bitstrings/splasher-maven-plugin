@@ -53,17 +53,33 @@ public final class GraphicsUtil
 
     private GraphicsUtil() {}
 
-    public static int[] decodeXY( String str, int width, int height, Rectangle bounds )
+    public static void decodeAndSetXY( String position, Drawable d, Rectangle bounds, int xOffset, int yOffset )
+    {
+        int[] xy = decodeXY(
+                        position,
+                        d.getBounds().width, d.getBounds().height,
+                        bounds );
+
+        d.setX( xy[0] + xOffset );
+        d.setY( xy[1] + yOffset );
+    }
+
+    public static void decodeAndSetXY( String position, Drawable d, Rectangle bounds )
+    {
+        decodeAndSetXY( position, d, bounds, 0, 0 );
+    }
+
+    public static int[] decodeXY( String position, int width, int height, Rectangle bounds )
         throws IllegalArgumentException
     {
         final int[] coordinates = new int[2];
 
-        if ( str == null )
+        if ( position == null )
         {
-            throw new IllegalArgumentException( "Unable to parse coordinates " + str );
+            throw new IllegalArgumentException( "Unable to parse coordinates " + position );
         }
 
-        String[] xy = StringUtils.split( str, "," );
+        String[] xy = StringUtils.split( position, "," );
 
         xy[0] = xy[0].trim().toLowerCase();
 

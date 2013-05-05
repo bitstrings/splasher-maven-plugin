@@ -19,49 +19,56 @@ import static org.bitstrings.maven.plugins.splasher.GraphicsUtil.*;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
 
-public class DrawImage
+public class FlowLayout
     extends Drawable
 {
-    // - parameters --[
+    public enum Alignment
+    {
+        HORIZONTAL, VERTICAL;
+    }
 
-    private File imageFile;
+    private final List<Drawable> draw = new ArrayList<Drawable>();
 
     private String position = "0,0";
 
-    // ]--
+    private int padding;
 
-    protected BufferedImage awtImage;
-
-    public File getImageFile()
-    {
-        return imageFile;
-    }
+    private Alignment alignment = Alignment.HORIZONTAL;
 
     public String getPosition()
     {
         return position;
     }
 
+    public int getPadding()
+    {
+        return padding;
+    }
+
     @Override
     public void init( GraphicsContext context, Graphics2D g )
         throws MojoExecutionException
     {
-        try
+        bounds = new Rectangle();
+
+        for ( Drawable d : draw )
         {
-            awtImage = context.loadImage( imageFile );
-        }
-        catch ( IOException e )
-        {
-            throw new MojoExecutionException( "Unable to read image file " + imageFile + ".", e );
+            d.init( context, g );
+
+            bounds.width += d.getBounds().getWidth();
+
+            bounds.height = Math.max( d.getBounds().height, bounds.height );
         }
 
-        bounds = new Rectangle( awtImage.getWidth(), awtImage.getHeight() );
+        if ( draw.size() > 1 )
+        {
+            bounds.width += padding * ( draw.size() - 1 );
+        }
 
         decodeAndSetXY( position, this, g.getDeviceConfiguration().getBounds() );
     }
@@ -70,6 +77,24 @@ public class DrawImage
     public void draw( GraphicsContext context, Graphics2D g )
         throws MojoExecutionException
     {
-        g.drawImage( awtImage, x, y, null );
+        int offset = 0;
+
+        for ( Drawable d : draw )
+        {
+            Graphics2D sg =
+                    (Graphics2D) g.create(
+                        d.getX() + x + offset, d.getY() + y,
+                        g.getDeviceConfiguration().getBounds().width, g.getDeviceConfiguration().getBounds().height );
+            try
+            {
+                d.draw( context, sg );
+
+                offset += d.getBounds().getWidth() + padding;
+            }
+            finally
+            {
+                sg.dispose();
+            }
+        }
     }
 }

@@ -16,14 +16,46 @@
 package org.bitstrings.maven.plugins.splasher;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 
 import org.apache.maven.plugin.MojoExecutionException;
 
-public interface Drawable
+public abstract class Drawable
 {
-    void init( GraphicsContext context, Graphics2D g )
+    protected int x;
+
+    protected int y;
+
+    protected Rectangle bounds;
+
+    public void setX( int x )
+    {
+        this.x = x;
+    }
+
+    public int getX()
+    {
+        return x;
+    }
+
+    public void setY( int y )
+    {
+        this.y = y;
+    }
+
+    public int getY()
+    {
+        return y;
+    }
+
+    public Rectangle getBounds()
+    {
+        return bounds;
+    }
+
+    public abstract void init( GraphicsContext context, Graphics2D g )
         throws MojoExecutionException;
 
-    void draw( GraphicsContext context, Graphics2D g )
+    public abstract void draw( GraphicsContext context, Graphics2D g )
         throws MojoExecutionException;
 }
