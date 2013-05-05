@@ -58,6 +58,11 @@ public final class GraphicsUtil
     {
         final int[] coordinates = new int[2];
 
+        if ( str == null )
+        {
+            throw new IllegalArgumentException( "Unable to parse coordinates " + str );
+        }
+
         String[] xy = StringUtils.split( str, "," );
 
         xy[0] = xy[0].trim().toLowerCase();
