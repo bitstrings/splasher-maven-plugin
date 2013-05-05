@@ -55,7 +55,7 @@ public final class GraphicsUtil
 
     public static void decodeAndSetXY( String position, Drawable d, Rectangle bounds, int xOffset, int yOffset )
     {
-        int[] xy = decodeXY(
+        int[] xy = decodePair(
                         position,
                         d.getBounds().width, d.getBounds().height,
                         bounds );
@@ -69,17 +69,52 @@ public final class GraphicsUtil
         decodeAndSetXY( position, d, bounds, 0, 0 );
     }
 
-    public static int[] decodeXY( String position, int width, int height, Rectangle bounds )
+    public static int[] decodePair( String pair )
+        throws IllegalArgumentException
+    {
+        return decodeSeries( pair,  2 );
+    }
+
+    public static int[] decodeSeries( String series, int n )
+        throws IllegalArgumentException
+    {
+        final int[] parsedSeries = new int[n];
+
+        if ( series == null )
+        {
+            throw new IllegalArgumentException( "Unable to parse series " + series );
+        }
+
+        int i = 0;
+
+        for ( String elem : StringUtils.split( series, "," ) )
+        {
+            elem = elem.trim();
+
+            try
+            {
+                parsedSeries[i++] = Integer.parseInt( elem );
+            }
+            catch ( NumberFormatException e )
+            {
+                throw new IllegalArgumentException( "Unable to parse number " + elem, e );
+            }
+        }
+
+        return parsedSeries;
+    }
+
+    public static int[] decodePair( String pair, int width, int height, Rectangle bounds )
         throws IllegalArgumentException
     {
         final int[] coordinates = new int[2];
 
-        if ( position == null )
+        if ( pair == null )
         {
-            throw new IllegalArgumentException( "Unable to parse coordinates " + position );
+            throw new IllegalArgumentException( "Unable to parse coordinates " + pair );
         }
 
-        String[] xy = StringUtils.split( position, "," );
+        String[] xy = StringUtils.split( pair, "," );
 
         xy[0] = xy[0].trim().toLowerCase();
 

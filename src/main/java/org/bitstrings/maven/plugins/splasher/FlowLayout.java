@@ -56,19 +56,48 @@ public class FlowLayout
     {
         bounds = new Rectangle();
 
-        for ( Drawable d : draw )
+        switch ( alignment )
         {
-            d.init( context, g );
+            case HORIZONTAL:
 
-            bounds.width += d.getBounds().getWidth();
+                for ( Drawable d : draw )
+                {
+                    d.init( context, g );
 
-            bounds.height = Math.max( d.getBounds().height, bounds.height );
+                    bounds.width += d.getBounds().width;
+
+                    bounds.height = Math.max( d.getBounds().height, bounds.height );
+                }
+
+                if ( draw.size() > 1 )
+                {
+                    bounds.width += padding * ( draw.size() - 1 );
+                }
+
+                break;
+
+            case VERTICAL:
+
+                for ( Drawable d : draw )
+                {
+                    d.init( context, g );
+
+                    bounds.height += d.getBounds().height;
+
+                    bounds.width = Math.max( d.getBounds().width, bounds.width );
+                }
+
+                if ( draw.size() > 1 )
+                {
+                    bounds.height += padding * ( draw.size() - 1 );
+                }
+
+                break;
+
+            default:
+                throw new MojoExecutionException( "Unknown alignment " + alignment );
         }
 
-        if ( draw.size() > 1 )
-        {
-            bounds.width += padding * ( draw.size() - 1 );
-        }
 
         decodeAndSetXY( position, this, g.getDeviceConfiguration().getBounds() );
     }
@@ -79,22 +108,54 @@ public class FlowLayout
     {
         int offset = 0;
 
-        for ( Drawable d : draw )
+        switch ( alignment )
         {
-            Graphics2D sg =
-                    (Graphics2D) g.create(
-                        d.getX() + x + offset, d.getY() + y,
-                        g.getDeviceConfiguration().getBounds().width, g.getDeviceConfiguration().getBounds().height );
-            try
-            {
-                d.draw( context, sg );
+            case HORIZONTAL:
 
-                offset += d.getBounds().getWidth() + padding;
-            }
-            finally
-            {
-                sg.dispose();
-            }
+                for ( Drawable d : draw )
+                {
+                    Graphics2D sg =
+                            (Graphics2D) g.create(
+                                d.getX() + x + offset, d.getY() + y,
+                                g.getDeviceConfiguration().getBounds().width, g.getDeviceConfiguration().getBounds().height );
+                    try
+                    {
+                        d.draw( context, sg );
+
+                        offset += d.getBounds().width + padding;
+                    }
+                    finally
+                    {
+                        sg.dispose();
+                    }
+                }
+
+                break;
+
+            case VERTICAL:
+
+                for ( Drawable d : draw )
+                {
+                    Graphics2D sg =
+                            (Graphics2D) g.create(
+                                d.getX() + x, d.getY() + y + offset,
+                                g.getDeviceConfiguration().getBounds().width, g.getDeviceConfiguration().getBounds().height );
+                    try
+                    {
+                        d.draw( context, sg );
+
+                        offset += d.getBounds().height + padding;
+                    }
+                    finally
+                    {
+                        sg.dispose();
+                    }
+                }
+
+                break;
+
+            default:
+                throw new MojoExecutionException( "Unknown alignment " + alignment );
         }
     }
 }

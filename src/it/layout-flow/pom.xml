@@ -63,6 +63,21 @@
                                 </drawImage>
                             </draw>
                         </flowLayout>
+                        <flowLayout>
+                            <alignment>VERTICAL</alignment>
+                            <position>right,center</position>
+                            <draw>
+                                <drawImage>
+                                    <imageFile>@basedir@/src/it/resources/red-indicator.png</imageFile>
+                                </drawImage>
+                                <drawImage>
+                                    <imageFile>@basedir@/src/it/resources/red-indicator.png</imageFile>
+                                </drawImage>
+                                <drawImage>
+                                    <imageFile>@basedir@/src/it/resources/red-indicator.png</imageFile>
+                                </drawImage>
+                            </draw>
+                        </flowLayout>
                     </draw>
                 </configuration>
             </plugin>
