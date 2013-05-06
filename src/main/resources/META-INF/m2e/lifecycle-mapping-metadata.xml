@@ -5,16 +5,12 @@
     <pluginExecutions>
         <pluginExecution>
             <pluginExecutionFilter>
-                <groupId>org.bitstrings.maven.plugins</groupId>
-                <artifactId>splasher-maven-plugin</artifactId>
-                <versionRange>[0.0.0,)</versionRange>
                 <goals>
                     <goal>compose</goal>
                 </goals>
             </pluginExecutionFilter>
             <action>
                 <ignore/>
-                </execute>
             </action>
         </pluginExecution>
     </pluginExecutions>
