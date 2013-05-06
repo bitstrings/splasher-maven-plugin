@@ -31,7 +31,7 @@
 
     <groupId>org.bitstrings.maven.plugins</groupId>
     <artifactId>splasher-maven-plugin</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
 
     <name>Splasher Maven Plugin</name>
 
