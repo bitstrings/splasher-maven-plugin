@@ -56,7 +56,6 @@
                             <fontName>monospace</fontName>
                             <fontStyle>bold</fontStyle>
                             <fontSize>48</fontSize>
-                            <antialias>true</antialias>
                             <color>#000000</color>
                             <position>center,center</position>
                         </drawText>
@@ -65,7 +64,6 @@
                             <fontName>serif</fontName>
                             <fontStyle>bold</fontStyle>
                             <fontSize>32</fontSize>
-                            <antialias>true</antialias>
                             <color>#000077</color>
                             <position>left,top</position>
                         </drawText>
@@ -74,7 +72,6 @@
                             <fontName>serif</fontName>
                             <fontStyle>bold</fontStyle>
                             <fontSize>32</fontSize>
-                            <antialias>true</antialias>
                             <color>#000077</color>
                             <position>right,bottom</position>
                         </drawText>

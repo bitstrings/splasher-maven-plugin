@@ -29,6 +29,29 @@ import org.apache.maven.plugin.MojoExecutionException;
 public class DrawText
     extends Drawable
 {
+    public enum AntialiasType
+    {
+        ON( RenderingHints.VALUE_TEXT_ANTIALIAS_ON ),
+        OFF( RenderingHints.VALUE_TEXT_ANTIALIAS_OFF ),
+        GASP( RenderingHints.VALUE_TEXT_ANTIALIAS_GASP ),
+        HBGR( RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HBGR ),
+        HRGB( RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB ),
+        VBGR( RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_VBGR ),
+        VRGB( RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_VRGB );
+
+        private Object type;
+
+        private AntialiasType( Object type )
+        {
+            this.type = type;
+        }
+
+        public Object getType()
+        {
+            return type;
+        }
+    }
+
     // - parameters --[
 
     private String text;
@@ -39,7 +62,7 @@ public class DrawText
 
     private int fontSize = 8;
 
-    private boolean antialias = true;
+    private AntialiasType fontAntialias = AntialiasType.ON;
 
     private String position = "0,0";
 
@@ -71,9 +94,9 @@ public class DrawText
         return fontSize;
     }
 
-    public boolean isAntialias()
+    public AntialiasType getFontAntialias()
     {
-        return antialias;
+        return fontAntialias;
     }
 
     public String getPosition()
@@ -126,11 +149,7 @@ public class DrawText
                 throw new MojoExecutionException( "Unable to decode color " + getColor() + ".", e );
             }
 
-            g.setRenderingHint(
-                    RenderingHints.KEY_TEXT_ANTIALIASING,
-                    isAntialias()
-                            ? RenderingHints.VALUE_TEXT_ANTIALIAS_ON
-                            : RenderingHints.VALUE_TEXT_ANTIALIAS_OFF );
+            g.setRenderingHint( RenderingHints.KEY_TEXT_ANTIALIASING, getFontAntialias().getType() );
 
             g.setFont( awtFont );
 
