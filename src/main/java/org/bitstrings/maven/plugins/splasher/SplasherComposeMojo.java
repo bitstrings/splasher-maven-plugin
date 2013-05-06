@@ -34,7 +34,7 @@ import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.FileUtils;
 
 @Mojo( name = "compose" )
-public class SplasherMojo
+public class SplasherComposeMojo
     extends AbstractMojo
 {
     @Component
