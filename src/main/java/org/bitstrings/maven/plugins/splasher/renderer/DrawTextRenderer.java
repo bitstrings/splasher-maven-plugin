@@ -56,7 +56,7 @@ public class DrawTextRenderer
 
         width = (int) textBounds.getHeight();
 
-        decodeAndSetXY(
+        decodePositionAndSetXY(
             drawable.getPosition(),
             this,
             g.getDeviceConfiguration().getBounds(),

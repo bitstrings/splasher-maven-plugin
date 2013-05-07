@@ -59,7 +59,7 @@ public abstract class DrawableRenderer<T extends Drawable>
     public void init( GraphicsContext context, Graphics2D g )
         throws MojoExecutionException
     {
-        GraphicsUtil.decodeAndSetXY( drawable.getPosition(), this, g.getDeviceConfiguration().getBounds() );
+        GraphicsUtil.decodePositionAndSetXY( drawable.getPosition(), this, g.getDeviceConfiguration().getBounds() );
     }
 
     public abstract void draw( GraphicsContext context, Graphics2D g )

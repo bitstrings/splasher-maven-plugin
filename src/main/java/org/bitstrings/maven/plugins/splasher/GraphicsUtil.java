@@ -53,7 +53,7 @@ public final class GraphicsUtil
 
     private GraphicsUtil() {}
 
-    public static void decodeAndSetXY(
+    public static void decodePositionAndSetXY(
                                String position,
                                DrawableRenderer renderer,
                                Rectangle bounds,
@@ -68,9 +68,9 @@ public final class GraphicsUtil
         renderer.y = ( xy[1] + yOffset );
     }
 
-    public static void decodeAndSetXY( String position, DrawableRenderer renderer, Rectangle bounds )
+    public static void decodePositionAndSetXY( String position, DrawableRenderer renderer, Rectangle bounds )
     {
-        decodeAndSetXY( position, renderer, bounds, 0, 0 );
+        decodePositionAndSetXY( position, renderer, bounds, 0, 0 );
     }
 
     public static int[] decodePair( String pair )
