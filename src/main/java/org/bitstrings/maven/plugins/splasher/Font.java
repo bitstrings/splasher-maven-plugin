@@ -15,19 +15,31 @@
  */
 package org.bitstrings.maven.plugins.splasher;
 
+import java.io.File;
 
-public abstract class Drawable
+import org.apache.maven.plugin.MojoExecutionException;
+
+public class Font
+    extends Resource
 {
-    // - parameters --[
+    private File fontFile;
 
-    private String position = "0,0";
-
-    // ] --
-
-    public String getPosition()
+    public File getFontFile()
     {
-        return position;
+        return fontFile;
     }
 
-    public abstract DrawableRenderer<?> createDrawableRenderer();
+    @Override
+    public void register( GraphicsContext context )
+        throws MojoExecutionException
+    {
+        try
+        {
+            context.loadFont( getAlias(), fontFile );
+        }
+        catch ( Exception e )
+        {
+            throw new MojoExecutionException( "Unable to load font " + fontFile + ".", e );
+        }
+    }
 }

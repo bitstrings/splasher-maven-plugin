@@ -33,6 +33,8 @@ public class GraphicsContext
 
     protected final Map<String, String> fontAliasMap = new HashMap<String, String>();
 
+    protected final Map<String, BufferedImage> imageAliasMap = new HashMap<String, BufferedImage>();
+
     protected final Rectangle canvasBounds;
 
     public GraphicsContext( int canvasWidth, int canvasHeight )
@@ -70,9 +72,19 @@ public class GraphicsContext
         return new Font( fontName == null ? name : fontName, style, size );
     }
 
-    public BufferedImage loadImage( File file )
+    public void loadImage( String alias, File file )
         throws IOException
     {
-        return ImageIO.read( file );
+        BufferedImage image = ImageIO.read( file );
+
+        if ( alias != null )
+        {
+            imageAliasMap.put( alias, image );
+        }
+    }
+
+    public BufferedImage getImage( String alias )
+    {
+        return imageAliasMap.get( alias );
     }
 }

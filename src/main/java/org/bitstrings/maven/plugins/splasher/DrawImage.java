@@ -15,61 +15,25 @@
  */
 package org.bitstrings.maven.plugins.splasher;
 
-import static org.bitstrings.maven.plugins.splasher.GraphicsUtil.*;
-
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import org.apache.maven.plugin.MojoExecutionException;
+import org.bitstrings.maven.plugins.splasher.renderer.DrawImageRenderer;
 
 public class DrawImage
     extends Drawable
 {
     // - parameters --[
 
-    private File imageFile;
-
-    private String position = "0,0";
+    private String imageName;
 
     // ]--
 
-    protected BufferedImage awtImage;
-
-    public File getImageFile()
+    public String getImageName()
     {
-        return imageFile;
-    }
-
-    public String getPosition()
-    {
-        return position;
+        return imageName;
     }
 
     @Override
-    public void init( GraphicsContext context, Graphics2D g )
-        throws MojoExecutionException
+    public DrawableRenderer<DrawImage> createDrawableRenderer()
     {
-        try
-        {
-            awtImage = context.loadImage( imageFile );
-        }
-        catch ( IOException e )
-        {
-            throw new MojoExecutionException( "Unable to read image file " + imageFile + ".", e );
-        }
-
-        bounds = new Rectangle( awtImage.getWidth(), awtImage.getHeight() );
-
-        decodeAndSetXY( position, this, g.getDeviceConfiguration().getBounds() );
-    }
-
-    @Override
-    public void draw( GraphicsContext context, Graphics2D g )
-        throws MojoExecutionException
-    {
-        g.drawImage( awtImage, x, y, null );
+        return new DrawImageRenderer( this );
     }
 }

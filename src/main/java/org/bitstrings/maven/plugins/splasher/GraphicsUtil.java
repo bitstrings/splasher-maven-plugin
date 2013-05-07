@@ -53,20 +53,24 @@ public final class GraphicsUtil
 
     private GraphicsUtil() {}
 
-    public static void decodeAndSetXY( String position, Drawable d, Rectangle bounds, int xOffset, int yOffset )
+    public static void decodeAndSetXY(
+                               String position,
+                               DrawableRenderer renderer,
+                               Rectangle bounds,
+                               int xOffset, int yOffset )
     {
         int[] xy = decodePair(
                         position,
-                        d.getBounds().width, d.getBounds().height,
+                        renderer.getBounds().width, renderer.getBounds().height,
                         bounds );
 
-        d.setX( xy[0] + xOffset );
-        d.setY( xy[1] + yOffset );
+        renderer.x = ( xy[0] + xOffset );
+        renderer.y = ( xy[1] + yOffset );
     }
 
-    public static void decodeAndSetXY( String position, Drawable d, Rectangle bounds )
+    public static void decodeAndSetXY( String position, DrawableRenderer renderer, Rectangle bounds )
     {
-        decodeAndSetXY( position, d, bounds, 0, 0 );
+        decodeAndSetXY( position, renderer, bounds, 0, 0 );
     }
 
     public static int[] decodePair( String pair )

@@ -41,10 +41,10 @@ public class SplasherComposeMojo
     private MavenProject project;
 
     @Parameter( required = true )
-    private CanvasDef canvas;
+    private Canvas canvas;
 
     @Parameter
-    private FontDef[] fonts;
+    private Font[] fonts;
 
     @Parameter
     private Drawable[] draw;
@@ -118,7 +118,7 @@ public class SplasherComposeMojo
 
         if ( fonts != null )
         {
-            for ( FontDef fontDef : fonts )
+            for ( Font fontDef : fonts )
             {
                 try
                 {
@@ -153,13 +153,15 @@ public class SplasherComposeMojo
 
             for ( Drawable drawable : draw )
             {
-                Graphics2D dg = (Graphics2D) g.create();
+                final Graphics2D dg = (Graphics2D) g.create();
 
                 try
                 {
-                    drawable.init( graphicsContext, g );
+                    final DrawableRenderer<?> renderer = drawable.createDrawableRenderer();
 
-                    drawable.draw( graphicsContext, g );
+                    renderer.init( graphicsContext, g );
+
+                    renderer.draw( graphicsContext, g );
                 }
                 finally
                 {

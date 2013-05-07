@@ -17,19 +17,33 @@ package org.bitstrings.maven.plugins.splasher;
 
 import java.io.File;
 
-public class FontDef
+public class Canvas
 {
-    private File fontFile;
+    private File backgroundImageFile;
 
-    private String alias;
+    private int width;
 
-    public File getFontFile()
+    private int height;
+
+    private String color;
+
+    public int getWidth()
     {
-        return fontFile;
+        return width;
     }
 
-    public String getAlias()
+    public int getHeight()
     {
-        return alias;
+        return height;
+    }
+
+    public File getBackgroundImageFile()
+    {
+        return backgroundImageFile;
+    }
+
+    public String getColor()
+    {
+        return color;
     }
 }

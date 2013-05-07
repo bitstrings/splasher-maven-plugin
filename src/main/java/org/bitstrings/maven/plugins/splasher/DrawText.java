@@ -15,16 +15,9 @@
  */
 package org.bitstrings.maven.plugins.splasher;
 
-import static org.bitstrings.maven.plugins.splasher.GraphicsUtil.*;
-
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.geom.Rectangle2D;
 
-import org.apache.maven.plugin.MojoExecutionException;
+import org.bitstrings.maven.plugins.splasher.renderer.DrawTextRenderer;
 
 public class DrawText
     extends Drawable
@@ -56,27 +49,28 @@ public class DrawText
 
     private String text;
 
+    private String textColor = "#000000";
+
     private String fontName;
 
     private String fontStyle = "plain";
 
-    private int fontSize = 8;
+    private int fontSize = 12;
 
     private AntialiasType fontAntialias = AntialiasType.ON;
 
-    private String position = "0,0";
-
-    private String color = "#000000";
+    public boolean useBaseline = true;
 
     // ]--
-
-    protected int awtFontStyle;
-
-    protected Font awtFont;
 
     public String getText()
     {
         return text;
+    }
+
+    public String getTextColor()
+    {
+        return textColor;
     }
 
     public String getFontName()
@@ -99,60 +93,14 @@ public class DrawText
         return fontAntialias;
     }
 
-    public String getPosition()
+    public boolean isUseBaseline()
     {
-        return position;
-    }
-
-    public String getColor()
-    {
-        return color;
+        return useBaseline;
     }
 
     @Override
-    public void init( GraphicsContext context, Graphics2D g )
-        throws MojoExecutionException
+    public DrawableRenderer<DrawText> createDrawableRenderer()
     {
-        if ( fontStyle != null )
-        {
-            try
-            {
-                awtFontStyle = decodeFontStyle( fontStyle );
-            }
-            catch ( IllegalArgumentException e )
-            {
-                throw new MojoExecutionException( "Illegal font style " + fontStyle + ".", e );
-            }
-        }
-
-        awtFont = context.getFont( getFontName(),awtFontStyle, getFontSize() );
-
-        FontMetrics metrics = g.getFontMetrics( awtFont );
-
-        Rectangle2D textBounds = metrics.getStringBounds( getText(), g );
-
-        bounds = textBounds.getBounds();
-
-        decodeAndSetXY( position, this, g.getDeviceConfiguration().getBounds(), 0, metrics.getAscent() );
-    }
-
-    @Override
-    public void draw( GraphicsContext context, Graphics2D g )
-        throws MojoExecutionException
-    {
-            try
-            {
-                g.setColor( Color.decode( getColor() ) );
-            }
-            catch ( NumberFormatException e )
-            {
-                throw new MojoExecutionException( "Unable to decode color " + getColor() + ".", e );
-            }
-
-            g.setRenderingHint( RenderingHints.KEY_TEXT_ANTIALIASING, getFontAntialias().getType() );
-
-            g.setFont( awtFont );
-
-            g.drawString( getText(), x, y );
+        return new DrawTextRenderer( this );
     }
 }

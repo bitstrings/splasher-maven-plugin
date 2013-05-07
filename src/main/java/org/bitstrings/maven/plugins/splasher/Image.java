@@ -17,33 +17,29 @@ package org.bitstrings.maven.plugins.splasher;
 
 import java.io.File;
 
-public class CanvasDef
+import org.apache.maven.plugin.MojoExecutionException;
+
+public class Image
+    extends Resource
 {
-    private File backgroundImageFile;
+    private File imageFile;
 
-    private int width;
-
-    private int height;
-
-    private String color;
-
-    public int getWidth()
+    public File getImageFile()
     {
-        return width;
+        return imageFile;
     }
 
-    public int getHeight()
+    @Override
+    public void register( GraphicsContext context )
+        throws MojoExecutionException
     {
-        return height;
-    }
-
-    public File getBackgroundImageFile()
-    {
-        return backgroundImageFile;
-    }
-
-    public String getColor()
-    {
-        return color;
+        try
+        {
+            context.loadImage( getAlias(), imageFile );
+        }
+        catch ( Exception e )
+        {
+            throw new MojoExecutionException( "Unable to load image " + imageFile + ".", e );
+        }
     }
 }

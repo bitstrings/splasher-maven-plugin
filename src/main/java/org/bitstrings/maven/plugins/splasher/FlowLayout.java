@@ -15,147 +15,38 @@
  */
 package org.bitstrings.maven.plugins.splasher;
 
-import static org.bitstrings.maven.plugins.splasher.GraphicsUtil.*;
+import org.bitstrings.maven.plugins.splasher.renderer.FlowLayoutRenderer;
 
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.maven.plugin.MojoExecutionException;
 
 public class FlowLayout
-    extends Drawable
+    extends Layout
 {
     public enum Alignment
     {
         HORIZONTAL, VERTICAL;
     }
 
-    private final List<Drawable> draw = new ArrayList<Drawable>();
-
-    private String position = "0,0";
+    // - parameters --[
 
     private int padding;
 
     private Alignment alignment = Alignment.HORIZONTAL;
 
-    public String getPosition()
-    {
-        return position;
-    }
+    // ]--
 
     public int getPadding()
     {
         return padding;
     }
 
-    @Override
-    public void init( GraphicsContext context, Graphics2D g )
-        throws MojoExecutionException
+    public Alignment getAlignment()
     {
-        bounds = new Rectangle();
-
-        switch ( alignment )
-        {
-            case HORIZONTAL:
-
-                for ( Drawable d : draw )
-                {
-                    d.init( context, g );
-
-                    bounds.width += d.getBounds().width;
-
-                    bounds.height = Math.max( d.getBounds().height, bounds.height );
-                }
-
-                if ( draw.size() > 1 )
-                {
-                    bounds.width += padding * ( draw.size() - 1 );
-                }
-
-                break;
-
-            case VERTICAL:
-
-                for ( Drawable d : draw )
-                {
-                    d.init( context, g );
-
-                    bounds.height += d.getBounds().height;
-
-                    bounds.width = Math.max( d.getBounds().width, bounds.width );
-                }
-
-                if ( draw.size() > 1 )
-                {
-                    bounds.height += padding * ( draw.size() - 1 );
-                }
-
-                break;
-
-            default:
-                throw new MojoExecutionException( "Unknown alignment " + alignment );
-        }
-
-
-        decodeAndSetXY( position, this, g.getDeviceConfiguration().getBounds() );
+        return alignment;
     }
 
     @Override
-    public void draw( GraphicsContext context, Graphics2D g )
-        throws MojoExecutionException
+    public DrawableRenderer<?> createDrawableRenderer()
     {
-        int offset = 0;
-
-        switch ( alignment )
-        {
-            case HORIZONTAL:
-
-                for ( Drawable d : draw )
-                {
-                    Graphics2D sg =
-                            (Graphics2D) g.create(
-                                d.getX() + x + offset, d.getY() + y,
-                                g.getDeviceConfiguration().getBounds().width, g.getDeviceConfiguration().getBounds().height );
-                    try
-                    {
-                        d.draw( context, sg );
-
-                        offset += d.getBounds().width + padding;
-                    }
-                    finally
-                    {
-                        sg.dispose();
-                    }
-                }
-
-                break;
-
-            case VERTICAL:
-
-                for ( Drawable d : draw )
-                {
-                    Graphics2D sg =
-                            (Graphics2D) g.create(
-                                d.getX() + x, d.getY() + y + offset,
-                                g.getDeviceConfiguration().getBounds().width, g.getDeviceConfiguration().getBounds().height );
-                    try
-                    {
-                        d.draw( context, sg );
-
-                        offset += d.getBounds().height + padding;
-                    }
-                    finally
-                    {
-                        sg.dispose();
-                    }
-                }
-
-                break;
-
-            default:
-                throw new MojoExecutionException( "Unknown alignment " + alignment );
-        }
+        return new FlowLayoutRenderer( this );
     }
 }
