@@ -51,7 +51,7 @@ public class DrawText
 
     private String textColor = "#000000";
 
-    private String fontName;
+    private String fontName = "sans-serif";
 
     private String fontStyle = "plain";
 
