@@ -61,7 +61,7 @@ public final class GraphicsUtil
     {
         int[] xy = decodePair(
                         position,
-                        renderer.getBounds().width, renderer.getBounds().height,
+                        renderer.width, renderer.height,
                         bounds );
 
         renderer.x = ( xy[0] + xOffset );

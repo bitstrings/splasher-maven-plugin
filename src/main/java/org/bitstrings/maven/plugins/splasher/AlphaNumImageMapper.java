@@ -113,7 +113,7 @@ public class AlphaNumImageMapper
                 throw new MojoExecutionException( "Unable to load image #" + from + " (" + name + ").", e );
             }
         }
-        while ( ++from < to );
+        while ( ++from <= to );
     }
 
     protected void registerCharRange( char from, char to, GraphicsContext context )
@@ -132,6 +132,6 @@ public class AlphaNumImageMapper
                 throw new MojoExecutionException( "Unable to load image for char " + from + " (" + name + ").", e );
             }
         }
-        while ( ++from < to );
+        while ( ++from <= to );
     }
 }

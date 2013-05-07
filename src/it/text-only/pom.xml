@@ -24,10 +24,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.bitstrings.maven.plugins.splasher.its</groupId>
-    <artifactId>nobgimg-text</artifactId>
+    <artifactId>text-only</artifactId>
     <version>1-SNAPSHOT</version>
 
-    <name>IT : no background image + text</name>
+    <name>IT : text only</name>
 
     <packaging>pom</packaging>
 
@@ -53,10 +53,11 @@
                     <draw>
                         <drawText>
                             <text>--&gt; Center &lt;--</text>
+                            <fontAntialias>HRGB</fontAntialias>
                             <fontName>monospace</fontName>
                             <fontStyle>bold</fontStyle>
                             <fontSize>48</fontSize>
-                            <color>#000000</color>
+                            <textColor>#000000</textColor>
                             <position>center,center</position>
                         </drawText>
                         <drawText>
@@ -64,7 +65,7 @@
                             <fontName>serif</fontName>
                             <fontStyle>bold</fontStyle>
                             <fontSize>32</fontSize>
-                            <color>#000077</color>
+                            <textColor>#000077</textColor>
                             <position>left,top</position>
                         </drawText>
                         <drawText>
@@ -72,7 +73,7 @@
                             <fontName>serif</fontName>
                             <fontStyle>bold</fontStyle>
                             <fontSize>32</fontSize>
-                            <color>#000077</color>
+                            <textColor>#000077</textColor>
                             <position>right,bottom</position>
                         </drawText>
                     </draw>

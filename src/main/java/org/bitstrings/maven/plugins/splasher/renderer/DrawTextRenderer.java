@@ -52,7 +52,9 @@ public class DrawTextRenderer
 
         Rectangle2D textBounds = metrics.getStringBounds( drawable.getText(), g );
 
-        bounds = textBounds.getBounds();
+        width = (int) textBounds.getWidth();
+
+        width = (int) textBounds.getHeight();
 
         decodeAndSetXY(
             drawable.getPosition(),

@@ -1,7 +1,6 @@
 package org.bitstrings.maven.plugins.splasher.renderer;
 
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import org.apache.maven.plugin.MojoExecutionException;
@@ -23,11 +22,13 @@ public class DrawImageRenderer
     public void init( GraphicsContext context, Graphics2D g )
         throws MojoExecutionException
     {
-        super.init( context, g );
-
         image = context.getImage( drawable.getImageName() );
 
-        this.bounds = new Rectangle( x, y, image.getWidth(), image.getHeight() );
+        width = image.getWidth();
+
+        height = image.getHeight();
+
+        super.init( context, g );
     }
 
     @Override

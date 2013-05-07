@@ -42,26 +42,38 @@
                 <artifactId>@project.artifactId@</artifactId>
                 <version>@project.version@</version>
                 <configuration>
+
+                    <resources>
+                        <alphaNumImageMapper>
+                            <directory>@basedir@/src/it/resources</directory>
+                            <pattern>num%n.png</pattern>
+                            <ranges>1-5</ranges>
+                            <aliasPrefix>num</aliasPrefix>
+                        </alphaNumImageMapper>
+                    </resources>
+
                     <outputFile>image.png</outputFile>
 
                     <canvas>
-                        <backgroundImageFile>@basedir@/src/it/resources/splash.png</backgroundImageFile>
+                        <width>640</width>
+                        <height>480</height>
+                        <color>#FFFFFF</color>
                     </canvas>
 
                     <draw>
-                        <drawImage>
-                            <imageFile>@basedir@/src/it/resources/tux.png</imageFile>
-                            <position>center,64</position>
-                        </drawImage>
-                        <drawImage>
-                            <imageFile>@basedir@/src/it/resources/red-indicator.png</imageFile>
-                            <position>left,top</position>
-                        </drawImage>
-                        <drawImage>
-                            <imageFile>@basedir@/src/it/resources/red-indicator.png</imageFile>
-                            <position>right,bottom</position>
-                        </drawImage>
+                        <flowLayout>
+                            <padding>12</padding>
+                            <position>center,center</position>
+                            <draw>
+                                <drawImage>num1</drawImage>
+                                <drawImage>num2</drawImage>
+                                <drawImage>num3</drawImage>
+                                <drawImage>num4</drawImage>
+                                <drawImage>num5</drawImage>
+                            </draw>
+                        </flowLayout>
                     </draw>
+
                 </configuration>
             </plugin>
         </plugins>

@@ -44,7 +44,7 @@ public class SplasherComposeMojo
     private Canvas canvas;
 
     @Parameter
-    private Font[] fonts;
+    private Resource[] resources;
 
     @Parameter
     private Drawable[] draw;
@@ -116,18 +116,11 @@ public class SplasherComposeMojo
 
         graphicsContext = new GraphicsContext( canvasWidth, canvasHeight );
 
-        if ( fonts != null )
+        if ( resources != null )
         {
-            for ( Font fontDef : fonts )
+            for ( Resource resource : resources )
             {
-                try
-                {
-                    graphicsContext.loadFont( fontDef.getAlias(), fontDef.getFontFile() );
-                }
-                catch ( Exception e )
-                {
-                    throw new MojoExecutionException( "Unable to load font " + fontDef.getFontFile(), e );
-                }
+                resource.register( graphicsContext );
             }
         }
 

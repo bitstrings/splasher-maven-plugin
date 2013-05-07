@@ -29,6 +29,11 @@ public class Image
         return imageFile;
     }
 
+    public void set( File imageFile )
+    {
+        this.imageFile = imageFile;
+    }
+
     @Override
     public void register( GraphicsContext context )
         throws MojoExecutionException

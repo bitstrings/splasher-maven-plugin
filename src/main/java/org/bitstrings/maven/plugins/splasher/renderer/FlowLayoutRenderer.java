@@ -1,7 +1,8 @@
 package org.bitstrings.maven.plugins.splasher.renderer;
 
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.bitstrings.maven.plugins.splasher.Drawable;
@@ -12,6 +13,8 @@ import org.bitstrings.maven.plugins.splasher.GraphicsContext;
 public class FlowLayoutRenderer
     extends DrawableRenderer<FlowLayout>
 {
+    protected final List<DrawableRenderer<?>> renderers = new ArrayList<DrawableRenderer<?>>();
+
     public FlowLayoutRenderer( FlowLayout flowLayout )
     {
         super( flowLayout );
@@ -21,10 +24,6 @@ public class FlowLayoutRenderer
     public void init( GraphicsContext context, Graphics2D g )
         throws MojoExecutionException
     {
-        super.init( context, g );
-
-        bounds = new Rectangle();
-
         switch ( drawable.getAlignment() )
         {
             case HORIZONTAL:
@@ -35,14 +34,16 @@ public class FlowLayoutRenderer
 
                     renderer.init( context, g );
 
-                    bounds.width += renderer.getBounds().width;
+                    width += renderer.width;
 
-                    bounds.height = Math.max( renderer.getBounds().height, bounds.height );
+                    height = Math.max( renderer.height, height );
+
+                    renderers.add( renderer );
                 }
 
                 if ( drawable.getDraw().size() > 1 )
                 {
-                    bounds.width += drawable.getPadding() * ( drawable.getDraw().size() - 1 );
+                    width += drawable.getPadding() * ( drawable.getDraw().size() - 1 );
                 }
 
                 break;
@@ -55,14 +56,16 @@ public class FlowLayoutRenderer
 
                     renderer.init( context, g );
 
-                    bounds.height += renderer.getBounds().height;
+                    height += renderer.height;
 
-                    bounds.width = Math.max( renderer.getBounds().width, bounds.width );
+                    width = Math.max( renderer.width, width );
+
+                    renderers.add( renderer );
                 }
 
                 if ( drawable.getDraw().size() > 1 )
                 {
-                    bounds.height += drawable.getPadding() * ( drawable.getDraw().size() - 1 );
+                    height += drawable.getPadding() * ( drawable.getDraw().size() - 1 );
                 }
 
                 break;
@@ -70,6 +73,8 @@ public class FlowLayoutRenderer
             default:
                 throw new MojoExecutionException( "Unknown alignment " + drawable.getAlignment() );
         }
+
+        super.init( context, g );
     }
 
     @Override
@@ -82,10 +87,8 @@ public class FlowLayoutRenderer
             {
                 case HORIZONTAL:
 
-                    for ( Drawable d : drawable.getDraw() )
+                    for ( DrawableRenderer<?> renderer : renderers )
                     {
-                        final DrawableRenderer<?> renderer = d.createDrawableRenderer();
-
                         Graphics2D sg =
                                 (Graphics2D) g.create(
                                     renderer.x + x + offset, renderer.y + y,
@@ -95,7 +98,7 @@ public class FlowLayoutRenderer
                         {
                             renderer.draw( context, sg );
 
-                            offset += renderer.getBounds().width + drawable.getPadding();
+                            offset += renderer.width + drawable.getPadding();
                         }
                         finally
                         {
@@ -107,10 +110,8 @@ public class FlowLayoutRenderer
 
                 case VERTICAL:
 
-                    for ( Drawable d : drawable.getDraw() )
+                    for ( DrawableRenderer<?> renderer : renderers )
                     {
-                        final DrawableRenderer<?> renderer = d.createDrawableRenderer();
-
                         Graphics2D sg =
                                 (Graphics2D) g.create(
                                     renderer.x + x, renderer.y + y + offset,
@@ -120,7 +121,7 @@ public class FlowLayoutRenderer
                         {
                             renderer.draw( context, sg );
 
-                            offset += renderer.getBounds().height + drawable.getPadding();
+                            offset += renderer.height + drawable.getPadding();
                         }
                         finally
                         {

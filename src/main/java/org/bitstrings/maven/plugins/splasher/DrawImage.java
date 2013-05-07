@@ -31,6 +31,11 @@ public class DrawImage
         return imageName;
     }
 
+    public void set( String imageName )
+    {
+        this.imageName = imageName;
+    }
+
     @Override
     public DrawableRenderer<DrawImage> createDrawableRenderer()
     {

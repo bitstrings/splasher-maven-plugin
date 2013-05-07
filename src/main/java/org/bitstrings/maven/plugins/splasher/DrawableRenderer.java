@@ -1,7 +1,6 @@
 package org.bitstrings.maven.plugins.splasher;
 
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 
 import org.apache.maven.plugin.MojoExecutionException;
 
@@ -13,7 +12,9 @@ public abstract class DrawableRenderer<T extends Drawable>
 
     public int y;
 
-    protected Rectangle bounds;
+    public int width;
+
+    public int height;
 
     public DrawableRenderer( T drawable )
     {
@@ -45,14 +46,14 @@ public abstract class DrawableRenderer<T extends Drawable>
         this.y = y;
     }
 
-    public void setBounds( Rectangle bounds )
+    public int getWidth()
     {
-        this.bounds = bounds;
+        return width;
     }
 
-    public Rectangle getBounds()
+    public int getHeight()
     {
-        return bounds;
+        return height;
     }
 
     public void init( GraphicsContext context, Graphics2D g )

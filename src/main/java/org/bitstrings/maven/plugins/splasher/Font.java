@@ -29,6 +29,11 @@ public class Font
         return fontFile;
     }
 
+    public void set( File fontFile )
+    {
+        this.fontFile = fontFile;
+    }
+
     @Override
     public void register( GraphicsContext context )
         throws MojoExecutionException
