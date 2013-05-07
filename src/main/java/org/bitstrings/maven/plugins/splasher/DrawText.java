@@ -59,7 +59,7 @@ public class DrawText
 
     private AntialiasType fontAntialias = AntialiasType.ON;
 
-    public boolean useBaseline = true;
+    public boolean useBaseline = false;
 
     // ]--
 
