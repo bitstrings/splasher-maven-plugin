@@ -67,6 +67,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+        <javadoc-plugin.version>2.9</javadoc-plugin.version>
         <maven-plugin-plugin.version>3.2</maven-plugin-plugin.version>
         <maven.version>3.0</maven.version>
     </properties>
@@ -81,6 +82,16 @@
                     <configuration>
                         <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
                     </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${javadoc-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -139,6 +150,45 @@
 
     </dependencies>
 
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>2.6</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-plugin-plugin</artifactId>
+                <version>${maven-plugin-plugin.version}</version>
+                <configuration>
+                    <useJava5>true</useJava5>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${javadoc-plugin.version}</version>
+                <configuration>
+                    <source>1.6</source>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <linkJavadoc>true</linkJavadoc>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>taglist-maven-plugin</artifactId>
+                <version>2.4</version>
+            </plugin>
+        </plugins>
+    </reporting>
+
     <profiles>
 
         <profile>
@@ -180,6 +230,34 @@
                     </plugin>
                 </plugins>
 
+            </build>
+        </profile>
+
+        <profile>
+            <id>maven-3</id>
+            <activation>
+                <file>
+                    <!-- This employs that the basedir expression is only recognized by Maven 3.x (see MNG-2363) -->
+                    <exists>${basedir}</exists>
+                </file>
+            </activation>
+            <build>
+                <!-- we need to attach the descriptor for this pom -->
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-site-plugin</artifactId>
+                        <inherited>false</inherited>
+                        <executions>
+                            <execution>
+                                <id>attach-descriptor</id>
+                                <goals>
+                                    <goal>attach-descriptor</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
             </build>
         </profile>
 
