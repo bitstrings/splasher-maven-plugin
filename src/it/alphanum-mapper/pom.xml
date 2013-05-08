@@ -61,6 +61,15 @@
                     </canvas>
 
                     <draw>
+                        <drawImagesFromText>
+                            <alignment>HORIZONTAL</alignment>
+                            <padding>12</padding>
+                            <position>center,center</position>
+
+                            <text>12345</text>
+                            <imageNamePrefix>num</imageNamePrefix>
+                        </drawImagesFromText>
+
                         <flowLayout>
                             <padding>12</padding>
                             <position>center,center</position>

@@ -19,19 +19,19 @@ import java.io.File;
 
 import org.apache.maven.plugin.MojoExecutionException;
 
-public class Image
+public class LoadFont
     extends Resource
 {
-    private File imageFile;
+    private File fontFile;
 
-    public File getImageFile()
+    public File getFontFile()
     {
-        return imageFile;
+        return fontFile;
     }
 
-    public void set( File imageFile )
+    public void set( File fontFile )
     {
-        this.imageFile = imageFile;
+        this.fontFile = fontFile;
     }
 
     @Override
@@ -40,11 +40,11 @@ public class Image
     {
         try
         {
-            context.loadImage( getAlias(), imageFile );
+            context.loadFont( getAlias(), fontFile );
         }
         catch ( Exception e )
         {
-            throw new MojoExecutionException( "Unable to load image " + imageFile + ".", e );
+            throw new MojoExecutionException( "Unable to load font " + fontFile + ".", e );
         }
     }
 }
