@@ -15,9 +15,9 @@ public class FlowLayoutRenderer
 {
     protected final List<DrawableRenderer<?>> renderers = new ArrayList<DrawableRenderer<?>>();
 
-    public FlowLayoutRenderer( FlowLayout flowLayout )
+    public FlowLayoutRenderer( FlowLayout layout )
     {
-        super( flowLayout );
+        super( layout );
     }
 
     @Override

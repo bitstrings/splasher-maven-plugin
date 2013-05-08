@@ -22,7 +22,11 @@ import org.apache.maven.plugin.MojoExecutionException;
 public class LoadImage
     extends Resource
 {
+    // - parameters --[
+
     private File imageFile;
+
+    // ]--
 
     public File getImageFile()
     {

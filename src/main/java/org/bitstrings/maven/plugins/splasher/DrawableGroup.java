@@ -1,9 +1,13 @@
 package org.bitstrings.maven.plugins.splasher;
 
+import static java.util.Collections.EMPTY_LIST;
+
 import java.util.List;
 
+import org.apache.commons.lang3.ObjectUtils;
 
-public abstract class Layout
+
+public abstract class DrawableGroup
     extends Drawable
 {
     // - parameters --[
@@ -14,7 +18,7 @@ public abstract class Layout
 
     public List<Drawable> getDraw()
     {
-        return draw;
+        return ObjectUtils.defaultIfNull( draw, EMPTY_LIST );
     }
 
     public void setDraw( List<Drawable> draw )

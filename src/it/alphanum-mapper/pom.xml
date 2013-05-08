@@ -57,26 +57,24 @@
                     <canvas>
                         <width>640</width>
                         <height>480</height>
-                        <color>#FFFFFF</color>
+                        <color>#A9A9F0</color>
                     </canvas>
 
                     <draw>
                         <drawImagesFromText>
+                            <text>12345</text>
+                            <imageNamePrefix>num</imageNamePrefix>
                             <alignment>HORIZONTAL</alignment>
                             <padding>12</padding>
                             <position>center,top</position>
-
-                            <text>12345</text>
-                            <imageNamePrefix>num</imageNamePrefix>
                         </drawImagesFromText>
 
                         <drawImagesFromText>
+                            <text>54321</text>
+                            <imageNamePrefix>num</imageNamePrefix>
                             <alignment>VERTICAL</alignment>
                             <padding>12</padding>
                             <position>left,center</position>
-
-                            <text>54321</text>
-                            <imageNamePrefix>num</imageNamePrefix>
                         </drawImagesFromText>
 
                         <flowLayout>

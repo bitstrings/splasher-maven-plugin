@@ -19,7 +19,7 @@ import org.bitstrings.maven.plugins.splasher.renderer.FlowLayoutRenderer;
 
 
 public class FlowLayout
-    extends Layout
+    extends DrawableGroup
 {
     public enum Alignment
     {

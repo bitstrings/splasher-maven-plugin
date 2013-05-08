@@ -22,7 +22,11 @@ import org.apache.maven.plugin.MojoExecutionException;
 public class LoadFont
     extends Resource
 {
+    // - parameters --[
+
     private File fontFile;
+
+    // ]--
 
     public File getFontFile()
     {
