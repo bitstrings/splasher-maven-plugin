@@ -4,11 +4,11 @@ import org.apache.maven.plugin.MojoExecutionException;
 
 public abstract class Resource
 {
-    private String alias;
+    private String name;
 
-    public String getAlias()
+    public String getName()
     {
-        return alias;
+        return name;
     }
 
     public abstract void register( GraphicsContext context )

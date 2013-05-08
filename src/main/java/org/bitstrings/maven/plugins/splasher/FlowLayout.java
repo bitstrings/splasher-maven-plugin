@@ -39,9 +39,19 @@ public class FlowLayout
         return padding;
     }
 
+    public void setPadding( int padding )
+    {
+        this.padding = padding;
+    }
+
     public Alignment getAlignment()
     {
         return alignment;
+    }
+
+    public void setAlignment( Alignment alignment )
+    {
+        this.alignment = alignment;
     }
 
     @Override

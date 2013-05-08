@@ -31,9 +31,9 @@ public class GraphicsContext
 {
     protected final GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
 
-    protected final Map<String, String> fontAliasMap = new HashMap<String, String>();
+    protected final Map<String, String> fontNameMap = new HashMap<String, String>();
 
-    protected final Map<String, BufferedImage> imageAliasMap = new HashMap<String, BufferedImage>();
+    protected final Map<String, BufferedImage> imageNameMap = new HashMap<String, BufferedImage>();
 
     protected final Rectangle canvasBounds;
 
@@ -52,39 +52,39 @@ public class GraphicsContext
         return graphicsEnvironment;
     }
 
-    public void loadFont( String alias, File fontFile )
+    public void loadFont( String name, File fontFile )
         throws IOException, FontFormatException
     {
         Font font = Font.createFont( Font.TRUETYPE_FONT, fontFile );
 
         graphicsEnvironment.registerFont( font );
 
-        if ( alias != null )
+        if ( name != null )
         {
-            fontAliasMap.put( alias, font.getName() );
+            fontNameMap.put( name, font.getName() );
         }
     }
 
     public Font getFont( String name, int style, int size )
     {
-        final String fontName = fontAliasMap.get( name );
+        final String fontName = fontNameMap.get( name );
 
         return new Font( fontName == null ? name : fontName, style, size );
     }
 
-    public void loadImage( String alias, File file )
+    public void loadImage( String name, File file )
         throws IOException
     {
         BufferedImage image = ImageIO.read( file );
 
-        if ( alias != null )
+        if ( name != null )
         {
-            imageAliasMap.put( alias, image );
+            imageNameMap.put( name, image );
         }
     }
 
-    public BufferedImage getImage( String alias )
+    public BufferedImage getImage( String name )
     {
-        return imageAliasMap.get( alias );
+        return imageNameMap.get( name );
     }
 }

@@ -68,9 +68,19 @@ public class DrawText
         return text;
     }
 
+    public void setText( String text )
+    {
+        this.text = text;
+    }
+
     public String getTextColor()
     {
         return textColor;
+    }
+
+    public void setTextColor( String textColor )
+    {
+        this.textColor = textColor;
     }
 
     public String getFontName()
@@ -78,9 +88,19 @@ public class DrawText
         return fontName;
     }
 
+    public void setFontName( String fontName )
+    {
+        this.fontName = fontName;
+    }
+
     public String getFontStyle()
     {
         return fontStyle;
+    }
+
+    public void setFontStyle( String fontStyle )
+    {
+        this.fontStyle = fontStyle;
     }
 
     public int getFontSize()
@@ -88,14 +108,29 @@ public class DrawText
         return fontSize;
     }
 
+    public void setFontSize( int fontSize )
+    {
+        this.fontSize = fontSize;
+    }
+
     public AntialiasType getFontAntialias()
     {
         return fontAntialias;
     }
 
+    public void setFontAntialias( AntialiasType fontAntialias )
+    {
+        this.fontAntialias = fontAntialias;
+    }
+
     public boolean isUseBaseline()
     {
         return useBaseline;
+    }
+
+    public void setUseBaseline( boolean useBaseline )
+    {
+        this.useBaseline = useBaseline;
     }
 
     @Override

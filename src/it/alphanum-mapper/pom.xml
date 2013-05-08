@@ -46,9 +46,9 @@
                     <resources>
                         <alphaNumImageMapper>
                             <directory>@basedir@/src/it/resources</directory>
-                            <pattern>num%n.png</pattern>
+                            <fileNamePattern>num%n.png</fileNamePattern>
                             <ranges>1-5</ranges>
-                            <aliasPrefix>num</aliasPrefix>
+                            <namePrefix>num</namePrefix>
                         </alphaNumImageMapper>
                     </resources>
 
@@ -64,15 +64,24 @@
                         <drawImagesFromText>
                             <alignment>HORIZONTAL</alignment>
                             <padding>12</padding>
-                            <position>center,center</position>
+                            <position>center,top</position>
 
                             <text>12345</text>
                             <imageNamePrefix>num</imageNamePrefix>
                         </drawImagesFromText>
 
+                        <drawImagesFromText>
+                            <alignment>VERTICAL</alignment>
+                            <padding>12</padding>
+                            <position>left,center</position>
+
+                            <text>54321</text>
+                            <imageNamePrefix>num</imageNamePrefix>
+                        </drawImagesFromText>
+
                         <flowLayout>
                             <padding>12</padding>
-                            <position>center,center</position>
+                            <position>center,bottom</position>
                             <draw>
                                 <drawImage>num1</drawImage>
                                 <drawImage>num2</drawImage>

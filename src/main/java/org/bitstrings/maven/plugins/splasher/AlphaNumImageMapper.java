@@ -14,11 +14,11 @@ public class AlphaNumImageMapper
 
     private File directory;
 
-    private String pattern;
+    private String fileNamePattern;
 
     private String ranges;
 
-    private String aliasPrefix;
+    private String namePrefix;
 
     // ]--
 
@@ -27,9 +27,9 @@ public class AlphaNumImageMapper
         return directory;
     }
 
-    public String getPattern()
+    public String getFileNamePattern()
     {
-        return pattern;
+        return fileNamePattern;
     }
 
     public String getRanges()
@@ -37,9 +37,9 @@ public class AlphaNumImageMapper
         return ranges;
     }
 
-    public String getAliasPrefix()
+    public String getNamePrefix()
     {
-        return aliasPrefix;
+        return namePrefix;
     }
 
     @Override
@@ -102,11 +102,11 @@ public class AlphaNumImageMapper
     {
         do
         {
-            final File name = new File( directory, pattern.replace( "%n", String.valueOf( from ) ) );
+            final File name = new File( directory, fileNamePattern.replace( "%n", String.valueOf( from ) ) );
 
             try
             {
-                context.loadImage( aliasPrefix + from, name );
+                context.loadImage( namePrefix + from, name );
             }
             catch ( IOException e )
             {
@@ -121,11 +121,11 @@ public class AlphaNumImageMapper
     {
         do
         {
-            final File name = new File( directory, pattern.replace( "%n", String.valueOf( from ) ) );
+            final File name = new File( directory, fileNamePattern.replace( "%n", String.valueOf( from ) ) );
 
             try
             {
-                context.loadImage( aliasPrefix + from, name );
+                context.loadImage( namePrefix + from, name );
             }
             catch ( IOException e )
             {

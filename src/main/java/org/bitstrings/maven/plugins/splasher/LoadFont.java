@@ -40,7 +40,7 @@ public class LoadFont
     {
         try
         {
-            context.loadFont( getAlias(), fontFile );
+            context.loadFont( getName(), fontFile );
         }
         catch ( Exception e )
         {

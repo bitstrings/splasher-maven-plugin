@@ -29,5 +29,10 @@ public abstract class Drawable
         return position;
     }
 
+    public void setPosition( String position )
+    {
+        this.position = position;
+    }
+
     public abstract DrawableRenderer<?> createDrawableRenderer();
 }

@@ -31,6 +31,11 @@ public class DrawImage
         return imageName;
     }
 
+    public void setImageName( String imageName )
+    {
+        this.imageName = imageName;
+    }
+
     public void set( String imageName )
     {
         this.imageName = imageName;

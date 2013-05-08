@@ -1,6 +1,7 @@
 package org.bitstrings.maven.plugins.splasher.renderer;
 
-import static org.bitstrings.maven.plugins.splasher.GraphicsUtil.*;
+import static org.bitstrings.maven.plugins.splasher.GraphicsUtil.decodeFontStyle;
+import static org.bitstrings.maven.plugins.splasher.GraphicsUtil.decodePositionAndSetXY;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -54,7 +55,7 @@ public class DrawTextRenderer
 
         width = (int) textBounds.getWidth();
 
-        width = (int) textBounds.getHeight();
+        height = (int) textBounds.getHeight();
 
         decodePositionAndSetXY(
             drawable.getPosition(),

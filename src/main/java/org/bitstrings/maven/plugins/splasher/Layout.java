@@ -1,6 +1,5 @@
 package org.bitstrings.maven.plugins.splasher;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -9,12 +8,17 @@ public abstract class Layout
 {
     // - parameters --[
 
-    private final List<Drawable> draw = new ArrayList<Drawable>();
+    private List<Drawable> draw;
 
     // ]--
 
     public List<Drawable> getDraw()
     {
         return draw;
+    }
+
+    public void setDraw( List<Drawable> draw )
+    {
+        this.draw = draw;
     }
 }

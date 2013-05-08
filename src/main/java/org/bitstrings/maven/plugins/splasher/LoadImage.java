@@ -40,7 +40,7 @@ public class LoadImage
     {
         try
         {
-            context.loadImage( getAlias(), imageFile );
+            context.loadImage( getName(), imageFile );
         }
         catch ( Exception e )
         {
