@@ -15,6 +15,7 @@
  */
 package org.bitstrings.maven.plugins.splasher;
 
+import java.awt.Font;
 import java.awt.RenderingHints;
 
 import org.bitstrings.maven.plugins.splasher.renderer.DrawTextRenderer;
@@ -51,7 +52,7 @@ public class DrawText
 
     private String textColor = "#000000";
 
-    private String fontName = "sans-serif";
+    private String fontName = Font.SANS_SERIF;
 
     private String fontStyle = "plain";
 
