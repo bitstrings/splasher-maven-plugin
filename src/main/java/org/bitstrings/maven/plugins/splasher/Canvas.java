@@ -15,21 +15,26 @@
  */
 package org.bitstrings.maven.plugins.splasher;
 
-import java.io.File;
 
 public class Canvas
+    extends DrawableContainer
 {
-    private File backgroundImageFile;
+    private String backgroundImageName;
+
+    private String backgroundColor;
 
     private int width;
 
     private int height;
 
-    private String color;
-
     public int getWidth()
     {
         return width;
+    }
+
+    public void setWidth( int width )
+    {
+        this.width = width;
     }
 
     public int getHeight()
@@ -37,13 +42,28 @@ public class Canvas
         return height;
     }
 
-    public File getBackgroundImageFile()
+    public void setHeight( int height )
     {
-        return backgroundImageFile;
+        this.height = height;
     }
 
-    public String getColor()
+    public String getBackgroundImageName()
     {
-        return color;
+        return backgroundImageName;
+    }
+
+    public void setBackgroundImageName( String backgroundImageName )
+    {
+        this.backgroundImageName = backgroundImageName;
+    }
+
+    public String getBackgroundColor()
+    {
+        return backgroundColor;
+    }
+
+    public void setBackgroundColor( String backgroundColor )
+    {
+        this.backgroundColor = backgroundColor;
     }
 }

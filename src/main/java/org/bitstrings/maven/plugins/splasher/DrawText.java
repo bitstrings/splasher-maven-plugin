@@ -18,8 +18,6 @@ package org.bitstrings.maven.plugins.splasher;
 import java.awt.Font;
 import java.awt.RenderingHints;
 
-import org.bitstrings.maven.plugins.splasher.renderer.DrawTextRenderer;
-
 public class DrawText
     extends Drawable
 {
@@ -132,11 +130,5 @@ public class DrawText
     public void setUseBaseline( boolean useBaseline )
     {
         this.useBaseline = useBaseline;
-    }
-
-    @Override
-    public DrawableRenderer<DrawText> createDrawableRenderer()
-    {
-        return new DrawTextRenderer( this );
     }
 }

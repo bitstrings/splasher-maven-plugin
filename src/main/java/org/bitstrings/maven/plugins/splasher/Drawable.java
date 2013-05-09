@@ -33,6 +33,4 @@ public abstract class Drawable
     {
         this.position = position;
     }
-
-    public abstract DrawableRenderer<?> createDrawableRenderer();
 }

@@ -1,9 +1,8 @@
 package org.bitstrings.maven.plugins.splasher;
 
-import org.bitstrings.maven.plugins.splasher.renderer.PositionalLayoutRenderer;
 
 public class PositionalLayout
-    extends DrawableGroup
+    extends DrawableContainer
 {
     // - parameters --[
 
@@ -31,11 +30,5 @@ public class PositionalLayout
     public void setHeight( int height )
     {
         this.height = height;
-    }
-
-    @Override
-    public DrawableRenderer<?> createDrawableRenderer()
-    {
-        return new PositionalLayoutRenderer( this );
     }
 }

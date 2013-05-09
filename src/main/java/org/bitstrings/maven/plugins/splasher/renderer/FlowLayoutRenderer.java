@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.ClassUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.bitstrings.maven.plugins.splasher.Drawable;
 import org.bitstrings.maven.plugins.splasher.DrawableRenderer;
@@ -15,24 +16,55 @@ public class FlowLayoutRenderer
 {
     protected final List<DrawableRenderer<?>> renderers = new ArrayList<DrawableRenderer<?>>();
 
-    public FlowLayoutRenderer( FlowLayout layout )
+    protected FlowLayout.Alignment alignment;
+
+    protected int padding;
+
+    protected static final Class<FlowLayout>[] DEFAULT_MAPPED_DRAWABLES =
+                                (Class<FlowLayout>[]) ClassUtils.toClass( FlowLayout.class );
+
+    public FlowLayout.Alignment getAlignment()
     {
-        super( layout );
+        return alignment;
+    }
+
+    public void setAlignment( FlowLayout.Alignment alignment )
+    {
+        this.alignment = alignment;
+    }
+
+    public int getPadding()
+    {
+        return padding;
+    }
+
+    public void setPadding( int padding )
+    {
+        this.padding = padding;
     }
 
     @Override
-    public void init( GraphicsContext context, Graphics2D g )
+    public Class<? extends FlowLayout>[] getDefaultMappedDrawables()
+    {
+        return DEFAULT_MAPPED_DRAWABLES;
+    }
+
+    @Override
+    public void init( FlowLayout drawable, GraphicsContext context, Graphics2D g )
         throws MojoExecutionException
     {
-        switch ( drawable.getAlignment() )
+        alignment = drawable.getAlignment();
+
+        switch ( alignment )
         {
             case HORIZONTAL:
 
                 for ( Drawable d : drawable.getDraw() )
                 {
-                    final DrawableRenderer<?> renderer = d.createDrawableRenderer();
+                    final DrawableRenderer<Drawable> renderer =
+                                    (DrawableRenderer<Drawable>) context.getDrawableRenderer( d );
 
-                    renderer.init( context, g );
+                    renderer.init( d, context, g );
 
                     width += renderer.width;
 
@@ -52,9 +84,10 @@ public class FlowLayoutRenderer
 
                 for ( Drawable d : drawable.getDraw() )
                 {
-                    final DrawableRenderer<?> renderer = d.createDrawableRenderer();
+                    final DrawableRenderer<Drawable> renderer =
+                                    (DrawableRenderer<Drawable>) context.getDrawableRenderer( d );
 
-                    renderer.init( context, g );
+                    renderer.init( d, context, g );
 
                     height += renderer.height;
 
@@ -74,16 +107,15 @@ public class FlowLayoutRenderer
                 throw new MojoExecutionException( "Unknown alignment " + drawable.getAlignment() );
         }
 
-        super.init( context, g );
+        super.init( drawable, context, g );
     }
 
     @Override
     public void draw( GraphicsContext context, Graphics2D g )
-        throws MojoExecutionException
     {
             int offset = 0;
 
-            switch ( drawable.getAlignment() )
+            switch ( alignment )
             {
                 case HORIZONTAL:
 
@@ -98,7 +130,7 @@ public class FlowLayoutRenderer
                         {
                             renderer.draw( context, sg );
 
-                            offset += renderer.width + drawable.getPadding();
+                            offset += renderer.width + padding;
                         }
                         finally
                         {
@@ -121,7 +153,7 @@ public class FlowLayoutRenderer
                         {
                             renderer.draw( context, sg );
 
-                            offset += renderer.height + drawable.getPadding();
+                            offset += renderer.height + padding;
                         }
                         finally
                         {
@@ -130,9 +162,6 @@ public class FlowLayoutRenderer
                     }
 
                     break;
-
-                default:
-                    throw new MojoExecutionException( "Unknown alignment " + drawable.getAlignment() );
             }
     }
 }

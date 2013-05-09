@@ -35,6 +35,9 @@ public class GraphicsContext
 
     protected final Map<String, BufferedImage> imageNameMap = new HashMap<String, BufferedImage>();
 
+    protected final Map<Class<? extends Drawable>, DrawableRenderer<? extends Drawable>> drawableToRendererMap
+            = new HashMap<Class<? extends Drawable>, DrawableRenderer<? extends Drawable>>();
+
     protected final Rectangle canvasBounds;
 
     public GraphicsContext( int canvasWidth, int canvasHeight )
@@ -86,5 +89,29 @@ public class GraphicsContext
     public BufferedImage getImage( String name )
     {
         return imageNameMap.get( name );
+    }
+
+    public <T extends Drawable> void registerDrawableRenderer(
+                                              Class<T> drawableClass, DrawableRenderer<? super T> renderer )
+    {
+        drawableToRendererMap.put( drawableClass, renderer );
+    }
+
+    public <T extends Drawable> void registerDrawableRenderer( DrawableRenderer<T> renderer )
+    {
+        for ( Class<? extends T> drawableClass : renderer.getDefaultMappedDrawables() )
+        {
+            registerDrawableRenderer( drawableClass, renderer );
+        }
+    }
+
+    public <T extends Drawable> DrawableRenderer<? super T> getDrawableRenderer( Class<T> drawableClass )
+    {
+        return (DrawableRenderer<? super T>) drawableToRendererMap.get( drawableClass );
+    }
+
+    public <T extends Drawable> DrawableRenderer<? extends Drawable> getDrawableRenderer( T drawable )
+    {
+        return getDrawableRenderer( drawable.getClass() );
     }
 }

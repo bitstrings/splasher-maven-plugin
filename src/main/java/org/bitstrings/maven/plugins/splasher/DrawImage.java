@@ -15,7 +15,6 @@
  */
 package org.bitstrings.maven.plugins.splasher;
 
-import org.bitstrings.maven.plugins.splasher.renderer.DrawImageRenderer;
 
 public class DrawImage
     extends Drawable
@@ -39,11 +38,5 @@ public class DrawImage
     public void set( String imageName )
     {
         this.imageName = imageName;
-    }
-
-    @Override
-    public DrawableRenderer<DrawImage> createDrawableRenderer()
-    {
-        return new DrawImageRenderer( this );
     }
 }

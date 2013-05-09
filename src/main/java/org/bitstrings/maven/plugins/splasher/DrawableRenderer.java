@@ -6,8 +6,6 @@ import org.apache.maven.plugin.MojoExecutionException;
 
 public abstract class DrawableRenderer<T extends Drawable>
 {
-    protected final T drawable;
-
     public int x;
 
     public int y;
@@ -16,15 +14,7 @@ public abstract class DrawableRenderer<T extends Drawable>
 
     public int height;
 
-    public DrawableRenderer( T drawable )
-    {
-        this.drawable = drawable;
-    }
-
-    public T getDrawable()
-    {
-        return drawable;
-    }
+    protected boolean isVisible = true;
 
     public int getX()
     {
@@ -56,12 +46,20 @@ public abstract class DrawableRenderer<T extends Drawable>
         return height;
     }
 
-    public void init( GraphicsContext context, Graphics2D g )
+    public abstract Class<? extends T>[] getDefaultMappedDrawables();
+
+
+    public void init( T drawable, GraphicsContext context, Graphics2D g )
         throws MojoExecutionException
     {
         GraphicsUtil.decodePositionAndSetXY( drawable.getPosition(), this, g.getDeviceConfiguration().getBounds() );
     }
 
-    public abstract void draw( GraphicsContext context, Graphics2D g )
-        throws MojoExecutionException;
+    public void draw( GraphicsContext context, Graphics2D g )
+    {
+        if ( !isVisible )
+        {
+            return;
+        }
+    }
 }

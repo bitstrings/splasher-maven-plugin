@@ -3,6 +3,7 @@ package org.bitstrings.maven.plugins.splasher.renderer;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import org.apache.commons.lang3.ClassUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.bitstrings.maven.plugins.splasher.DrawImage;
 import org.bitstrings.maven.plugins.splasher.DrawableRenderer;
@@ -13,13 +14,27 @@ public class DrawImageRenderer
 {
     protected BufferedImage image;
 
-    public DrawImageRenderer( DrawImage drawImage )
+    protected static final Class<DrawImage>[] DEFAULT_MAPPED_DRAWABLES =
+                                        (Class<DrawImage>[]) ClassUtils.toClass( DrawImage.class );
+
+    public BufferedImage getImage()
     {
-        super( drawImage );
+        return image;
+    }
+
+    public void setImage( BufferedImage image )
+    {
+        this.image = image;
     }
 
     @Override
-    public void init( GraphicsContext context, Graphics2D g )
+    public Class<? extends DrawImage>[] getDefaultMappedDrawables()
+    {
+        return DEFAULT_MAPPED_DRAWABLES;
+    }
+
+    @Override
+    public void init( DrawImage drawable, GraphicsContext context, Graphics2D g )
         throws MojoExecutionException
     {
         image = context.getImage( drawable.getImageName() );
@@ -28,12 +43,11 @@ public class DrawImageRenderer
 
         height = image.getHeight();
 
-        super.init( context, g );
+        super.init( drawable, context, g );
     }
 
     @Override
     public void draw( GraphicsContext context, Graphics2D g )
-        throws MojoExecutionException
     {
         g.drawImage( image, x, y, null );
     }

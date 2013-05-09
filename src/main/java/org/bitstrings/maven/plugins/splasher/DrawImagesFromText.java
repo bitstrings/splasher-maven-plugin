@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bitstrings.maven.plugins.splasher.FlowLayout.Alignment;
+import org.bitstrings.maven.plugins.splasher.renderer.FlowLayoutRenderer;
 
 public class DrawImagesFromText
     extends Drawable
@@ -41,7 +42,7 @@ public class DrawImagesFromText
     }
 
     @Override
-    public DrawableRenderer<?> createDrawableRenderer()
+    public FlowLayoutRenderer createDrawableRenderer()
     {
         FlowLayout flowLayout = new FlowLayout();
 

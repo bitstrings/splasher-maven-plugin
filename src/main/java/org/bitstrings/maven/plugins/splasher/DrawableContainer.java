@@ -7,7 +7,7 @@ import java.util.List;
 import org.apache.commons.lang3.ObjectUtils;
 
 
-public abstract class DrawableGroup
+public abstract class DrawableContainer
     extends Drawable
 {
     // - parameters --[

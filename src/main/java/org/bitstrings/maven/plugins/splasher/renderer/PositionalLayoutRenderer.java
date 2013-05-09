@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.ClassUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.bitstrings.maven.plugins.splasher.Drawable;
 import org.bitstrings.maven.plugins.splasher.DrawableRenderer;
@@ -15,20 +16,24 @@ public class PositionalLayoutRenderer
 {
     protected final List<DrawableRenderer<?>> renderers = new ArrayList<DrawableRenderer<?>>();
 
-    public PositionalLayoutRenderer( PositionalLayout layout )
+    protected static final Class<PositionalLayout>[] DEFAULT_MAPPED_DRAWABLES =
+                                (Class<PositionalLayout>[]) ClassUtils.toClass( PositionalLayout.class );
+
+    @Override
+    public Class<? extends PositionalLayout>[] getDefaultMappedDrawables()
     {
-        super( layout );
+        return DEFAULT_MAPPED_DRAWABLES;
     }
 
     @Override
-    public void init( GraphicsContext context, Graphics2D g )
+    public void init( PositionalLayout drawable, GraphicsContext context, Graphics2D g )
         throws MojoExecutionException
     {
         for ( Drawable d : drawable.getDraw() )
         {
-            final DrawableRenderer<?> renderer = d.createDrawableRenderer();
+            final DrawableRenderer<Drawable> renderer = (DrawableRenderer<Drawable>) context.getDrawableRenderer( d );
 
-            renderer.init( context, g );
+            renderer.init( d, context, g );
 
             renderers.add( renderer );
         }
@@ -37,12 +42,11 @@ public class PositionalLayoutRenderer
 
         height = drawable.getHeight();
 
-        super.init( context, g );
+        super.init( drawable, context, g );
     }
 
     @Override
     public void draw( GraphicsContext context, Graphics2D g )
-        throws MojoExecutionException
     {
         for ( DrawableRenderer<?> renderer : renderers )
         {

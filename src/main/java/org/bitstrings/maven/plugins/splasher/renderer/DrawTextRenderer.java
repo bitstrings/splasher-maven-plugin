@@ -10,6 +10,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Rectangle2D;
 
+import org.apache.commons.lang3.ClassUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.bitstrings.maven.plugins.splasher.DrawText;
 import org.bitstrings.maven.plugins.splasher.DrawableRenderer;
@@ -18,28 +19,38 @@ import org.bitstrings.maven.plugins.splasher.GraphicsContext;
 public class DrawTextRenderer
     extends DrawableRenderer<DrawText>
 {
-    protected CharSequence text;
+    protected String text;
+
+    protected Color textColor;
 
     protected Font font;
 
-    protected int style;
+    protected int fontStyle;
 
-    protected int size;
+    protected int fontSize;
 
-    public DrawTextRenderer( DrawText drawText )
+    protected Object fontAntialias;
+
+    protected static final Class<DrawText>[] DEFAULT_MAPPED_DRAWABLES =
+                                (Class<DrawText>[]) ClassUtils.toClass( DrawText.class );
+
+    @Override
+    public Class<? extends DrawText>[] getDefaultMappedDrawables()
     {
-        super( drawText );
+        return DEFAULT_MAPPED_DRAWABLES;
     }
 
     @Override
-    public void init( GraphicsContext context, Graphics2D g )
+    public void init( DrawText drawable, GraphicsContext context, Graphics2D g )
         throws MojoExecutionException
     {
+        text = drawable.getText();
+
         if ( drawable.getFontStyle() != null )
         {
             try
             {
-                style = decodeFontStyle( drawable.getFontStyle() );
+                fontStyle = decodeFontStyle( drawable.getFontStyle() );
             }
             catch ( IllegalArgumentException e )
             {
@@ -47,7 +58,7 @@ public class DrawTextRenderer
             }
         }
 
-        font = context.getFont( drawable.getFontName(), style, drawable.getFontSize() );
+        font = context.getFont( drawable.getFontName(), fontStyle, drawable.getFontSize() );
 
         FontMetrics metrics = g.getFontMetrics( font );
 
@@ -62,25 +73,28 @@ public class DrawTextRenderer
             this,
             g.getDeviceConfiguration().getBounds(),
             0, ( drawable.isUseBaseline() ? 0 : metrics.getAscent() ) );
-    }
 
-    @Override
-    public void draw( GraphicsContext context, Graphics2D g )
-        throws MojoExecutionException
-    {
         try
         {
-            g.setColor( Color.decode( drawable.getTextColor() ) );
+            textColor = Color.decode( drawable.getTextColor() );
         }
         catch ( NumberFormatException e )
         {
             throw new MojoExecutionException( "Unable to decode color " + drawable.getTextColor() + ".", e );
         }
 
-        g.setRenderingHint( RenderingHints.KEY_TEXT_ANTIALIASING, drawable.getFontAntialias().getType() );
+        fontAntialias = drawable.getFontAntialias().getType();
+    }
+
+    @Override
+    public void draw( GraphicsContext context, Graphics2D g )
+    {
+        g.setColor( textColor );
+
+        g.setRenderingHint( RenderingHints.KEY_TEXT_ANTIALIASING, fontAntialias );
 
         g.setFont( font );
 
-        g.drawString( drawable.getText(), x, y );
+        g.drawString( text, x, y );
     }
 }

@@ -15,11 +15,10 @@
  */
 package org.bitstrings.maven.plugins.splasher;
 
-import org.bitstrings.maven.plugins.splasher.renderer.FlowLayoutRenderer;
 
 
 public class FlowLayout
-    extends DrawableGroup
+    extends DrawableContainer
 {
     public enum Alignment
     {
@@ -52,11 +51,5 @@ public class FlowLayout
     public void setAlignment( Alignment alignment )
     {
         this.alignment = alignment;
-    }
-
-    @Override
-    public DrawableRenderer<?> createDrawableRenderer()
-    {
-        return new FlowLayoutRenderer( this );
     }
 }
