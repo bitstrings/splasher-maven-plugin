@@ -15,7 +15,6 @@
  */
 package org.bitstrings.maven.plugins.splasher;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
@@ -31,7 +30,11 @@ import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
+import org.bitstrings.maven.plugins.splasher.renderer.CanvasRenderer;
 import org.codehaus.plexus.util.FileUtils;
+
+import com.google.common.collect.ImmutableSet;
+import com.google.common.reflect.ClassPath;
 
 @Mojo( name = "compose" )
 public class SplasherComposeMojo
@@ -46,20 +49,11 @@ public class SplasherComposeMojo
     @Parameter
     private Resource[] resources;
 
-    @Parameter
-    private Drawable[] draw;
-
     @Parameter( required = true )
     private File outputFile;
 
     @Parameter
     private String outputFormat;
-
-    protected BufferedImage image;
-
-    protected int canvasWidth;
-
-    protected int canvasHeight;
 
     protected GraphicsContext graphicsContext;
 
@@ -67,54 +61,37 @@ public class SplasherComposeMojo
     public void execute()
         throws MojoExecutionException, MojoFailureException
     {
-        if ( canvas.getBackgroundImageFile() != null )
+        if ( canvas == null )
         {
-            try
-            {
-                image = ImageIO.read( canvas.getBackgroundImageFile() );
-            }
-            catch ( IOException e )
-            {
-                throw new MojoExecutionException( "Unable to read background image file.", e );
-            }
-
-            if ( canvas.getWidth() <= 0 )
-            {
-                canvasWidth = image.getWidth();
-            }
-
-            if ( canvas.getHeight() <= 0 )
-            {
-                canvasHeight = image.getHeight();
-            }
+            return;
         }
 
-        if ( canvasWidth <= 0 )
-        {
-            canvasWidth = canvas.getWidth();
+        graphicsContext = new GraphicsContext();
 
-            if ( canvasWidth <= 0 )
+        try
+        {
+            final ClassPath classPath = ClassPath.from( Thread.currentThread().getContextClassLoader() );
+
+            ImmutableSet<ClassPath.ClassInfo> renderersClassInfo =
+                            classPath.getTopLevelClasses( this.getClass().getPackage().getName() + ".renderer" );
+
+            for ( ClassPath.ClassInfo classInfo : renderersClassInfo )
             {
-                throw new MojoExecutionException( "Canvas width must be greater than 0." );
+                if ( classInfo.getName().endsWith( "Renderer" ) )
+                {
+                    Class<?> c = classInfo.load();
+
+                    if ( DrawableRenderer.class.isAssignableFrom( c ) )
+                    {
+                        graphicsContext.registerDrawableRenderer( (Class<DrawableRenderer<? extends Drawable>>) c );
+                    }
+                }
             }
         }
-
-        if ( canvasHeight <= 0 )
+        catch ( Exception e )
         {
-            canvasHeight = canvas.getHeight();
-
-            if ( canvasHeight <= 0 )
-            {
-                throw new MojoExecutionException( "Canvas height must be greater than 0." );
-            }
+            throw new MojoFailureException( "Error initializing renderers.", e );
         }
-
-        if ( canvas.getBackgroundImageFile() == null )
-        {
-            image = new BufferedImage( canvasWidth, canvasHeight, BufferedImage.TYPE_INT_RGB );
-        }
-
-        graphicsContext = new GraphicsContext( canvasWidth, canvasHeight );
 
         if ( resources != null )
         {
@@ -124,43 +101,21 @@ public class SplasherComposeMojo
             }
         }
 
-        final Graphics2D g = image.createGraphics();
+        CanvasRenderer canvasRenderer = (CanvasRenderer) graphicsContext.createDrawableRenderer( canvas );
 
-        g.setRenderingHint( RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY );
-        g.setRenderingHint( RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY );
+        canvasRenderer.initRoot( canvas, graphicsContext );
+
+        BufferedImage image =
+                        new BufferedImage( canvasRenderer.width, canvasRenderer.height, BufferedImage.TYPE_INT_RGB );
+
+        final Graphics2D g = image.createGraphics();
 
         try
         {
-            if ( canvas.getColor() != null )
-            {
-                try
-                {
-                    g.setBackground( Color.decode( canvas.getColor() ) );
-                    g.clearRect( 0, 0, canvasWidth, canvasHeight );
-                }
-                catch ( NumberFormatException e )
-                {
-                    throw new MojoExecutionException( "Unable to decode color " + canvas.getColor() + ".", e );
-                }
-            }
+            g.setRenderingHint( RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY );
+            g.setRenderingHint( RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY );
 
-            for ( Drawable drawable : draw )
-            {
-                final Graphics2D dg = (Graphics2D) g.create();
-
-                try
-                {
-                    final DrawableRenderer<?> renderer = drawable.createDrawableRenderer();
-
-                    renderer.init( graphicsContext, g );
-
-                    renderer.draw( graphicsContext, g );
-                }
-                finally
-                {
-                    dg.dispose();
-                }
-            }
+            canvasRenderer.draw( graphicsContext, g );
 
             try
             {

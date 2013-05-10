@@ -57,38 +57,40 @@
                     <canvas>
                         <width>640</width>
                         <height>480</height>
-                        <color>#A9A9F0</color>
+                        <backgroundColor>#A9A9F0</backgroundColor>
+
+                        <draw>
+                            <drawImagesFromText>
+                                <text>12345</text>
+                                <imageNamePrefix>num</imageNamePrefix>
+                                <alignment>HORIZONTAL</alignment>
+                                <padding>12</padding>
+                                <position>center,top</position>
+                            </drawImagesFromText>
+
+                            <drawImagesFromText>
+                                <text>54321</text>
+                                <imageNamePrefix>num</imageNamePrefix>
+                                <alignment>VERTICAL</alignment>
+                                <padding>12</padding>
+                                <position>left,center</position>
+                            </drawImagesFromText>
+
+                            <flowLayout>
+                                <padding>12</padding>
+                                <position>center,bottom</position>
+                                <draw>
+                                    <drawImage>num1</drawImage>
+                                    <drawImage>num2</drawImage>
+                                    <drawImage>num3</drawImage>
+                                    <drawImage>num4</drawImage>
+                                    <drawImage>num5</drawImage>
+                                </draw>
+                            </flowLayout>
+                        </draw>
+
                     </canvas>
 
-                    <draw>
-                        <drawImagesFromText>
-                            <text>12345</text>
-                            <imageNamePrefix>num</imageNamePrefix>
-                            <alignment>HORIZONTAL</alignment>
-                            <padding>12</padding>
-                            <position>center,top</position>
-                        </drawImagesFromText>
-
-                        <drawImagesFromText>
-                            <text>54321</text>
-                            <imageNamePrefix>num</imageNamePrefix>
-                            <alignment>VERTICAL</alignment>
-                            <padding>12</padding>
-                            <position>left,center</position>
-                        </drawImagesFromText>
-
-                        <flowLayout>
-                            <padding>12</padding>
-                            <position>center,bottom</position>
-                            <draw>
-                                <drawImage>num1</drawImage>
-                                <drawImage>num2</drawImage>
-                                <drawImage>num3</drawImage>
-                                <drawImage>num4</drawImage>
-                                <drawImage>num5</drawImage>
-                            </draw>
-                        </flowLayout>
-                    </draw>
 
                 </configuration>
             </plugin>

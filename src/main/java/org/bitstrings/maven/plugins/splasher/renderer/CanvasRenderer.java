@@ -4,21 +4,19 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-import org.apache.commons.lang3.ClassUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.bitstrings.maven.plugins.splasher.Canvas;
-import org.bitstrings.maven.plugins.splasher.DrawableRenderer;
+import org.bitstrings.maven.plugins.splasher.DrawableMapped;
 import org.bitstrings.maven.plugins.splasher.GraphicsContext;
+import org.bitstrings.maven.plugins.splasher.PositionalLayout;
 
+@DrawableMapped( Canvas.class )
 public class CanvasRenderer
-    extends DrawableRenderer<Canvas>
+    extends PositionalLayoutRenderer
 {
     protected BufferedImage backgroundImage;
 
     protected Color backgroundColor;
-
-    protected static final Class<Canvas>[] DEFAULT_MAPPED_DRAWABLES =
-                                    (Class<Canvas>[]) ClassUtils.toClass( Canvas.class );
 
     public BufferedImage getBackgroundImage()
     {
@@ -40,20 +38,20 @@ public class CanvasRenderer
         this.backgroundColor = backgroundColor;
     }
 
-    @Override
-    public Class<? extends Canvas>[] getDefaultMappedDrawables()
+    public void initRoot( Canvas canvas, GraphicsContext context )
+        throws MojoExecutionException
     {
-        return DEFAULT_MAPPED_DRAWABLES;
+        init( canvas, context, null );
     }
 
     @Override
-    public void init( Canvas canvas, GraphicsContext context, Graphics2D g )
+    public void init( PositionalLayout layout, GraphicsContext context, Graphics2D g )
         throws MojoExecutionException
     {
+        Canvas canvas = (Canvas) layout;
+
         x = 0;
         y = 0;
-
-        super.init( canvas, context, g );
 
         if ( canvas.getBackgroundImageName() != null )
         {

@@ -54,34 +54,33 @@
                     <canvas>
                         <width>640</width>
                         <height>480</height>
-                        <color>#E0FFE0</color>
-                    </canvas>
-
-                    <draw>
-                        <drawText>
-                            <text>--&gt; Center &lt;--</text>
-                            <textColor>#000000</textColor>
-                            <fontAntialias>HRGB</fontAntialias>
-                            <fontName>font1</fontName>
-                            <fontSize>48</fontSize>
-                            <position>center,center</position>
-                        </drawText>
-                        <drawText>
-                            <text>:Top Left:</text>
-                            <textColor>#000000</textColor>
-                            <fontName>FreeMono</fontName>
-                            <fontSize>48</fontSize>
-                            <position>left,top</position>
-                        </drawText>
-                        <drawText>
-                            <text>:Bottom Right:</text>
-                            <textColor>#000077</textColor>
-                            <fontName>Serif</fontName>
-                            <fontStyle>italic,bold</fontStyle>
-                            <fontSize>32</fontSize>
-                            <position>right,bottom</position>
-                        </drawText>
+                        <backgroundColor>#E0FFE0</backgroundColor>
+                        <draw>
+                            <drawText>
+                                <text>--&gt; Center &lt;--</text>
+                                <textColor>#000000</textColor>
+                                <fontAntialias>HRGB</fontAntialias>
+                                <fontName>font1</fontName>
+                                <fontSize>48</fontSize>
+                                <position>center,center</position>
+                            </drawText>
+                            <drawText>
+                                <text>:Top Left:</text>
+                                <textColor>#000000</textColor>
+                                <fontName>FreeMono</fontName>
+                                <fontSize>48</fontSize>
+                                <position>left,top</position>
+                            </drawText>
+                            <drawText>
+                                <text>:Bottom Right:</text>
+                                <textColor>#000077</textColor>
+                                <fontName>Serif</fontName>
+                                <fontStyle>italic,bold</fontStyle>
+                                <fontSize>32</fontSize>
+                                <position>right,bottom</position>
+                            </drawText>
                     </draw>
+                    </canvas>
                 </configuration>
             </plugin>
         </plugins>

@@ -10,12 +10,13 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Rectangle2D;
 
-import org.apache.commons.lang3.ClassUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.bitstrings.maven.plugins.splasher.DrawText;
+import org.bitstrings.maven.plugins.splasher.DrawableMapped;
 import org.bitstrings.maven.plugins.splasher.DrawableRenderer;
 import org.bitstrings.maven.plugins.splasher.GraphicsContext;
 
+@DrawableMapped( DrawText.class )
 public class DrawTextRenderer
     extends DrawableRenderer<DrawText>
 {
@@ -30,15 +31,6 @@ public class DrawTextRenderer
     protected int fontSize;
 
     protected Object fontAntialias;
-
-    protected static final Class<DrawText>[] DEFAULT_MAPPED_DRAWABLES =
-                                (Class<DrawText>[]) ClassUtils.toClass( DrawText.class );
-
-    @Override
-    public Class<? extends DrawText>[] getDefaultMappedDrawables()
-    {
-        return DEFAULT_MAPPED_DRAWABLES;
-    }
 
     @Override
     public void init( DrawText drawable, GraphicsContext context, Graphics2D g )
@@ -89,6 +81,8 @@ public class DrawTextRenderer
     @Override
     public void draw( GraphicsContext context, Graphics2D g )
     {
+        super.draw( context, g );
+
         g.setColor( textColor );
 
         g.setRenderingHint( RenderingHints.KEY_TEXT_ANTIALIASING, fontAntialias );

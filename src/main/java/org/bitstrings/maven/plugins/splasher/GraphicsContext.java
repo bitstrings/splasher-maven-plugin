@@ -18,7 +18,6 @@ package org.bitstrings.maven.plugins.splasher;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -35,20 +34,11 @@ public class GraphicsContext
 
     protected final Map<String, BufferedImage> imageNameMap = new HashMap<String, BufferedImage>();
 
-    protected final Map<Class<? extends Drawable>, DrawableRenderer<? extends Drawable>> drawableToRendererMap
-            = new HashMap<Class<? extends Drawable>, DrawableRenderer<? extends Drawable>>();
-
-    protected final Rectangle canvasBounds;
-
-    public GraphicsContext( int canvasWidth, int canvasHeight )
-    {
-        this.canvasBounds = new Rectangle( canvasWidth, canvasHeight );
-    }
-
-    public Rectangle getCanvasBounds()
-    {
-        return canvasBounds;
-    }
+    protected final Map<Class<? extends Drawable>,
+                                    Class<? extends DrawableRenderer>>
+            drawableToRendererMap
+                    = new HashMap<Class<? extends Drawable>,
+                                            Class<? extends DrawableRenderer>>();
 
     public GraphicsEnvironment getGraphicsEnvironment()
     {
@@ -91,27 +81,42 @@ public class GraphicsContext
         return imageNameMap.get( name );
     }
 
-    public <T extends Drawable> void registerDrawableRenderer(
-                                              Class<T> drawableClass, DrawableRenderer<? super T> renderer )
+    public void registerDrawableRenderer(
+                      Class<? extends Drawable> drawableClass,
+                      Class<? extends DrawableRenderer> renderer )
     {
         drawableToRendererMap.put( drawableClass, renderer );
     }
 
-    public <T extends Drawable> void registerDrawableRenderer( DrawableRenderer<T> renderer )
+    public void registerDrawableRenderer( Class<? extends DrawableRenderer> rendererClass )
     {
-        for ( Class<? extends T> drawableClass : renderer.getDefaultMappedDrawables() )
+        DrawableMapped drawableMapped = rendererClass.getAnnotation( DrawableMapped.class );
+
+        if ( drawableMapped == null )
         {
-            registerDrawableRenderer( drawableClass, renderer );
+            return;
+        }
+
+        for ( Class<? extends Drawable> drawableClass : drawableMapped.value() )
+        {
+            registerDrawableRenderer( drawableClass, rendererClass );
         }
     }
 
-    public <T extends Drawable> DrawableRenderer<? super T> getDrawableRenderer( Class<T> drawableClass )
+    public DrawableRenderer<? extends Drawable> createDrawableRenderer( Class<? extends Drawable> drawableClass )
     {
-        return (DrawableRenderer<? super T>) drawableToRendererMap.get( drawableClass );
+        try
+        {
+            return drawableToRendererMap.get( drawableClass ).newInstance();
+        }
+        catch ( Exception e )
+        {
+            throw new IllegalArgumentException( "Unable to create renderer for " + drawableClass, e );
+        }
     }
 
-    public <T extends Drawable> DrawableRenderer<? extends Drawable> getDrawableRenderer( T drawable )
+    public DrawableRenderer<? extends Drawable> createDrawableRenderer( Drawable drawable )
     {
-        return getDrawableRenderer( drawable.getClass() );
+        return createDrawableRenderer( drawable.getClass() );
     }
 }

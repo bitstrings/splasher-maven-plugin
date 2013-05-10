@@ -46,9 +46,6 @@ public abstract class DrawableRenderer<T extends Drawable>
         return height;
     }
 
-    public abstract Class<? extends T>[] getDefaultMappedDrawables();
-
-
     public void init( T drawable, GraphicsContext context, Graphics2D g )
         throws MojoExecutionException
     {

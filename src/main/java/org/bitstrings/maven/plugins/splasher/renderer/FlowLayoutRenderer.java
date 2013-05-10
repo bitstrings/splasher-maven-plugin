@@ -4,13 +4,14 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.ClassUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.bitstrings.maven.plugins.splasher.Drawable;
+import org.bitstrings.maven.plugins.splasher.DrawableMapped;
 import org.bitstrings.maven.plugins.splasher.DrawableRenderer;
 import org.bitstrings.maven.plugins.splasher.FlowLayout;
 import org.bitstrings.maven.plugins.splasher.GraphicsContext;
 
+@DrawableMapped( FlowLayout.class )
 public class FlowLayoutRenderer
     extends DrawableRenderer<FlowLayout>
 {
@@ -19,9 +20,6 @@ public class FlowLayoutRenderer
     protected FlowLayout.Alignment alignment;
 
     protected int padding;
-
-    protected static final Class<FlowLayout>[] DEFAULT_MAPPED_DRAWABLES =
-                                (Class<FlowLayout>[]) ClassUtils.toClass( FlowLayout.class );
 
     public FlowLayout.Alignment getAlignment()
     {
@@ -44,12 +42,6 @@ public class FlowLayoutRenderer
     }
 
     @Override
-    public Class<? extends FlowLayout>[] getDefaultMappedDrawables()
-    {
-        return DEFAULT_MAPPED_DRAWABLES;
-    }
-
-    @Override
     public void init( FlowLayout drawable, GraphicsContext context, Graphics2D g )
         throws MojoExecutionException
     {
@@ -62,7 +54,7 @@ public class FlowLayoutRenderer
                 for ( Drawable d : drawable.getDraw() )
                 {
                     final DrawableRenderer<Drawable> renderer =
-                                    (DrawableRenderer<Drawable>) context.getDrawableRenderer( d );
+                                    (DrawableRenderer<Drawable>) context.createDrawableRenderer( d );
 
                     renderer.init( d, context, g );
 
@@ -85,7 +77,7 @@ public class FlowLayoutRenderer
                 for ( Drawable d : drawable.getDraw() )
                 {
                     final DrawableRenderer<Drawable> renderer =
-                                    (DrawableRenderer<Drawable>) context.getDrawableRenderer( d );
+                                    (DrawableRenderer<Drawable>) context.createDrawableRenderer( d );
 
                     renderer.init( d, context, g );
 
@@ -113,55 +105,57 @@ public class FlowLayoutRenderer
     @Override
     public void draw( GraphicsContext context, Graphics2D g )
     {
-            int offset = 0;
+        super.draw( context, g );
 
-            switch ( alignment )
-            {
-                case HORIZONTAL:
+        int offset = 0;
 
-                    for ( DrawableRenderer<?> renderer : renderers )
+        switch ( alignment )
+        {
+            case HORIZONTAL:
+
+                for ( DrawableRenderer<?> renderer : renderers )
+                {
+                    Graphics2D sg =
+                            (Graphics2D) g.create(
+                                renderer.x + x + offset, renderer.y + y,
+                                g.getDeviceConfiguration().getBounds().width,
+                                g.getDeviceConfiguration().getBounds().height );
+                    try
                     {
-                        Graphics2D sg =
-                                (Graphics2D) g.create(
-                                    renderer.x + x + offset, renderer.y + y,
-                                    g.getDeviceConfiguration().getBounds().width,
-                                    g.getDeviceConfiguration().getBounds().height );
-                        try
-                        {
-                            renderer.draw( context, sg );
+                        renderer.draw( context, sg );
 
-                            offset += renderer.width + padding;
-                        }
-                        finally
-                        {
-                            sg.dispose();
-                        }
+                        offset += renderer.width + padding;
                     }
-
-                    break;
-
-                case VERTICAL:
-
-                    for ( DrawableRenderer<?> renderer : renderers )
+                    finally
                     {
-                        Graphics2D sg =
-                                (Graphics2D) g.create(
-                                    renderer.x + x, renderer.y + y + offset,
-                                    g.getDeviceConfiguration().getBounds().width,
-                                    g.getDeviceConfiguration().getBounds().height );
-                        try
-                        {
-                            renderer.draw( context, sg );
-
-                            offset += renderer.height + padding;
-                        }
-                        finally
-                        {
-                            sg.dispose();
-                        }
+                        sg.dispose();
                     }
+                }
 
-                    break;
-            }
+                break;
+
+            case VERTICAL:
+
+                for ( DrawableRenderer<?> renderer : renderers )
+                {
+                    Graphics2D sg =
+                            (Graphics2D) g.create(
+                                renderer.x + x, renderer.y + y + offset,
+                                g.getDeviceConfiguration().getBounds().width,
+                                g.getDeviceConfiguration().getBounds().height );
+                    try
+                    {
+                        renderer.draw( context, sg );
+
+                        offset += renderer.height + padding;
+                    }
+                    finally
+                    {
+                        sg.dispose();
+                    }
+                }
+
+                break;
+        }
     }
 }
