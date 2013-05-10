@@ -15,6 +15,12 @@
  */
 package org.bitstrings.maven.plugins.splasher;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+
+import org.apache.maven.plugin.MojoExecutionException;
+
 
 public class Canvas
     extends PositionalLayout
@@ -26,6 +32,10 @@ public class Canvas
     private String backgroundColor;
 
     // ]--
+
+    protected BufferedImage dwBackgroundImage;
+
+    protected Color dwBackgroundColor;
 
     public String getBackgroundImageName()
     {
@@ -45,5 +55,57 @@ public class Canvas
     public void setBackgroundColor( String backgroundColor )
     {
         this.backgroundColor = backgroundColor;
+    }
+
+    @Override
+    public void init( Graphics2D g )
+        throws MojoExecutionException
+    {
+        super.init( g );
+
+        if ( backgroundImageName != null )
+        {
+            dwBackgroundImage = dwContext.getImage( backgroundImageName );
+
+            dwBounds.width = dwBackgroundImage.getWidth();
+
+            dwBounds.height = dwBackgroundImage.getHeight();
+        }
+
+        if ( ( dwBounds.width < 0 ) || ( dwBounds.height < 0 ) )
+        {
+            throw new MojoExecutionException(
+                                "Canvas size is weird -- width: " + dwBounds.width + ", height: " + dwBounds.height );
+        }
+
+        if ( backgroundColor != null )
+        {
+            try
+            {
+                dwBackgroundColor = Color.decode( backgroundColor );
+            }
+            catch ( Exception e )
+            {
+                throw new MojoExecutionException( "Illegal canvas color " + backgroundColor, e );
+            }
+        }
+    }
+
+    @Override
+    public void draw( Graphics2D g )
+    {
+        if ( dwBackgroundColor != null )
+        {
+            g.setBackground( dwBackgroundColor );
+
+            g.clearRect( dwBounds.x, dwBounds.y, dwBounds.width, dwBounds.height );
+        }
+
+        if ( dwBackgroundImage != null )
+        {
+            g.drawImage( dwBackgroundImage, dwBounds.x, dwBounds.y, null );
+        }
+
+        super.draw( g );
     }
 }

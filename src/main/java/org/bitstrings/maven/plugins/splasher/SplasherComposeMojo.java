@@ -55,7 +55,7 @@ public class SplasherComposeMojo
     @Parameter
     private String outputFormat;
 
-    protected GraphicsContext graphicsContext;
+    protected DrawingContext graphicsContext;
 
     @Override
     public void execute()
@@ -66,7 +66,7 @@ public class SplasherComposeMojo
             return;
         }
 
-        graphicsContext = new GraphicsContext();
+        graphicsContext = new DrawingContext();
 
         try
         {

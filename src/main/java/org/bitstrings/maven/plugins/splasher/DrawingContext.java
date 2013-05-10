@@ -26,19 +26,13 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-public class GraphicsContext
+public class DrawingContext
 {
     protected final GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
 
     protected final Map<String, String> fontNameMap = new HashMap<String, String>();
 
     protected final Map<String, BufferedImage> imageNameMap = new HashMap<String, BufferedImage>();
-
-    protected final Map<Class<? extends Drawable>,
-                                    Class<? extends DrawableRenderer>>
-            drawableToRendererMap
-                    = new HashMap<Class<? extends Drawable>,
-                                            Class<? extends DrawableRenderer>>();
 
     public GraphicsEnvironment getGraphicsEnvironment()
     {
@@ -79,44 +73,5 @@ public class GraphicsContext
     public BufferedImage getImage( String name )
     {
         return imageNameMap.get( name );
-    }
-
-    public void registerDrawableRenderer(
-                      Class<? extends Drawable> drawableClass,
-                      Class<? extends DrawableRenderer> renderer )
-    {
-        drawableToRendererMap.put( drawableClass, renderer );
-    }
-
-    public void registerDrawableRenderer( Class<? extends DrawableRenderer> rendererClass )
-    {
-        DrawableMapped drawableMapped = rendererClass.getAnnotation( DrawableMapped.class );
-
-        if ( drawableMapped == null )
-        {
-            return;
-        }
-
-        for ( Class<? extends Drawable> drawableClass : drawableMapped.value() )
-        {
-            registerDrawableRenderer( drawableClass, rendererClass );
-        }
-    }
-
-    public DrawableRenderer<? extends Drawable> createDrawableRenderer( Class<? extends Drawable> drawableClass )
-    {
-        try
-        {
-            return drawableToRendererMap.get( drawableClass ).newInstance();
-        }
-        catch ( Exception e )
-        {
-            throw new IllegalArgumentException( "Unable to create renderer for " + drawableClass, e );
-        }
-    }
-
-    public DrawableRenderer<? extends Drawable> createDrawableRenderer( Drawable drawable )
-    {
-        return createDrawableRenderer( drawable.getClass() );
     }
 }

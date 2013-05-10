@@ -11,6 +11,6 @@ public abstract class Resource
         return name;
     }
 
-    public abstract void register( GraphicsContext context )
+    public abstract void register( DrawingContext context )
         throws MojoExecutionException;
 }

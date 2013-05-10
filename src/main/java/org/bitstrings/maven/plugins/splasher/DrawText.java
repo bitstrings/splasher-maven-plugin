@@ -15,8 +15,17 @@
  */
 package org.bitstrings.maven.plugins.splasher;
 
+import static org.bitstrings.maven.plugins.splasher.DrawingUtil.decodeFontStyle;
+import static org.bitstrings.maven.plugins.splasher.DrawingUtil.decodePositionAndSetBounds;
+
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.geom.Rectangle2D;
+
+import org.apache.maven.plugin.MojoExecutionException;
 
 public class DrawText
     extends Drawable
@@ -61,6 +70,10 @@ public class DrawText
     public boolean useBaseline = false;
 
     // ]--
+
+    protected Font dwFont;
+
+    protected Color dwTextColor;
 
     public String getText()
     {
@@ -130,5 +143,63 @@ public class DrawText
     public void setUseBaseline( boolean useBaseline )
     {
         this.useBaseline = useBaseline;
+    }
+
+    @Override
+    public void init( Graphics2D g )
+        throws MojoExecutionException
+    {
+        int dwFontStyle;
+
+        try
+        {
+            dwFontStyle = decodeFontStyle( fontStyle );
+        }
+        catch ( IllegalArgumentException e )
+        {
+            throw new MojoExecutionException( "Illegal font style " + fontStyle + ".", e );
+        }
+
+        dwFont = dwContext.getFont( fontName, dwFontStyle, fontSize );
+
+        FontMetrics metrics = g.getFontMetrics( dwFont );
+
+        Rectangle2D textBounds = metrics.getStringBounds( text, g );
+
+        dwBounds.width = (int) textBounds.getWidth();
+
+        dwBounds.height = (int) textBounds.getHeight();
+
+        decodePositionAndSetBounds(
+                getPosition(),
+                dwBounds.width, dwBounds.height,
+                g.getDeviceConfiguration().getBounds(),
+                0, ( isUseBaseline() ? 0 : metrics.getAscent() ),
+                dwBounds );
+
+        try
+        {
+            dwTextColor = Color.decode( textColor );
+        }
+        catch ( NumberFormatException e )
+        {
+            throw new MojoExecutionException( "Unable to decode color " + textColor + ".", e );
+        }
+
+        super.init( g );
+    }
+
+    @Override
+    public void draw( Graphics2D g )
+    {
+        super.draw( g );
+
+        g.setRenderingHint( RenderingHints.KEY_TEXT_ANTIALIASING, fontAntialias.getType() );
+
+        g.setColor( dwTextColor );
+
+        g.setFont( dwFont );
+
+        g.drawString( text, dwBounds.x, dwBounds.y );
     }
 }

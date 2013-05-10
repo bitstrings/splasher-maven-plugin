@@ -20,7 +20,7 @@ import java.awt.Rectangle;
 
 import org.codehaus.plexus.util.StringUtils;
 
-public final class GraphicsUtil
+public final class DrawingUtil
 {
     private static final String POSITION_CENTER_STR = "center";
 
@@ -51,26 +51,28 @@ public final class GraphicsUtil
         }
     }
 
-    private GraphicsUtil() {}
+    private DrawingUtil() {}
 
-    public static void decodePositionAndSetXY(
-                               String position,
-                               DrawableRenderer renderer,
-                               Rectangle bounds,
-                               int xOffset, int yOffset )
+    public static void decodePositionAndSetBounds(
+                                String position,
+                                int width, int height,
+                                Rectangle containerBounds,
+                                Rectangle targetBounds )
     {
-        int[] xy = decodePair(
-                        position,
-                        renderer.width, renderer.height,
-                        bounds );
-
-        renderer.x = ( xy[0] + xOffset );
-        renderer.y = ( xy[1] + yOffset );
+        decodePositionAndSetBounds( position, width, height, containerBounds, 0, 0, targetBounds );
     }
 
-    public static void decodePositionAndSetXY( String position, DrawableRenderer renderer, Rectangle bounds )
+    public static void decodePositionAndSetBounds(
+                                String position,
+                                int width, int height,
+                                Rectangle containerBounds,
+                                int xOffset, int yOffset,
+                                Rectangle targetBounds )
     {
-        decodePositionAndSetXY( position, renderer, bounds, 0, 0 );
+        int[] xy = decodePair( position, width, height, containerBounds );
+
+        targetBounds.x = ( xy[0] + xOffset );
+        targetBounds.y = ( xy[1] + yOffset );
     }
 
     public static int[] decodePair( String pair )
@@ -108,7 +110,7 @@ public final class GraphicsUtil
         return parsedSeries;
     }
 
-    public static int[] decodePair( String pair, int width, int height, Rectangle bounds )
+    public static int[] decodePair( String pair, int width, int height, Rectangle containerBounds )
         throws IllegalArgumentException
     {
         final int[] coordinates = new int[2];
@@ -124,7 +126,7 @@ public final class GraphicsUtil
 
         if ( xy[0].equals( POSITION_CENTER_STR ) )
         {
-            coordinates[0] = ( ( bounds.width - width ) >> 1 ) + bounds.x;
+            coordinates[0] = ( ( containerBounds.width - width ) >> 1 ) + containerBounds.x;
         }
         else if ( xy[0].equals( POSITION_LEFT_STR ) )
         {
@@ -132,7 +134,7 @@ public final class GraphicsUtil
         }
         else if ( xy[0].equals( POSITION_RIGHT_STR ) )
         {
-            coordinates[0] = bounds.width - width;
+            coordinates[0] = containerBounds.width - width;
         }
         else
         {
@@ -150,7 +152,7 @@ public final class GraphicsUtil
 
         if ( xy[1].equals( POSITION_CENTER_STR ) )
         {
-            coordinates[1] = ( ( bounds.height - height ) >> 1 ) + bounds.y;
+            coordinates[1] = ( ( containerBounds.height - height ) >> 1 ) + containerBounds.y;
         }
         else if ( xy[1].equals( POSITION_TOP_STR ) )
         {
@@ -158,7 +160,7 @@ public final class GraphicsUtil
         }
         else if ( xy[1].equals( POSITION_BOTTOM_STR ) )
         {
-            coordinates[1] = bounds.height - height;
+            coordinates[1] = containerBounds.height - height;
         }
         else
         {

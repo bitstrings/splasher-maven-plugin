@@ -43,7 +43,7 @@ public class AlphaNumImageMapper
     }
 
     @Override
-    public void register( GraphicsContext context )
+    public void register( DrawingContext context )
         throws MojoExecutionException
     {
         for ( String range : StringUtils.split( ranges, ',' ) )
@@ -97,7 +97,7 @@ public class AlphaNumImageMapper
         }
     }
 
-    protected void registerNumericRange( int from, int to, GraphicsContext context )
+    protected void registerNumericRange( int from, int to, DrawingContext context )
         throws MojoExecutionException
     {
         do
@@ -116,7 +116,7 @@ public class AlphaNumImageMapper
         while ( ++from <= to );
     }
 
-    protected void registerCharRange( char from, char to, GraphicsContext context )
+    protected void registerCharRange( char from, char to, DrawingContext context )
         throws MojoExecutionException
     {
         do

@@ -15,7 +15,9 @@
  */
 package org.bitstrings.maven.plugins.splasher;
 
+import java.awt.Graphics2D;
 
+import org.apache.maven.plugin.MojoExecutionException;
 
 public class FlowLayout
     extends DrawableContainer
@@ -51,5 +53,133 @@ public class FlowLayout
     public void setAlignment( Alignment alignment )
     {
         this.alignment = alignment;
+    }
+
+    @Override
+    public void init( Graphics2D g )
+        throws MojoExecutionException
+    {
+        switch ( alignment )
+        {
+            case HORIZONTAL:
+
+                for ( Drawable d : getDraw() )
+                {
+                    d.setDrawingContext( dwContext );
+
+                    Graphics2D sg = (Graphics2D) g.create();
+
+                    try
+                    {
+                        d.init( sg );
+                    }
+                    finally
+                    {
+                        sg.dispose();
+                    }
+
+                    dwBounds.width += d.getBounds().width;
+
+                    dwBounds.height = Math.max( d.getBounds().height, dwBounds.height );
+                }
+
+                if ( getDraw().size() > 1 )
+                {
+                    dwBounds.width += padding * ( getDraw().size() - 1 );
+                }
+
+                break;
+
+            case VERTICAL:
+
+                for ( Drawable d : getDraw() )
+                {
+                    d.setDrawingContext( dwContext );
+
+                    Graphics2D sg = (Graphics2D) g.create();
+
+                    try
+                    {
+                        d.init( sg );
+                    }
+                    finally
+                    {
+                        sg.dispose();
+                    }
+
+                    dwBounds.height += d.getBounds().height;
+
+                    dwBounds.width = Math.max( d.getBounds().width, dwBounds.width );
+                }
+
+                if ( getDraw().size() > 1 )
+                {
+                    dwBounds.height += padding * ( getDraw().size() - 1 );
+                }
+
+                break;
+
+            default:
+                throw new MojoExecutionException( "Unknown alignment " + alignment );
+        }
+
+        super.init( g );
+    }
+
+    @Override
+    public void draw( Graphics2D g )
+    {
+        super.draw( g );
+
+        int offset = 0;
+
+        switch ( alignment )
+        {
+            case HORIZONTAL:
+
+                for ( Drawable d : getDraw() )
+                {
+                    Graphics2D sg =
+                            (Graphics2D) g.create(
+                                d.getBounds().x + dwBounds.x + offset, d.getBounds().y + dwBounds.y,
+                                g.getDeviceConfiguration().getBounds().width,
+                                g.getDeviceConfiguration().getBounds().height );
+                    try
+                    {
+                        d.draw( sg );
+
+                        offset += d.getBounds().width + padding;
+                    }
+                    finally
+                    {
+                        sg.dispose();
+                    }
+                }
+
+                break;
+
+            case VERTICAL:
+
+                for ( Drawable d : getDraw() )
+                {
+                    Graphics2D sg =
+                            (Graphics2D) g.create(
+                                d.getBounds().x + dwBounds.x, d.getBounds().y + dwBounds.y + offset,
+                                g.getDeviceConfiguration().getBounds().width,
+                                g.getDeviceConfiguration().getBounds().height );
+                    try
+                    {
+                        d.draw( sg );
+
+                        offset += d.getBounds().height + padding;
+                    }
+                    finally
+                    {
+                        sg.dispose();
+                    }
+                }
+
+                break;
+        }
     }
 }

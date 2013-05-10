@@ -15,6 +15,11 @@
  */
 package org.bitstrings.maven.plugins.splasher;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+
+import org.apache.maven.plugin.MojoExecutionException;
+
 
 public class DrawImage
     extends Drawable
@@ -24,6 +29,8 @@ public class DrawImage
     private String imageName;
 
     // ]--
+
+    protected BufferedImage dwImage;
 
     public String getImageName()
     {
@@ -38,5 +45,26 @@ public class DrawImage
     public void set( String imageName )
     {
         this.imageName = imageName;
+    }
+
+    @Override
+    public void init( Graphics2D g )
+        throws MojoExecutionException
+    {
+        dwImage = dwContext.getImage( imageName );
+
+        dwBounds.width = dwImage.getWidth();
+
+        dwBounds.height = dwImage.getHeight();
+
+        super.init( g );
+    }
+
+    @Override
+    public void draw( Graphics2D g )
+    {
+        super.draw( g );
+
+        g.drawImage( dwImage, dwBounds.x, dwBounds.y, null );
     }
 }

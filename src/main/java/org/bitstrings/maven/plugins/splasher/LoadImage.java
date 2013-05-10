@@ -39,7 +39,7 @@ public class LoadImage
     }
 
     @Override
-    public void register( GraphicsContext context )
+    public void register( DrawingContext context )
         throws MojoExecutionException
     {
         try
