@@ -32,24 +32,39 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.FileUtils;
 
-@Mojo( name = "compose" )
+/**
+ * Compose a splash screen.
+ */
+@Mojo( name = "compose", threadSafe = true )
 public class SplasherComposeMojo
     extends AbstractMojo
 {
     @Component
     private MavenProject project;
 
+    /**
+     * Canvas.
+     */
     @Parameter( required = true )
     private Canvas canvas;
 
+    /**
+     * Drawable Resources.
+     */
     @Parameter
     private Resource[] resources;
 
+    /**
+     * Output image file.
+     */
     @Parameter( required = true )
-    private File outputFile;
+    private File outputImageFile;
 
+    /**
+     * Output image type.
+     */
     @Parameter
-    private String outputFormat;
+    private String outputImageFormat;
 
     protected DrawingContext graphicsContext;
 
@@ -95,11 +110,11 @@ public class SplasherComposeMojo
         try
         {
             File properOutputFile =
-                            outputFile.isAbsolute()
-                                    ? outputFile
+                            outputImageFile.isAbsolute()
+                                    ? outputImageFile
                                     : new File(
                                             new File( project.getBuild().getOutputDirectory() ),
-                                            outputFile.toString() );
+                                            outputImageFile.toString() );
 
             File outputFileDirectory = properOutputFile.getParentFile();
 
@@ -110,9 +125,9 @@ public class SplasherComposeMojo
 
             ImageIO.write(
                         surface,
-                        outputFormat == null
+                        outputImageFormat == null
                                 ? FileUtils.extension( properOutputFile.getName() )
-                                : outputFormat,
+                                : outputImageFormat,
                         properOutputFile );
         }
         catch ( IOException e )

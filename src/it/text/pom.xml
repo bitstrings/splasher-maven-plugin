@@ -53,7 +53,7 @@
                         </loadFont>
                     </resources>
 
-                    <outputFile>image.png</outputFile>
+                    <outputImageFile>image.png</outputImageFile>
 
                     <canvas>
                         <size>640x480</size>
