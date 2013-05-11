@@ -55,8 +55,7 @@
                     <outputFile>image.png</outputFile>
 
                     <canvas>
-                        <width>640</width>
-                        <height>480</height>
+                        <size>640x480</size>
                         <backgroundColor>#A9A9F0</backgroundColor>
 
                         <draw>

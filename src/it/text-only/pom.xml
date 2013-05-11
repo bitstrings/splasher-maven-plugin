@@ -52,8 +52,7 @@
                     <outputFile>image.png</outputFile>
 
                     <canvas>
-                        <width>640</width>
-                        <height>480</height>
+                        <size>640x480</size>
                         <backgroundColor>#E0FFE0</backgroundColor>
                         <draw>
                             <drawText>
@@ -63,6 +62,7 @@
                                 <fontName>font1</fontName>
                                 <fontSize>48</fontSize>
                                 <position>center,center</position>
+                                <useBaseline>true</useBaseline>
                             </drawText>
                             <drawText>
                                 <text>:Top Left:</text>
