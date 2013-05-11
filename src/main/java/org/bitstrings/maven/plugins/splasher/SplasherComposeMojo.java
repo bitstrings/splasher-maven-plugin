@@ -43,25 +43,37 @@ public class SplasherComposeMojo
     private MavenProject project;
 
     /**
-     * Canvas.
+     * The canvas.
      */
     @Parameter( required = true )
     private Canvas canvas;
 
     /**
-     * Drawable Resources.
+     * Resources declaration used for drawing on canvas.
+     *
+     * <pre>
+     * Example:
+     *     &lt;resources&gt;
+     *       &lt;loadImage&gt;
+     *         &lt;imageFile&gt;logo.png&lt;/imageFile&gt;
+     *         &lt;name&gt;logo&lt;/name&gt;
+     *       &lt;/loadImage&gt;
+     *     &lt;/resources&gt;
+     * </pre>
      */
     @Parameter
     private Resource[] resources;
 
     /**
-     * Output image file.
+     * Output image file. If the image format is not explicitly specified then the file extension is used.
      */
     @Parameter( required = true )
     private File outputImageFile;
 
     /**
-     * Output image type.
+     * Output image type. The supported formats are those of the JDK in use.
+     *
+     * i.e.: Java 7 supports GIF, PNG, JPG
      */
     @Parameter
     private String outputImageFormat;
