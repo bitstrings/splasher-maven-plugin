@@ -29,7 +29,7 @@ public class FlowLayout
 
     // - parameters --[
 
-    private int padding;
+    private int padding = 0;
 
     private Alignment alignment = Alignment.HORIZONTAL;
 
