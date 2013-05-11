@@ -19,7 +19,7 @@
 -->
 <project xmlns="http://maven.apache.org/DECORATION/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.0 http://maven.apache.org/xsd/decoration-1.0.0.xsd"
-         name="Maven dependency path Plugin">
+         name="Maven Splasher Plugin">
 
     <bannerLeft>
         <name>bitstring.org</name>
@@ -37,9 +37,9 @@
         </menu>
 
         <menu name="Reference">
-            <item name="Canvas" href="ref-canvas.html" />
-            <item name="Resources" href="ref-resources.html" />
-            <item name="Drawables" href="ref-drawables.html#loadimage" />
+            <item name="Canvas" href="reference#Canvas.html" />
+            <item name="Resources" href="reference#resources.html" />
+            <item name="Drawables" href="reference#drawables.html" />
         </menu>
 
         <menu ref="reports"/>
