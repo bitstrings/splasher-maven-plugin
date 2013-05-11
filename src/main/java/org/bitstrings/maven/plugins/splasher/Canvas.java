@@ -75,10 +75,11 @@ public class Canvas
 
                 dwBounds.height = dwSurface.getHeight();
             }
-            else
-            {
-                dwSurface = new BufferedImage( dwBounds.width, dwBounds.height, BufferedImage.TYPE_INT_ARGB );
-            }
+        }
+
+        if ( dwSurface == null )
+        {
+            dwSurface = new BufferedImage( dwBounds.width, dwBounds.height, BufferedImage.TYPE_INT_ARGB );
         }
 
         return dwSurface;
