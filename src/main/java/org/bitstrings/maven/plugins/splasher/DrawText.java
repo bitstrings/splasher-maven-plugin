@@ -55,7 +55,7 @@ public class DrawText
 
     // - parameters --[
 
-    private String text;
+    private String text = "";
 
     private String textColor = "#000000";
 
@@ -185,8 +185,6 @@ public class DrawText
         {
             throw new MojoExecutionException( "Unable to decode color " + textColor + ".", e );
         }
-
-        super.init( g );
     }
 
     @Override
