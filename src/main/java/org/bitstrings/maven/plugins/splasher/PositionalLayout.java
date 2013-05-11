@@ -53,10 +53,8 @@ public class PositionalLayout
     }
 
     @Override
-    public void draw( Graphics2D g )
+    public void render( Graphics2D g )
     {
-        super.draw( g );
-
         for ( Drawable d : getDraw() )
         {
             Graphics2D sg = (Graphics2D) g.create( dwBounds.x, dwBounds.y, dwBounds.width, dwBounds.height );

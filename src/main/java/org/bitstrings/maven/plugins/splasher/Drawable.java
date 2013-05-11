@@ -28,7 +28,7 @@ public abstract class Drawable
 
     private String position = "0,0";
 
-    private boolean isVisible;
+    private boolean isVisible = true;
 
     // ] --
 
@@ -88,5 +88,9 @@ public abstract class Drawable
         {
             return;
         }
+
+        render( g );
     }
+
+    public abstract void render( Graphics2D g );
 }

@@ -43,6 +43,10 @@
                 <version>@project.version@</version>
                 <configuration>
                     <resources>
+                        <loadImage>
+                            <imageFile>@basedir@/src/it/resources/crosshair.png</imageFile>
+                            <name>crosshair</name>
+                        </loadImage>
                         <loadFont>
                             <fontFile>@basedir@/src/it/resources/FreeMono.ttf</fontFile>
                             <name>font1</name>
@@ -55,6 +59,10 @@
                         <size>640x480</size>
                         <backgroundColor>#E0FFE0</backgroundColor>
                         <draw>
+                            <drawImage>
+                                <imageName>crosshair</imageName>
+                                <position>center,center</position>
+                            </drawImage>
                             <drawText>
                                 <text>--&gt; Center &lt;--</text>
                                 <textColor>#000000</textColor>
@@ -62,7 +70,6 @@
                                 <fontName>font1</fontName>
                                 <fontSize>48</fontSize>
                                 <position>center,center</position>
-                                <useBaseline>true</useBaseline>
                             </drawText>
                             <drawText>
                                 <text>:Top Left:</text>
@@ -79,7 +86,7 @@
                                 <fontSize>32</fontSize>
                                 <position>right,bottom</position>
                             </drawText>
-                    </draw>
+                        </draw>
                     </canvas>
                 </configuration>
             </plugin>

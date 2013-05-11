@@ -83,10 +83,8 @@ public class DrawImagesFromText
     }
 
     @Override
-    public void draw( Graphics2D g )
+    public void render( Graphics2D g )
     {
-        super.draw( g );
-
         Graphics2D sg = (Graphics2D) g.create();
 
         try

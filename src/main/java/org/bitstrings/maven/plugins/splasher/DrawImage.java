@@ -61,10 +61,8 @@ public class DrawImage
     }
 
     @Override
-    public void draw( Graphics2D g )
+    public void render( Graphics2D g )
     {
-        super.draw( g );
-
         g.drawImage( dwImage, dwBounds.x, dwBounds.y, null );
     }
 }

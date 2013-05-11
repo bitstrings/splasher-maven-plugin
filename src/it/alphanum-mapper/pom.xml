@@ -50,6 +50,10 @@
                             <ranges>1-5</ranges>
                             <namePrefix>num</namePrefix>
                         </alphaNumImageMapper>
+                        <loadImage>
+                            <imageFile>@basedir@/src/it/resources/crosshair.png</imageFile>
+                            <name>crosshair</name>
+                        </loadImage>
                     </resources>
 
                     <outputFile>image.png</outputFile>
@@ -59,6 +63,10 @@
                         <backgroundColor>#A9A9F0</backgroundColor>
 
                         <draw>
+                            <drawImage>
+                                <imageName>crosshair</imageName>
+                                <position>center,center</position>
+                            </drawImage>
                             <drawImagesFromText>
                                 <text>12345</text>
                                 <imageNamePrefix>num</imageNamePrefix>

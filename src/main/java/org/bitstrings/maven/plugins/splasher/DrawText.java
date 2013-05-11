@@ -188,10 +188,8 @@ public class DrawText
     }
 
     @Override
-    public void draw( Graphics2D g )
+    public void render( Graphics2D g )
     {
-        super.draw( g );
-
         g.setRenderingHint( RenderingHints.KEY_TEXT_ANTIALIASING, fontAntialias.getType() );
 
         g.setColor( dwTextColor );
