@@ -37,7 +37,9 @@
         </menu>
 
         <menu name="Reference">
-            <item name="PropertySet" href="propertyset-reference.html" />
+            <item name="Canvas" href="ref-canvas.html" />
+            <item name="Resources" href="ref-resources.html" />
+            <item name="Drawables" href="ref-drawables.html#loadimage" />
         </menu>
 
         <menu ref="reports"/>
