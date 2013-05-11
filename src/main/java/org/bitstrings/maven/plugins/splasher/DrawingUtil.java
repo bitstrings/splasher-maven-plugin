@@ -15,10 +15,10 @@
  */
 package org.bitstrings.maven.plugins.splasher;
 
+import static org.codehaus.plexus.util.StringUtils.split;
+
 import java.awt.Font;
 import java.awt.Rectangle;
-
-import org.codehaus.plexus.util.StringUtils;
 
 public final class DrawingUtil
 {
@@ -78,10 +78,22 @@ public final class DrawingUtil
     public static int[] decodePair( String pair )
         throws IllegalArgumentException
     {
-        return decodeSeries( pair,  2 );
+        return decodeSeries( pair, 2 );
+    }
+
+    public static int[] decodeSize( String pair )
+                    throws IllegalArgumentException
+    {
+        return decodeSeries( pair, "xX", 2 );
     }
 
     public static int[] decodeSeries( String series, int n )
+        throws IllegalArgumentException
+    {
+        return decodeSeries( series, ",", n );
+    }
+
+    public static int[] decodeSeries( String series, String separator, int n )
         throws IllegalArgumentException
     {
         final int[] parsedSeries = new int[n];
@@ -93,7 +105,7 @@ public final class DrawingUtil
 
         int i = 0;
 
-        for ( String elem : StringUtils.split( series, "," ) )
+        for ( String elem : split( series, separator ) )
         {
             elem = elem.trim();
 
@@ -120,7 +132,7 @@ public final class DrawingUtil
             throw new IllegalArgumentException( "Unable to parse coordinates " + pair );
         }
 
-        String[] xy = StringUtils.split( pair, "," );
+        String[] xy = split( pair, "," );
 
         xy[0] = xy[0].trim().toLowerCase();
 
@@ -182,7 +194,7 @@ public final class DrawingUtil
     {
         int awtFontStyle = 0;
 
-        for ( String token : StringUtils.split( str, "," ) )
+        for ( String token : split( str, "," ) )
         {
             awtFontStyle |= FontStyle.valueOf( token.toUpperCase() ).getStyle();
         }

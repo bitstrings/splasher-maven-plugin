@@ -15,6 +15,8 @@
  */
 package org.bitstrings.maven.plugins.splasher;
 
+import static org.bitstrings.maven.plugins.splasher.DrawingUtil.decodeSize;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -33,7 +35,7 @@ public class Canvas
 
     // ]--
 
-    protected BufferedImage dwBackgroundImage;
+    protected BufferedImage dwSurface;
 
     protected Color dwBackgroundColor;
 
@@ -57,6 +59,31 @@ public class Canvas
         this.backgroundColor = backgroundColor;
     }
 
+    public BufferedImage createSurface()
+    {
+        int[] dwSize = decodeSize( getSize() );
+
+        dwBounds.setSize( dwSize[0], dwSize[1] );
+
+        if ( backgroundImageName != null )
+        {
+            dwSurface = dwContext.getImage( backgroundImageName );
+
+            if ( getSize().equals( "0x0" ) )
+            {
+                dwBounds.width = dwSurface.getWidth();
+
+                dwBounds.height = dwSurface.getHeight();
+            }
+            else
+            {
+                dwSurface = new BufferedImage( dwBounds.width, dwBounds.height, BufferedImage.TYPE_INT_ARGB );
+            }
+        }
+
+        return dwSurface;
+    }
+
     @Override
     public void init( Graphics2D g )
         throws MojoExecutionException
@@ -65,11 +92,7 @@ public class Canvas
 
         if ( backgroundImageName != null )
         {
-            dwBackgroundImage = dwContext.getImage( backgroundImageName );
-
-            dwBounds.width = dwBackgroundImage.getWidth();
-
-            dwBounds.height = dwBackgroundImage.getHeight();
+            dwSurface = dwContext.getImage( backgroundImageName );
         }
 
         if ( ( dwBounds.width < 0 ) || ( dwBounds.height < 0 ) )
@@ -101,9 +124,9 @@ public class Canvas
             g.clearRect( dwBounds.x, dwBounds.y, dwBounds.width, dwBounds.height );
         }
 
-        if ( dwBackgroundImage != null )
+        if ( dwSurface != null )
         {
-            g.drawImage( dwBackgroundImage, dwBounds.x, dwBounds.y, null );
+            g.drawImage( dwSurface, dwBounds.x, dwBounds.y, null );
         }
 
         super.draw( g );

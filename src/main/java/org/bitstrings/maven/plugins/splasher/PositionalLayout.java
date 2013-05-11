@@ -1,5 +1,7 @@
 package org.bitstrings.maven.plugins.splasher;
 
+import static org.bitstrings.maven.plugins.splasher.DrawingUtil.decodeSize;
+
 import java.awt.Graphics2D;
 
 import org.apache.maven.plugin.MojoExecutionException;
@@ -9,30 +11,18 @@ public class PositionalLayout
 {
     // - parameters --[
 
-    private int width;
-
-    private int height;
+    private String size = "0x0";
 
     // ]--
 
-    public int getWidth()
+    public String getSize()
     {
-        return width;
+        return size;
     }
 
-    public void setWidth( int width )
+    public void setSize( String size )
     {
-        this.width = width;
-    }
-
-    public int getHeight()
-    {
-        return height;
-    }
-
-    public void setHeight( int height )
-    {
-        this.height = height;
+        this.size = size;
     }
 
     @Override
@@ -55,9 +45,9 @@ public class PositionalLayout
             }
         }
 
-        dwBounds.width = width;
+        int[] dwSize = decodeSize( size );
 
-        dwBounds.height = height;
+        dwBounds.setSize( dwSize[0], dwSize[1] );
 
         super.init( g );
     }
