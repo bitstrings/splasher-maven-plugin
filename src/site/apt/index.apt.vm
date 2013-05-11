@@ -1,0 +1,112 @@
+ ------
+ Introduction
+ ------
+ bitstrings.org - Pino Silvaggio
+ ------
+ 11 May 2013
+ ------
+
+ ~~ Licensed to the Apache Software Foundation (ASF) under one
+ ~~ or more contributor license agreements.  See the NOTICE file
+ ~~ distributed with this work for additional information
+ ~~ regarding copyright ownership.  The ASF licenses this file
+ ~~ to you under the Apache License, Version 2.0 (the
+ ~~ "License"); you may not use this file except in compliance
+ ~~ with the License.  You may obtain a copy of the License at
+ ~~
+ ~~   http://www.apache.org/licenses/LICENSE-2.0
+ ~~
+ ~~ Unless required by applicable law or agreed to in writing,
+ ~~ software distributed under the License is distributed on an
+ ~~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ ~~ KIND, either express or implied.  See the License for the
+ ~~ specific language governing permissions and limitations
+ ~~ under the License.
+
+
+Maven Splasher Plugin
+
+    The splasher plugin can be used to compose a splash screen. It can complement an existing splash or create one from scratch.
+
+* Goals Overview
+
+    * {{{./compose-mojo.html}splasher:compose}} Compose the splash screen.
+
+    []
+
+* Usage
+
+    Example:
+
++-------------+
+<plugin>
+    <groupId>${project.groupId}</groupId>
+    <artifactId>${project.artifactId}</artifactId>
+    <version>${project.version}</version>
+    <configuration>
+
+        <resources>
+            <alphaNumImageMapper>
+                <directory>src/main/resources</directory>
+                <fileNamePattern>num%n.png</fileNamePattern>
+                <ranges>1-5</ranges>
+                <namePrefix>num</namePrefix>
+            </alphaNumImageMapper>
+            <loadImage>
+                <imageFile>src/main/resources/crosshair.png</imageFile>
+                <name>crosshair</name>
+            </loadImage>
+        </resources>
+
+        <outputImageFile>image.png</outputImageFile>
+
+        <canvas>
+            <size>640x480</size>
+            <backgroundColor>#A9A9F0</backgroundColor>
+
+            <draw>
+                <drawImage>
+                    <imageName>crosshair</imageName>
+                    <position>center,center</position>
+                </drawImage>
+                <drawImagesFromText>
+                    <text>12345</text>
+                    <imageNamePrefix>num</imageNamePrefix>
+                    <alignment>HORIZONTAL</alignment>
+                    <padding>12</padding>
+                    <position>center,top</position>
+                </drawImagesFromText>
+
+                <drawImagesFromText>
+                    <text>54321</text>
+                    <imageNamePrefix>num</imageNamePrefix>
+                    <alignment>VERTICAL</alignment>
+                    <padding>12</padding>
+                    <position>left,center</position>
+                </drawImagesFromText>
+
+                <flowLayout>
+                    <padding>12</padding>
+                    <position>center,bottom</position>
+                    <draw>
+                        <drawImage>num1</drawImage>
+                        <drawImage>num2</drawImage>
+                        <drawImage>num3</drawImage>
+                        <drawImage>num4</drawImage>
+                        <drawImage>num5</drawImage>
+                    </draw>
+                </flowLayout>
+            </draw>
+        </canvas>
+
+    </configuration>
+</plugin>
++-------------+
+
+    Result:
+
+[./images/usage-example1.png] Drawing numbers 1 to 5 using images.
+
+    For usage, click {{{./usage.html}here}}.
+
+    []
