@@ -48,12 +48,12 @@ public class DrawImagesFromText
     public void init( Graphics2D g )
         throws MojoExecutionException
     {
-        final FlowLayout flowLayout = new FlowLayout();
+        drawImagesFromText = new FlowLayout();
 
-        flowLayout.setDrawingContext( dwContext );
-        flowLayout.setPosition( getPosition() );
-        flowLayout.setAlignment( alignment );
-        flowLayout.setPadding( padding );
+        drawImagesFromText.setDrawingContext( dwContext );
+        drawImagesFromText.setPosition( getPosition() );
+        drawImagesFromText.setAlignment( alignment );
+        drawImagesFromText.setPadding( padding );
 
         final List<Drawable> drawables = new ArrayList<Drawable>();
 
@@ -66,7 +66,7 @@ public class DrawImagesFromText
             drawables.add( drawImage );
         }
 
-        flowLayout.setDraw( drawables );
+        drawImagesFromText.setDraw( drawables );
 
         super.init( g );
 
