@@ -68,8 +68,6 @@ public class DrawImagesFromText
 
         drawImagesFromText.setDraw( drawables );
 
-        super.init( g );
-
         Graphics2D sg = (Graphics2D) g.create();
 
         try
@@ -80,6 +78,8 @@ public class DrawImagesFromText
         {
             sg.dispose();
         }
+
+        dwBounds.setBounds( drawImagesFromText.getBounds() );
     }
 
     @Override
