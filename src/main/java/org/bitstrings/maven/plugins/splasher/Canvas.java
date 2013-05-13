@@ -35,7 +35,7 @@ public class Canvas
 
     // ]--
 
-    protected BufferedImage dwSurface;
+    protected BufferedImage dwBackgroundImage;
 
     protected Color dwBackgroundColor;
 
@@ -67,22 +67,15 @@ public class Canvas
 
         if ( backgroundImageName != null )
         {
-            dwSurface = dwContext.getImage( backgroundImageName );
+            dwBackgroundImage = dwContext.getImage( backgroundImageName );
 
-            if ( getSize().equals( "0x0" ) )
+            if ( ( dwBounds.width == 0 ) && ( dwBounds.height == 0 ) )
             {
-                dwBounds.width = dwSurface.getWidth();
-
-                dwBounds.height = dwSurface.getHeight();
+                dwBounds.setSize( dwBackgroundImage.getWidth(), dwBackgroundImage.getHeight() );
             }
         }
 
-        if ( dwSurface == null )
-        {
-            dwSurface = new BufferedImage( dwBounds.width, dwBounds.height, BufferedImage.TYPE_INT_ARGB );
-        }
-
-        return dwSurface;
+        return new BufferedImage( dwBounds.width, dwBounds.height, BufferedImage.TYPE_INT_ARGB );
     }
 
     @Override
@@ -93,7 +86,7 @@ public class Canvas
 
         if ( backgroundImageName != null )
         {
-            dwSurface = dwContext.getImage( backgroundImageName );
+            dwBackgroundImage = dwContext.getImage( backgroundImageName );
         }
 
         if ( ( dwBounds.width < 0 ) || ( dwBounds.height < 0 ) )
@@ -116,7 +109,7 @@ public class Canvas
     }
 
     @Override
-    public void draw( Graphics2D g )
+    public void render( Graphics2D g )
     {
         if ( dwBackgroundColor != null )
         {
@@ -125,11 +118,20 @@ public class Canvas
             g.clearRect( dwBounds.x, dwBounds.y, dwBounds.width, dwBounds.height );
         }
 
-        if ( dwSurface != null )
+        if ( dwBackgroundImage != null )
         {
-            g.drawImage( dwSurface, dwBounds.x, dwBounds.y, null );
+            g.drawImage( dwBackgroundImage, dwBounds.x, dwBounds.y, null );
         }
 
-        super.draw( g );
+        Graphics2D sg = (Graphics2D) g.create();//(Graphics2D) g.create( dwBounds.x, dwBounds.y, dwBounds.width, dwBounds.height );
+
+        try
+        {
+            super.render( sg );
+        }
+        finally
+        {
+            sg.dispose();
+        }
     }
 }

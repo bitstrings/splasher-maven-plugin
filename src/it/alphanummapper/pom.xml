@@ -24,7 +24,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.bitstrings.maven.plugins.splasher.its</groupId>
-    <artifactId>draw-image</artifactId>
+    <artifactId>alphanummapper</artifactId>
     <version>1-SNAPSHOT</version>
 
     <name>IT : draw image</name>

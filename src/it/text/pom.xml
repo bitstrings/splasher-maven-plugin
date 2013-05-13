@@ -24,10 +24,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.bitstrings.maven.plugins.splasher.its</groupId>
-    <artifactId>text-only</artifactId>
+    <artifactId>text</artifactId>
     <version>1-SNAPSHOT</version>
 
-    <name>IT : text only</name>
+    <name>IT : text</name>
 
     <packaging>pom</packaging>
 
