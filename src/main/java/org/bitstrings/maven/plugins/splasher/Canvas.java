@@ -25,9 +25,11 @@ import org.apache.maven.plugin.MojoExecutionException;
 
 
 public class Canvas
-    extends PositionalLayout
+    extends DrawableContainer
 {
     // - parameters --[
+
+    private String size = "0x0";
 
     private String backgroundImageName;
 
@@ -35,9 +37,21 @@ public class Canvas
 
     // ]--
 
+    protected BufferedImage dwSurface;
+
     protected BufferedImage dwBackgroundImage;
 
     protected Color dwBackgroundColor;
+
+    public String getSize()
+    {
+        return size;
+    }
+
+    public void setSize( String size )
+    {
+        this.size = size;
+    }
 
     public String getBackgroundImageName()
     {
@@ -59,7 +73,12 @@ public class Canvas
         this.backgroundColor = backgroundColor;
     }
 
-    public BufferedImage createSurface()
+    public BufferedImage getSurface()
+    {
+        return dwSurface;
+    }
+
+    protected BufferedImage createSurface()
     {
         int[] dwSize = decodeSize( getSize() );
 
@@ -75,7 +94,42 @@ public class Canvas
             }
         }
 
-        return new BufferedImage( dwBounds.width, dwBounds.height, BufferedImage.TYPE_INT_ARGB );
+        dwSurface = new BufferedImage( dwBounds.width, dwBounds.height, BufferedImage.TYPE_INT_ARGB );
+
+        return dwSurface;
+    }
+
+    public BufferedImage init()
+        throws MojoExecutionException
+    {
+        final Graphics2D g = createSurface().createGraphics();
+
+        try
+        {
+            init( g );
+        }
+        finally
+        {
+            g.dispose();
+        }
+
+        return getSurface();
+    }
+
+    public BufferedImage draw()
+    {
+        final Graphics2D g = getSurface().createGraphics();
+
+        try
+        {
+            draw( g );
+        }
+        finally
+        {
+            g.dispose();
+        }
+
+        return getSurface();
     }
 
     @Override
@@ -84,15 +138,31 @@ public class Canvas
     {
         super.init( g );
 
-        if ( backgroundImageName != null )
-        {
-            dwBackgroundImage = dwContext.getImage( backgroundImageName );
-        }
-
         if ( ( dwBounds.width < 0 ) || ( dwBounds.height < 0 ) )
         {
             throw new MojoExecutionException(
                                 "Canvas size is weird -- width: " + dwBounds.width + ", height: " + dwBounds.height );
+        }
+
+        for ( Drawable d : getDraw() )
+        {
+            d.setDrawingContext( dwContext );
+
+            Graphics2D sg = (Graphics2D) g.create( dwBounds.x, dwBounds.y, dwBounds.width, dwBounds.height );
+
+            try
+            {
+                d.init( sg );
+            }
+            finally
+            {
+                sg.dispose();
+            }
+        }
+
+        if ( backgroundImageName != null )
+        {
+            dwBackgroundImage = dwContext.getImage( backgroundImageName );
         }
 
         if ( backgroundColor != null )
@@ -123,15 +193,18 @@ public class Canvas
             g.drawImage( dwBackgroundImage, dwBounds.x, dwBounds.y, null );
         }
 
-        Graphics2D sg = (Graphics2D) g.create();//(Graphics2D) g.create( dwBounds.x, dwBounds.y, dwBounds.width, dwBounds.height );
+        for ( Drawable d : getDraw() )
+        {
+            Graphics2D sg = (Graphics2D) g.create( dwBounds.x, dwBounds.y, dwBounds.width, dwBounds.height );
 
-        try
-        {
-            super.render( sg );
-        }
-        finally
-        {
-            sg.dispose();
+            try
+            {
+                d.draw( sg );
+            }
+            finally
+            {
+                sg.dispose();
+            }
         }
     }
 }

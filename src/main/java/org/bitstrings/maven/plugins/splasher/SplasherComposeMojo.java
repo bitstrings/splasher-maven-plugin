@@ -90,34 +90,39 @@ public class SplasherComposeMojo
         {
             for ( Resource resource : resources )
             {
+                if ( getLog().isDebugEnabled() )
+                {
+                    getLog().debug(
+                        "Registering resource name: " + resource.getName()
+                            + " :: " + resource.getClass().getName() );
+                }
+
                 resource.register( graphicsContext );
             }
         }
 
         if ( canvas == null )
         {
+            if ( getLog().isWarnEnabled() )
+            {
+                getLog().warn( "No canvas." );
+            }
+
             return;
         }
 
         canvas.setDrawingContext( graphicsContext );
 
-        BufferedImage surface = canvas.createSurface();
+        BufferedImage surface = canvas.init();
 
         Graphics2D g = surface.createGraphics();
 
-        try
-        {
-            g.setRenderingHint( RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY );
-            g.setRenderingHint( RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY );
+        g.setRenderingHint( RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY );
+        g.setRenderingHint( RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY );
 
-            canvas.init( g );
+        g.dispose();
 
-            canvas.draw( g );
-        }
-        finally
-        {
-            g.dispose();
-        }
+        canvas.draw();
 
         try
         {
@@ -135,12 +140,19 @@ public class SplasherComposeMojo
                 outputFileDirectory.mkdirs();
             }
 
-            ImageIO.write(
-                        surface,
-                        outputImageFormat == null
-                                ? FileUtils.extension( properOutputFile.getName() )
-                                : outputImageFormat,
-                        properOutputFile );
+            if ( outputImageFormat == null )
+            {
+                outputImageFormat = FileUtils.extension( properOutputFile.getName() );
+            }
+
+            ImageIO.write( surface, outputImageFormat, properOutputFile );
+
+            if ( getLog().isInfoEnabled() )
+            {
+                getLog().info(
+                    "Writing image to " + properOutputFile
+                        + " (format: " + outputImageFormat.toUpperCase() + " )" );
+            }
         }
         catch ( IOException e )
         {
