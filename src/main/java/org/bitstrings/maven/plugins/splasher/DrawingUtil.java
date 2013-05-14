@@ -17,6 +17,7 @@ package org.bitstrings.maven.plugins.splasher;
 
 import static org.codehaus.plexus.util.StringUtils.split;
 
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Rectangle;
 
@@ -81,10 +82,12 @@ public final class DrawingUtil
         return decodeSeries( pair, 2 );
     }
 
-    public static int[] decodeSize( String pair )
+    public static Dimension decodeSize( String pair )
                     throws IllegalArgumentException
     {
-        return decodeSeries( pair, "xX", 2 );
+        final int[] size = decodeSeries( pair, "xX", 2 );
+
+        return new Dimension( size[0], size[1] );
     }
 
     public static int[] decodeSeries( String series, int n )

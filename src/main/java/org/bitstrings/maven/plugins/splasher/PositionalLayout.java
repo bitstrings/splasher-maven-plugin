@@ -29,9 +29,7 @@ public class PositionalLayout
     public void init( Graphics2D g )
         throws MojoExecutionException
     {
-        int[] dwSize = decodeSize( size );
-
-        dwBounds.setSize( dwSize[0], dwSize[1] );
+        dwBounds.setSize( decodeSize( size ) );
 
         super.init( g );
 

@@ -80,9 +80,7 @@ public class Canvas
 
     protected BufferedImage createSurface()
     {
-        int[] dwSize = decodeSize( getSize() );
-
-        dwBounds.setSize( dwSize[0], dwSize[1] );
+        dwBounds.setSize( decodeSize( getSize() ) );
 
         if ( backgroundImageName != null )
         {
