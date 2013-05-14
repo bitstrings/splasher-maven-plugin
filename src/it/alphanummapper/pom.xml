@@ -44,12 +44,12 @@
                 <configuration>
 
                     <resources>
-                        <alphaNumImageMapper>
+                        <loadAlphaNumImages>
                             <directory>@basedir@/src/it/resources</directory>
                             <fileNamePattern>num%n.png</fileNamePattern>
                             <ranges>1-5</ranges>
                             <namePrefix>num</namePrefix>
-                        </alphaNumImageMapper>
+                        </loadAlphaNumImages>
                         <loadImage>
                             <imageFile>@basedir@/src/it/resources/crosshair.png</imageFile>
                             <name>crosshair</name>

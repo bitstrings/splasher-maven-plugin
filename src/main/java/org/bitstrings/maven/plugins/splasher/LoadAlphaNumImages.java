@@ -7,7 +7,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 
-public class AlphaNumImageMapper
+public class LoadAlphaNumImages
     extends Resource
 {
     // - parameters --[

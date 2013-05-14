@@ -44,12 +44,12 @@
                 <configuration>
 
                     <resources>
-                        <alphaNumImageMapper>
+                        <loadAlphaNumImages>
                             <directory>@basedir@/src/it/resources</directory>
                             <fileNamePattern>num%nw.png</fileNamePattern>
                             <ranges>1-2</ranges>
                             <namePrefix>num</namePrefix>
-                        </alphaNumImageMapper>
+                        </loadAlphaNumImages>
                         <loadImage>
                             <imageFile>@basedir@/src/it/resources/splash.png</imageFile>
                             <name>splash</name>
