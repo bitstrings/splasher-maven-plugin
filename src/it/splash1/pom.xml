@@ -63,7 +63,7 @@
 
                         <draw>
                             <flowLayout>
-                                <position>center,328</position>
+                                <position>center,center+100</position>
                                 <padding>10</padding>
                                 <draw>
                                     <drawText>

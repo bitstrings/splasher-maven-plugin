@@ -142,6 +142,12 @@
         </dependency>
 
         <dependency>
+            <groupId>de.congrace</groupId>
+            <artifactId>exp4j</artifactId>
+            <version>0.3.10</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>
             <artifactId>maven-plugin-annotations</artifactId>
             <version>${maven-plugin-plugin.version}</version>
