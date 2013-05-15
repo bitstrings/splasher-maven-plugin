@@ -84,46 +84,46 @@ public final class DrawingUtil
     public static int[] decodePair( String pair )
         throws IllegalArgumentException
     {
-        return decodeSeries( pair, 2 );
+        return decodeExpressions( pair, 2 );
     }
 
     public static Dimension decodeSize( String pair )
                     throws IllegalArgumentException
     {
-        final int[] size = decodeSeries( pair, "xX", 2 );
+        final int[] size = decodeExpressions( pair, "xX", 2 );
 
         return new Dimension( size[0], size[1] );
     }
 
-    public static int[] decodeSeries( String series, int n )
+    public static int[] decodeExpressions( String series, int n )
         throws IllegalArgumentException
     {
-        return decodeSeries( series, ",", n );
+        return decodeExpressions( series, ",", n );
     }
 
-    public static int[] decodeSeries( String series, String separator, int n )
+    public static int[] decodeExpressions( String expressions, String separator, int n )
         throws IllegalArgumentException
     {
         final int[] parsedSeries = new int[n];
 
-        if ( series == null )
+        if ( expressions == null )
         {
-            throw new IllegalArgumentException( "Unable to parse series " + series );
+            throw new IllegalArgumentException( "Unable to parse expressions " + expressions );
         }
 
         int i = 0;
 
-        for ( String elem : split( series, separator ) )
+        for ( String expression : split( expressions, separator ) )
         {
-            elem = elem.trim();
+            expression = expression.trim();
 
             try
             {
-                parsedSeries[i++] = Integer.parseInt( elem );
+                parsedSeries[i++] = evaluateExpression( expression );
             }
             catch ( NumberFormatException e )
             {
-                throw new IllegalArgumentException( "Unable to parse number " + elem, e );
+                throw new IllegalArgumentException( "Unable to parse expression " + expression, e );
             }
         }
 
@@ -219,7 +219,7 @@ public final class DrawingUtil
         return coordinates;
     }
 
-    protected static int evaluateExpression( String expression )
+    public static int evaluateExpression( String expression )
         throws IllegalArgumentException
     {
         if ( StringUtils.isBlank( expression ) )
