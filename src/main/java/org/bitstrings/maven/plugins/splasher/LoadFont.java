@@ -22,7 +22,7 @@ import java.util.Map;
 import org.apache.maven.plugin.MojoExecutionException;
 
 public class LoadFont
-    extends ResourceProvider
+    extends Resource
 {
     // - parameters --[
 
@@ -53,7 +53,7 @@ public class LoadFont
     }
 
     @Override
-    public Map<String, ?> resourceMap( DrawingContext context )
+    public Map<String, ?> resources( DrawingContext context )
         throws MojoExecutionException
     {
         try

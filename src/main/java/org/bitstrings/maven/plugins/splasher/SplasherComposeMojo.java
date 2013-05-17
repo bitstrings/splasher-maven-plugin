@@ -63,7 +63,7 @@ public class SplasherComposeMojo
      * </pre>
      */
     @Parameter
-    private ResourceProvider[] resources;
+    private Resource[] resources;
 
     /**
      * Output image file. If the image format is not explicitly specified then the file extension is used.
@@ -89,9 +89,9 @@ public class SplasherComposeMojo
 
         if ( resources != null )
         {
-            for ( ResourceProvider resource : resources )
+            for ( Resource resource : resources )
             {
-                Map<String, ?> mappedResources = resource.resourceMap( graphicsContext );
+                Map<String, ?> mappedResources = resource.resources( graphicsContext );
 
                 for ( Map.Entry<String, ?> entry : mappedResources.entrySet() )
                 {

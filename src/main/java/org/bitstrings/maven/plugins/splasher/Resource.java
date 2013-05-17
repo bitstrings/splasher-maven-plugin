@@ -4,8 +4,8 @@ import java.util.Map;
 
 import org.apache.maven.plugin.MojoExecutionException;
 
-public abstract class ResourceProvider
+public abstract class Resource
 {
-    public abstract Map<String, ?> resourceMap( DrawingContext context )
+    public abstract Map<String, ?> resources( DrawingContext context )
         throws MojoExecutionException;
 }
