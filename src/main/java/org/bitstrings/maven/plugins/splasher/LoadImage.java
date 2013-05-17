@@ -16,6 +16,8 @@
 package org.bitstrings.maven.plugins.splasher;
 
 import java.io.File;
+import java.util.Collections;
+import java.util.Map;
 
 import org.apache.maven.plugin.MojoExecutionException;
 
@@ -24,9 +26,21 @@ public class LoadImage
 {
     // - parameters --[
 
+    private String name;
+
     private File imageFile;
 
     // ]--
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public void setName( String name )
+    {
+        this.name = name;
+    }
 
     public File getImageFile()
     {
@@ -36,15 +50,16 @@ public class LoadImage
     public void set( File imageFile )
     {
         this.imageFile = imageFile;
+        this.name = imageFile.getName();
     }
 
     @Override
-    public void register( DrawingContext context )
+    public Map<String, ?> resources( DrawingContext context )
         throws MojoExecutionException
     {
         try
         {
-            context.loadImage( getName(), imageFile );
+            return Collections.singletonMap( name, context.loadImage( imageFile ) );
         }
         catch ( Exception e )
         {

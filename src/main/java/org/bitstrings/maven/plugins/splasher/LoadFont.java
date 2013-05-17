@@ -16,6 +16,8 @@
 package org.bitstrings.maven.plugins.splasher;
 
 import java.io.File;
+import java.util.Collections;
+import java.util.Map;
 
 import org.apache.maven.plugin.MojoExecutionException;
 
@@ -24,9 +26,21 @@ public class LoadFont
 {
     // - parameters --[
 
+    private String name;
+
     private File fontFile;
 
     // ]--
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public void setName( String name )
+    {
+        this.name = name;
+    }
 
     public File getFontFile()
     {
@@ -39,12 +53,12 @@ public class LoadFont
     }
 
     @Override
-    public void register( DrawingContext context )
+    public Map<String, ?> resources( DrawingContext context )
         throws MojoExecutionException
     {
         try
         {
-            context.loadFont( getName(), fontFile );
+            return Collections.singletonMap( name, context.loadFont( fontFile ) );
         }
         catch ( Exception e )
         {

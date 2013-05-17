@@ -1,16 +1,11 @@
 package org.bitstrings.maven.plugins.splasher;
 
+import java.util.Map;
+
 import org.apache.maven.plugin.MojoExecutionException;
 
 public abstract class Resource
 {
-    private String name;
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public abstract void register( DrawingContext context )
+    public abstract Map<String, ?> resources( DrawingContext context )
         throws MojoExecutionException;
 }

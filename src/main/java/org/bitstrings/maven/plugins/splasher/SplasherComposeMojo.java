@@ -20,6 +20,7 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
@@ -90,14 +91,20 @@ public class SplasherComposeMojo
         {
             for ( Resource resource : resources )
             {
-                if ( getLog().isDebugEnabled() )
-                {
-                    getLog().debug(
-                        "Registering resource name: " + resource.getName()
-                            + " :: " + resource.getClass().getName() );
-                }
+                Map<String, ?> mappedResources = resource.resources( graphicsContext );
 
-                resource.register( graphicsContext );
+                for ( Map.Entry<String, ?> entry : mappedResources.entrySet() )
+                {
+                    if ( getLog().isDebugEnabled() )
+                    {
+                        getLog().debug( "Resource type: " + resource.getClass().getName() );
+                        getLog().debug(
+                            "  Registering resource name: " + entry.getKey()
+                                + " :: " + entry.getValue().getClass().getName() );
+                    }
+
+                    graphicsContext.registerResource( entry.getKey(), entry.getValue() );
+                }
             }
         }
 

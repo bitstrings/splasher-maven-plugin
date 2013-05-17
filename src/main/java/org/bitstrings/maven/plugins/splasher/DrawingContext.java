@@ -21,57 +21,57 @@ import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.imageio.ImageIO;
+
+import org.apache.commons.collections.map.MultiKeyMap;
 
 public class DrawingContext
 {
     protected final GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
 
-    protected final Map<String, String> fontNameMap = new HashMap<String, String>();
-
-    protected final Map<String, BufferedImage> imageNameMap = new HashMap<String, BufferedImage>();
+    protected final MultiKeyMap resourceMap = new MultiKeyMap();
 
     public GraphicsEnvironment getGraphicsEnvironment()
     {
         return graphicsEnvironment;
     }
 
-    public void loadFont( String name, File fontFile )
+    public Font loadFont( File fontFile )
         throws IOException, FontFormatException
     {
-        Font font = Font.createFont( Font.TRUETYPE_FONT, fontFile );
-
-        graphicsEnvironment.registerFont( font );
-
-        if ( name != null )
-        {
-            fontNameMap.put( name, font.getName() );
-        }
+        return Font.createFont( Font.TRUETYPE_FONT, fontFile );
     }
 
     public Font getFont( String name, int style, int size )
     {
-        final String fontName = fontNameMap.get( name );
+        Font font = getResource( name, Font.class );
 
-        return new Font( fontName == null ? name : fontName, style, size );
+        return
+                new Font(
+                    ( font == null ? name : font.getName() ),
+                    style,
+                    size );
     }
 
-    public void loadImage( String name, File file )
+    public BufferedImage loadImage( File file )
         throws IOException
     {
-        BufferedImage image = ImageIO.read( file );
-
-        if ( name != null )
-        {
-            imageNameMap.put( name, image );
-        }
+        return ImageIO.read( file );
     }
 
     public BufferedImage getImage( String name )
     {
-        return imageNameMap.get( name );
+        return getResource( name, BufferedImage.class );
+    }
+
+    public <T> void registerResource( String name, T resource )
+    {
+        resourceMap.put( resource.getClass(), name, resource );
+    }
+
+    public <T> T getResource( String name, Class<T> resourceType )
+    {
+        return (T) resourceMap.get( resourceType, name );
     }
 }

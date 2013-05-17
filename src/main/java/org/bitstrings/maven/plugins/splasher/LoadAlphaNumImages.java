@@ -1,7 +1,10 @@
 package org.bitstrings.maven.plugins.splasher;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -43,7 +46,7 @@ public class LoadAlphaNumImages
     }
 
     @Override
-    public void register( DrawingContext context )
+    public Map<String, ?> resources( DrawingContext context )
         throws MojoExecutionException
     {
         for ( String range : StringUtils.split( ranges, ',' ) )
@@ -63,11 +66,11 @@ public class LoadAlphaNumImages
                     {
                         final int from = Integer.parseInt( members[0] );
 
-                        registerNumericRange( from, from, context );
+                        return numericRangeResources( from, from, context );
                     }
                     else
                     {
-                        registerNumericRange(
+                        return numericRangeResources(
                                 Integer.parseInt( members[0] ),
                                 Integer.parseInt( members[1] ),
                                 context );
@@ -79,11 +82,11 @@ public class LoadAlphaNumImages
                     {
                         final char from = members[0].charAt( 0 );
 
-                        registerCharRange( from, from, context );
+                        return charRangeResources( from, from, context );
                     }
                     else
                     {
-                        registerCharRange(
+                        return charRangeResources(
                                 members[0].charAt( 0 ),
                                 members[1].charAt( 0 ),
                                 context );
@@ -95,18 +98,22 @@ public class LoadAlphaNumImages
                 throw new MojoExecutionException( "Unable to parse range " + range + "." );
             }
         }
+
+        return null;
     }
 
-    protected void registerNumericRange( int from, int to, DrawingContext context )
+    public Map<String, ?> numericRangeResources( int from, int to, DrawingContext context )
         throws MojoExecutionException
     {
+        Map<String, BufferedImage> resources = new HashMap<String, BufferedImage>();
+
         do
         {
             final File name = new File( directory, fileNamePattern.replace( "%n", String.valueOf( from ) ) );
 
             try
             {
-                context.loadImage( namePrefix + from, name );
+                resources.put( namePrefix + from, context.loadImage( name ) );
             }
             catch ( IOException e )
             {
@@ -114,24 +121,30 @@ public class LoadAlphaNumImages
             }
         }
         while ( ++from <= to );
+
+        return resources;
     }
 
-    protected void registerCharRange( char from, char to, DrawingContext context )
+    public Map<String, ?> charRangeResources( int from, int to, DrawingContext context )
         throws MojoExecutionException
     {
+        Map<String, BufferedImage> resources = new HashMap<String, BufferedImage>();
+
         do
         {
             final File name = new File( directory, fileNamePattern.replace( "%n", String.valueOf( from ) ) );
 
             try
             {
-                context.loadImage( namePrefix + from, name );
+                resources.put( namePrefix + from, context.loadImage( name ) );
             }
             catch ( IOException e )
             {
-                throw new MojoExecutionException( "Unable to load image for char " + from + " (" + name + ").", e );
+                throw new MojoExecutionException( "Unable to load image #" + from + " (" + name + ").", e );
             }
         }
         while ( ++from <= to );
+
+        return resources;
     }
 }
