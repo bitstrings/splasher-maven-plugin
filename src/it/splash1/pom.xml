@@ -54,6 +54,10 @@
                             <imageFile>@basedir@/src/it/resources/splash.png</imageFile>
                             <name>splash</name>
                         </loadImage>
+                        <loadImage>
+                            <imageFile>@basedir@/src/it/resources/red_box.png</imageFile>
+                            <name>redbox</name>
+                        </loadImage>
                     </resources>
 
                     <outputImageFile>image.png</outputImageFile>
@@ -70,6 +74,7 @@
                                         <text>Version</text>
                                         <textColor>#D9D9D9</textColor>
                                         <fontSize>32</fontSize>
+                                        <position>center,top</position>
                                     </drawText>
                                     <drawImagesFromText>
                                         <text>12</text>
@@ -77,6 +82,18 @@
                                         <alignment>HORIZONTAL</alignment>
                                         <padding>12</padding>
                                     </drawImagesFromText>
+                                    <drawImage>
+                                        <imageName>redbox</imageName>
+                                        <position>center,top</position>
+                                    </drawImage>
+                                    <drawImage>
+                                        <imageName>redbox</imageName>
+                                        <position>center,center</position>
+                                    </drawImage>
+                                    <drawImage>
+                                        <imageName>redbox</imageName>
+                                        <position>center,bottom</position>
+                                    </drawImage>
                                 </draw>
                             </flowLayout>
                         </draw>

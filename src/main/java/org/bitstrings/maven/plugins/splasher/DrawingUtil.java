@@ -18,25 +18,56 @@ package org.bitstrings.maven.plugins.splasher;
 import static org.apache.commons.lang3.StringUtils.remove;
 import static org.codehaus.plexus.util.StringUtils.split;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.codehaus.plexus.util.StringUtils;
 
 import de.congrace.exp4j.ExpressionBuilder;
 
 public final class DrawingUtil
 {
-    private static final String POSITION_CENTER_STR = "center";
+    public static final String POSITION_CENTER_STR = "center";
 
-    private static final String POSITION_LEFT_STR = "left";
+    public static final String POSITION_LEFT_STR = "left";
 
-    private static final String POSITION_RIGHT_STR = "right";
+    public static final String POSITION_RIGHT_STR = "right";
 
-    private static final String POSITION_TOP_STR = "top";
+    public static final String POSITION_TOP_STR = "top";
 
-    private static final String POSITION_BOTTOM_STR = "bottom";
+    public static final String POSITION_BOTTOM_STR = "bottom";
+
+    private static final Map<String, Color> COLOR_MAP = new HashMap<String, Color>();
+
+    static
+    {
+        Field[] fields = Color.class.getFields();
+
+        for ( Field field : fields )
+        {
+            if ( Color.class.isAssignableFrom( field.getType() )
+                            && Modifier.isStatic( field.getModifiers() )
+                            && Modifier.isPublic( field.getModifiers() ) )
+            {
+                try
+                {
+                    COLOR_MAP.put( field.getName(), (Color) field.get( Color.class ) );
+                }
+                catch ( Exception e )
+                {
+                    // what? this shouldn't happen -> let it go
+                }
+            }
+        }
+    }
 
     public enum FontStyle
     {
@@ -59,23 +90,28 @@ public final class DrawingUtil
 
     private DrawingUtil() {}
 
-    public static void decodePositionAndSetBounds(
-                                String position,
-                                int width, int height,
-                                Rectangle containerBounds,
-                                Rectangle targetBounds )
+    public static Rectangle getDrawingBounds( Graphics2D g )
     {
-        decodePositionAndSetBounds( position, width, height, containerBounds, 0, 0, targetBounds );
+        return ObjectUtils.defaultIfNull( g.getClipBounds(), g.getDeviceConfiguration().getBounds() );
     }
 
     public static void decodePositionAndSetBounds(
                                 String position,
-                                int width, int height,
-                                Rectangle containerBounds,
+                                Dimension dimension,
+                                Dimension containerDimension,
+                                Rectangle targetBounds )
+    {
+        decodePositionAndSetBounds( position, dimension, containerDimension, 0, 0, targetBounds );
+    }
+
+    public static void decodePositionAndSetBounds(
+                                String position,
+                                Dimension dimension,
+                                Dimension containerDimension,
                                 int xOffset, int yOffset,
                                 Rectangle targetBounds )
     {
-        int[] xy = decodePosition( position, width, height, containerBounds );
+        int[] xy = decodePosition( position, dimension, containerDimension );
 
         targetBounds.x = ( xy[0] + xOffset );
         targetBounds.y = ( xy[1] + yOffset );
@@ -130,7 +166,7 @@ public final class DrawingUtil
         return parsedSeries;
     }
 
-    public static int[] decodePosition( String position, int width, int height, Rectangle containerBounds )
+    public static int[] decodePosition( String position, Dimension dimension, Dimension containerDimension )
         throws IllegalArgumentException
     {
         final int[] coordinates = new int[2];
@@ -148,19 +184,19 @@ public final class DrawingUtil
 
         if ( xy[0].startsWith( POSITION_CENTER_STR ) )
         {
-            coordinates[0] = ( ( containerBounds.width - width ) >> 1 ) + containerBounds.x;
+            coordinates[0] = ( containerDimension.width - dimension.width ) >> 1;
 
             expression = remove( xy[0], POSITION_CENTER_STR );
         }
         else if ( xy[0].startsWith( POSITION_LEFT_STR ) )
         {
-            coordinates[0] = containerBounds.x;
+            coordinates[0] = 0;
 
             expression = remove( xy[0], POSITION_LEFT_STR );
         }
         else if ( xy[0].startsWith( POSITION_RIGHT_STR ) )
         {
-            coordinates[0] = containerBounds.width - width + containerBounds.x;
+            coordinates[0] = containerDimension.width - dimension.width;
 
             expression = remove( xy[0], POSITION_RIGHT_STR );
         }
@@ -168,7 +204,7 @@ public final class DrawingUtil
         {
             try
             {
-                coordinates[0] = containerBounds.x;
+                coordinates[0] = 0;
 
                 expression = xy[0];
             }
@@ -184,19 +220,19 @@ public final class DrawingUtil
 
         if ( xy[1].startsWith( POSITION_CENTER_STR ) )
         {
-            coordinates[1] = ( ( containerBounds.height - height ) >> 1 ) + containerBounds.y;
+            coordinates[1] = ( ( containerDimension.height - dimension.height ) >> 1 );
 
             expression = remove( xy[1], POSITION_CENTER_STR );
         }
         else if ( xy[1].startsWith( POSITION_TOP_STR ) )
         {
-            coordinates[1] = containerBounds.y;
+            coordinates[1] = 0;
 
             expression = remove( xy[1], POSITION_TOP_STR );
         }
         else if ( xy[1].startsWith( POSITION_BOTTOM_STR ) )
         {
-            coordinates[1] = containerBounds.height - height + containerBounds.y;
+            coordinates[1] = containerDimension.height - dimension.height;
 
             expression = remove( xy[1], POSITION_BOTTOM_STR );
         }
@@ -204,7 +240,7 @@ public final class DrawingUtil
         {
             try
             {
-                coordinates[1] = containerBounds.y;
+                coordinates[1] = 0;
 
                 expression = xy[1];
             }
@@ -222,16 +258,12 @@ public final class DrawingUtil
     public static int evaluateExpression( String expression )
         throws IllegalArgumentException
     {
-        if ( StringUtils.isBlank( expression ) )
-        {
-            return 0;
-        }
-
         try
         {
-            System.out.println( " **** " + expression );
-
-            return (int) new ExpressionBuilder( expression ).build().calculate();
+            return
+                    StringUtils.isBlank( expression )
+                            ? 0
+                            : (int) new ExpressionBuilder( expression ).build().calculate();
         }
         catch ( Exception e )
         {
@@ -250,5 +282,25 @@ public final class DrawingUtil
         }
 
         return awtFontStyle;
+    }
+
+    public static Color decodeColor( String colorStr )
+        throws IllegalArgumentException
+    {
+        Color color = COLOR_MAP.get( colorStr );
+
+        if ( color == null )
+        {
+            try
+            {
+                color = Color.decode( colorStr );
+            }
+            catch ( NumberFormatException e )
+            {
+                throw new IllegalArgumentException( "Unable to decode color " + colorStr, e );
+            }
+        }
+
+        return color;
     }
 }

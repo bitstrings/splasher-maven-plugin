@@ -15,6 +15,7 @@
  */
 package org.bitstrings.maven.plugins.splasher;
 
+import static org.bitstrings.maven.plugins.splasher.DrawingUtil.decodeColor;
 import static org.bitstrings.maven.plugins.splasher.DrawingUtil.decodeSize;
 
 import java.awt.Color;
@@ -167,9 +168,9 @@ public class Canvas
         {
             try
             {
-                dwBackgroundColor = Color.decode( backgroundColor );
+                dwBackgroundColor = decodeColor( backgroundColor );
             }
-            catch ( Exception e )
+            catch ( IllegalArgumentException e )
             {
                 throw new MojoExecutionException( "Illegal canvas color " + backgroundColor, e );
             }

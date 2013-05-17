@@ -54,18 +54,30 @@
                             <imageFile>@basedir@/src/it/resources/crosshair.png</imageFile>
                             <name>crosshair</name>
                         </loadImage>
+                        <loadImage>
+                            <imageFile>@basedir@/src/it/resources/red_box.png</imageFile>
+                            <name>redbox</name>
+                        </loadImage>
                     </resources>
 
                     <outputImageFile>image.png</outputImageFile>
 
                     <canvas>
                         <size>640x480</size>
-                        <backgroundColor>#A9A9F0</backgroundColor>
+                        <backgroundColor>#F0F0F0</backgroundColor>
 
                         <draw>
                             <drawImage>
                                 <imageName>crosshair</imageName>
                                 <position>center,center</position>
+                            </drawImage>
+                            <drawImage>
+                                <imageName>redbox</imageName>
+                                <position>right,top</position>
+                            </drawImage>
+                            <drawImage>
+                                <imageName>redbox</imageName>
+                                <position>right,bottom</position>
                             </drawImage>
                             <drawImagesFromText>
                                 <text>12345</text>

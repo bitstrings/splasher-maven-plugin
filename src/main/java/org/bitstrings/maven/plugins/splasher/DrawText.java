@@ -15,8 +15,10 @@
  */
 package org.bitstrings.maven.plugins.splasher;
 
+import static org.bitstrings.maven.plugins.splasher.DrawingUtil.decodeColor;
 import static org.bitstrings.maven.plugins.splasher.DrawingUtil.decodeFontStyle;
 import static org.bitstrings.maven.plugins.splasher.DrawingUtil.decodePositionAndSetBounds;
+import static org.bitstrings.maven.plugins.splasher.DrawingUtil.getDrawingBounds;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -157,7 +159,16 @@ public class DrawText
         }
         catch ( IllegalArgumentException e )
         {
-            throw new MojoExecutionException( "Illegal font style " + fontStyle + ".", e );
+            throw new MojoExecutionException( "Unknown font style " + fontStyle + ".", e );
+        }
+
+        try
+        {
+            dwTextColor = decodeColor( textColor );
+        }
+        catch ( IllegalArgumentException e )
+        {
+            throw new MojoExecutionException( "Unable to decode color " + textColor + ".", e );
         }
 
         dwFont = dwContext.getFont( fontName, dwFontStyle, fontSize );
@@ -172,19 +183,10 @@ public class DrawText
 
         decodePositionAndSetBounds(
                 getPosition(),
-                dwBounds.width, dwBounds.height,
-                g.getDeviceConfiguration().getBounds(),
+                dwBounds.getSize(),
+                getDrawingBounds( g ).getSize(),
                 0, ( isUseBaseline() ? 0 : metrics.getAscent() ),
                 dwBounds );
-
-        try
-        {
-            dwTextColor = Color.decode( textColor );
-        }
-        catch ( NumberFormatException e )
-        {
-            throw new MojoExecutionException( "Unable to decode color " + textColor + ".", e );
-        }
     }
 
     @Override

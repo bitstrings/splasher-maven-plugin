@@ -16,6 +16,7 @@
 package org.bitstrings.maven.plugins.splasher;
 
 import static org.bitstrings.maven.plugins.splasher.DrawingUtil.decodePositionAndSetBounds;
+import static org.bitstrings.maven.plugins.splasher.DrawingUtil.getDrawingBounds;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -76,9 +77,8 @@ public abstract class Drawable
     {
         decodePositionAndSetBounds(
                     position,
-                    dwBounds.width, dwBounds.height,
-                    g.getDeviceConfiguration().getBounds(),
-                    0, 0,
+                    dwBounds.getSize(),
+                    getDrawingBounds( g ).getSize(),
                     dwBounds );
     }
 

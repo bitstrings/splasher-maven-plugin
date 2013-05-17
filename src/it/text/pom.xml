@@ -57,7 +57,7 @@
 
                     <canvas>
                         <size>640x480</size>
-                        <backgroundColor>#E0FFE0</backgroundColor>
+                        <backgroundColor>WHITE</backgroundColor>
                         <draw>
                             <drawImage>
                                 <imageName>crosshair</imageName>

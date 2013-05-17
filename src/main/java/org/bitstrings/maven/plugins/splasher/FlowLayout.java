@@ -62,7 +62,7 @@ public class FlowLayout
         switch ( alignment )
         {
             case HORIZONTAL:
-
+            {
                 for ( Drawable d : getDraw() )
                 {
                     d.setDrawingContext( dwContext );
@@ -88,10 +88,32 @@ public class FlowLayout
                     dwBounds.width += padding * ( getDraw().size() - 1 );
                 }
 
+                int offset = 0;
+
+                for ( Drawable d : getDraw() )
+                {
+                    Graphics2D sg =
+                            (Graphics2D) g.create(
+                                    dwBounds.x + offset, dwBounds.y,
+                                    d.getBounds().width, dwBounds.height );
+
+                    try
+                    {
+                        d.init( sg );
+                    }
+                    finally
+                    {
+                        sg.dispose();
+                    }
+
+                    offset += d.getBounds().width + padding;
+                }
+
                 break;
+            }
 
             case VERTICAL:
-
+            {
                 for ( Drawable d : getDraw() )
                 {
                     d.setDrawingContext( dwContext );
@@ -117,7 +139,29 @@ public class FlowLayout
                     dwBounds.height += padding * ( getDraw().size() - 1 );
                 }
 
+                int offset = 0;
+
+                for ( Drawable d : getDraw() )
+                {
+                    Graphics2D sg =
+                            (Graphics2D) g.create(
+                                    dwBounds.x, dwBounds.y + offset,
+                                    dwBounds.width, d.getBounds().height );
+
+                    try
+                    {
+                        d.init( sg );
+                    }
+                    finally
+                    {
+                        sg.dispose();
+                    }
+
+                    offset += d.getBounds().width + padding;
+                }
+
                 break;
+            }
 
             default:
                 throw new MojoExecutionException( "Unknown alignment " + alignment );
@@ -134,50 +178,52 @@ public class FlowLayout
         switch ( alignment )
         {
             case HORIZONTAL:
-
+            {
                 for ( Drawable d : getDraw() )
                 {
                     Graphics2D sg =
                             (Graphics2D) g.create(
-                                d.getBounds().x + dwBounds.x + offset, d.getBounds().y + dwBounds.y,
-                                g.getDeviceConfiguration().getBounds().width,
-                                g.getDeviceConfiguration().getBounds().height );
+                                dwBounds.x + offset, dwBounds.y,
+                                d.getBounds().width, dwBounds.height );
+
                     try
                     {
                         d.draw( sg );
-
-                        offset += d.getBounds().width + padding;
                     }
                     finally
                     {
                         sg.dispose();
                     }
+
+                    offset += d.getBounds().width + padding;
                 }
 
                 break;
+            }
 
             case VERTICAL:
-
+            {
                 for ( Drawable d : getDraw() )
                 {
                     Graphics2D sg =
                             (Graphics2D) g.create(
-                                d.getBounds().x + dwBounds.x, d.getBounds().y + dwBounds.y + offset,
-                                g.getDeviceConfiguration().getBounds().width,
-                                g.getDeviceConfiguration().getBounds().height );
+                                dwBounds.x, dwBounds.y + offset,
+                                dwBounds.width, d.getBounds().height );
+
                     try
                     {
                         d.draw( sg );
-
-                        offset += d.getBounds().height + padding;
                     }
                     finally
                     {
                         sg.dispose();
                     }
+
+                    offset += d.getBounds().height + padding;
                 }
 
                 break;
+            }
         }
     }
 }
