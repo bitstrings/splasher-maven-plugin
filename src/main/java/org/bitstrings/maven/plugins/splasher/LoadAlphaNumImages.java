@@ -11,7 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 
 public class LoadAlphaNumImages
-    extends Resource
+    extends ResourceProvider
 {
     // - parameters --[
 
@@ -46,7 +46,7 @@ public class LoadAlphaNumImages
     }
 
     @Override
-    public Map<String, ?> resources( DrawingContext context )
+    public Map<String, ?> resourceMap( DrawingContext context )
         throws MojoExecutionException
     {
         for ( String range : StringUtils.split( ranges, ',' ) )

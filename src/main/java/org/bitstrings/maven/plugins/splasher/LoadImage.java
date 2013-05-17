@@ -22,7 +22,7 @@ import java.util.Map;
 import org.apache.maven.plugin.MojoExecutionException;
 
 public class LoadImage
-    extends Resource
+    extends ResourceProvider
 {
     // - parameters --[
 
@@ -54,7 +54,7 @@ public class LoadImage
     }
 
     @Override
-    public Map<String, ?> resources( DrawingContext context )
+    public Map<String, ?> resourceMap( DrawingContext context )
         throws MojoExecutionException
     {
         try
