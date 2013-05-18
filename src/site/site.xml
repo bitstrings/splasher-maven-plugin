@@ -37,9 +37,9 @@
         </menu>
 
         <menu name="Reference">
-            <item name="Canvas" href="reference#Canvas.html" />
-            <item name="Resources" href="reference#resources.html" />
-            <item name="Drawables" href="reference#drawables.html" />
+            <item name="Canvas" href="reference.html#Canvas" />
+            <item name="Resources" href="reference.html#resources" />
+            <item name="Drawables" href="reference.html#drawables" />
         </menu>
 
         <menu ref="reports"/>
