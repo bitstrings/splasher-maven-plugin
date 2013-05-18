@@ -1,0 +1,59 @@
+Reference
+ 
+* {Types}
+
+** Color
+
+  You may specify a color using a 24-bit integer in decimal, octal or hexadecimal.
+  You can also use a constant.
+
+*** Hexadecimal
+
+---
+  Syntax:
+
+      #rrggbb or 0xrrggbb
+      
+      where rr,gg,bb are hexadecimal numbers representing red, green and blue.
+      
+  Example:
+  
+      #FF0000 = RED
+      #00FF00 = GREEN
+      #FFFFFF = WHITE
+---
+
+*** Decimal
+
+*** Octal
+
+*** Constant
+
+  The constants are those defined by the {{{http://docs.oracle.com/javase/7/docs/api/java/awt/Color.html}java.awt.Color}} class.
+
+  Here is a list:
+
+---
+  BLACK, BLUE, CYAN, DARK_GRAY, GRAY, GREEN, LIGHT_GRAY, MAGENTA, ORANGE, PINK, RED, WHITE, YELLOW
+---
+
+* {Canvas}
+
+*---------------------+----------------+-----------------------------------------------------------------------------+ 
+||Attribute           ||Type           ||Description                                                                 |
+*---------------------+----------------+-----------------------------------------------------------------------------+ 
+|size                 |String          |                                                                             |
+*---------------------+----------------+-----------------------------------------------------------------------------+ 
+|backgroundImageName  |String          |                                                                             |
+*---------------------+----------------+-----------------------------------------------------------------------------+ 
+|backgroundColor      |String          |                                                                             |
+*---------------------+----------------+-----------------------------------------------------------------------------+ 
+|draw                 |List\<Drawable\>|                                                                             |
+*---------------------+----------------+-----------------------------------------------------------------------------+ 
+
+
+* {Resources}
+ 
+
+* {Drawables}
+ 

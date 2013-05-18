@@ -22,7 +22,7 @@
          name="Maven Splasher Plugin">
 
     <bannerLeft>
-        <name>bitstring.org</name>
+        <name>bitstring.org - Pino Silvaggio</name>
         <src>http://bitstrings.org/images/bitstrings_logo-595x64.png</src>
         <href>http://bitstrings.org/</href>
         <alt>bitstring.org</alt>
@@ -40,6 +40,11 @@
             <item name="Canvas" href="reference.html#Canvas" />
             <item name="Resources" href="reference.html#resources" />
             <item name="Drawables" href="reference.html#drawables" />
+        </menu>
+
+        <menu name="Examples">
+            <item name="Text using font" href="examples.html#textfont" />
+            <item name="Text using images" href="examples.html#textimages" />
         </menu>
 
         <menu ref="reports"/>
