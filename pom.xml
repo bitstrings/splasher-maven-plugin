@@ -58,6 +58,11 @@
         </developer>
     </developers>
 
+    <issueManagement>
+        <url>https://github.com/bitstrings/splasher-maven-plugin/issues</url>
+        <system>GitHub Issues</system>
+    </issueManagement>
+
     <scm>
         <connection>scm:git:https://github.com/bitstrings/splasher-maven-plugin.git</connection>
         <developerConnection>scm:git:https://github.com/bitstrings/splasher-maven-plugin.git</developerConnection>
