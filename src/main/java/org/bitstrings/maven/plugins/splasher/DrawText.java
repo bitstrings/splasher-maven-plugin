@@ -57,19 +57,82 @@ public class DrawText
 
     // - parameters --[
 
+    /**
+     * The text to render.
+     */
     private String text = "";
 
+    /**
+     * The text color in the form of #rrggbb or a java color constant (java.awt.Color).
+     *
+     * <p>
+     * Example:
+     *
+     *     #00000000 = black
+     *     BLACK = black
+     *     WHITE = white
+     *     #FF0000 = red
+     *     red = red
+     *
+     * <b>Default</b>: #000000
+     * </p>
+     */
     private String textColor = "#000000";
 
+    /**
+     * Font name which can either be a font resource name or a font name previously loaded to the system registry.
+     *
+     * <p>
+     * Example:
+     *
+     *     SansSerif
+     *     Serif
+     *     Monospace
+     *
+     * <b>Default</b>: SansSerif
+     * </p>
+     */
     private String fontName = Font.SANS_SERIF;
 
+    /**
+     * The font style: plain, bold, italic
+     *
+     * <p>
+     * They can be combined using comma.
+     *
+     * <b>Default</b>: plain
+     * </p>
+     */
     private String fontStyle = "plain";
 
+    /**
+     * Font point size.
+     *
+     * <p>
+     * <b>Default</b>: 12
+     * </p>
+     */
     private int fontSize = 12;
 
+    /**
+     * Font anti-aliasing.
+     *
+     * <p>
+     * Possible values: ON, OFF, GASP, HBGR, HRGB, VGBR, VRGB
+     *
+     * <b>Default</b>: ON
+     * </p>
+     */
     private AntialiasType fontAntialias = AntialiasType.ON;
 
-    public boolean useBaseline = false;
+    /**
+     * Use font baseline to calculate coordinates.
+     *
+     * <p>
+     * <b>Default</b>: false
+     * </p>
+     */
+    private boolean useBaseline = false;
 
     // ]--
 

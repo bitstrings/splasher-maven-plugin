@@ -27,8 +27,14 @@ public abstract class Drawable
 {
     // - parameters --[
 
+    /**
+     * The drawable position relative to its container.
+     */
     private String position = "0,0";
 
+    /**
+     * Set this to false to skip rendering.
+     */
     private boolean isVisible = true;
 
     // ] --

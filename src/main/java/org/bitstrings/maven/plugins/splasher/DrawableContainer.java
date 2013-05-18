@@ -12,6 +12,9 @@ public abstract class DrawableContainer
 {
     // - parameters --[
 
+    /**
+     * The drawables for this container.
+     */
     private List<Drawable> draw;
 
     // ]--

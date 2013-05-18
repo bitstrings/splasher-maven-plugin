@@ -26,6 +26,9 @@ public class DrawImage
 {
     // - parameters --[
 
+    /**
+     * The image resource name.
+     */
     private String imageName;
 
     // ]--
