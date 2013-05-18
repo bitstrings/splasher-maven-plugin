@@ -26,8 +26,14 @@ public class LoadImage
 {
     // - parameters --[
 
+    /**
+     * The Image resource name.
+     */
     private String name;
 
+    /**
+     * The image file.
+     */
     private File imageFile;
 
     // ]--

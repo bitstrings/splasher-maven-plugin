@@ -26,8 +26,19 @@ public class LoadFont
 {
     // - parameters --[
 
+    /**
+     * Font resource name.
+     */
     private String name;
 
+    /*
+     * The font file.
+     *
+     * <p>
+     * Java 6 supports ttf and type1.
+     * Java 7 supports ttf, otf and type1.
+     * </p>
+     */
     private File fontFile;
 
     // ]--

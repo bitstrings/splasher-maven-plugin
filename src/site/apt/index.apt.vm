@@ -46,61 +46,52 @@ Maven Splasher Plugin
     <artifactId>${project.artifactId}</artifactId>
     <version>${project.version}</version>
     <configuration>
-
         <resources>
-            <alphaNumImageMapper>
-                <directory>src/main/resources</directory>
-                <fileNamePattern>num%n.png</fileNamePattern>
-                <ranges>1-5</ranges>
-                <namePrefix>num</namePrefix>
-            </alphaNumImageMapper>
             <loadImage>
-                <imageFile>src/main/resources/crosshair.png</imageFile>
+                <imageFile>src/main/splasher/crosshair.png</imageFile>
                 <name>crosshair</name>
             </loadImage>
+            <loadFont>
+                <fontFile>src/main/splasher/FreeMono.ttf</fontFile>
+                <name>font1</name>
+            </loadFont>
         </resources>
 
         <outputImageFile>image.png</outputImageFile>
 
         <canvas>
             <size>640x480</size>
-            <backgroundColor>#A9A9F0</backgroundColor>
-
+            <backgroundColor>WHITE</backgroundColor>
             <draw>
                 <drawImage>
                     <imageName>crosshair</imageName>
                     <position>center,center</position>
                 </drawImage>
-                <drawImagesFromText>
-                    <text>12345</text>
-                    <imageNamePrefix>num</imageNamePrefix>
-                    <alignment>HORIZONTAL</alignment>
-                    <padding>12</padding>
-                    <position>center,top</position>
-                </drawImagesFromText>
-
-                <drawImagesFromText>
-                    <text>54321</text>
-                    <imageNamePrefix>num</imageNamePrefix>
-                    <alignment>VERTICAL</alignment>
-                    <padding>12</padding>
-                    <position>left,center</position>
-                </drawImagesFromText>
-
-                <flowLayout>
-                    <padding>12</padding>
-                    <position>center,bottom</position>
-                    <draw>
-                        <drawImage>num1</drawImage>
-                        <drawImage>num2</drawImage>
-                        <drawImage>num3</drawImage>
-                        <drawImage>num4</drawImage>
-                        <drawImage>num5</drawImage>
-                    </draw>
-                </flowLayout>
+                <drawText>
+                    <text>--&gt; Center &lt;--</text>
+                    <textColor>#000000</textColor>
+                    <fontAntialias>HRGB</fontAntialias>
+                    <fontName>font1</fontName>
+                    <fontSize>48</fontSize>
+                    <position>center,center</position>
+                </drawText>
+                <drawText>
+                    <text>:Top Left:</text>
+                    <textColor>#000000</textColor>
+                    <fontName>FreeMono</fontName>
+                    <fontSize>48</fontSize>
+                    <position>left,top</position>
+                </drawText>
+                <drawText>
+                    <text>:Bottom Right:</text>
+                    <textColor>#000077</textColor>
+                    <fontName>Serif</fontName>
+                    <fontStyle>italic,bold</fontStyle>
+                    <fontSize>32</fontSize>
+                    <position>right,bottom</position>
+                </drawText>
             </draw>
         </canvas>
-
     </configuration>
 </plugin>
 +-------------+
