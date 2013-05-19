@@ -37,9 +37,11 @@
         </menu>
 
         <menu name="Reference">
+            <item name="Types" href="reference.html#types" />
             <item name="Canvas" href="reference.html#Canvas" />
             <item name="Resources" href="reference.html#resources" />
             <item name="Drawables" href="reference.html#drawables" />
+            <item name="Layouts" href="reference.html#layouts" />
         </menu>
 
         <menu name="Examples">
