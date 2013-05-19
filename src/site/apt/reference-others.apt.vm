@@ -8,6 +8,8 @@ Reference
 ||Attribute           ||Type           ||Description                                                                 |
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 |name                 |String          | The name of this font resource.
+|                     |                | You may omit the font name which will simply import the font 
+|                     |                | into the system using its metadata.
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 |fontFile             |File            | <<[Required]>> The font file.
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
@@ -27,16 +29,41 @@ Reference
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 ||Attribute           ||Type           ||Description                                                                 |
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
-|directory            |File            |
+|directory            |File            | <<[Required]>> The directory of the images.
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
-|fileNamePattern      |String          | 
+|fileNamePattern      |String          | <<[Required]>> The file name pattern where %n is replaced by the character 
+|                     |                | mapped to the image.\
+|                     |                | \
+|                     |                | Example:\
+|                     |                | \
+|                     |                | \ \ \<range\>0-9\</range\>\
+|                     |                | \ \ \<fileNamePattern\>image_%n.png\</fileNamePattern\>\
+|                     |                | \
+|                     |                | \ \ Will load:\
+|                     |                | \
+|                     |                | \ \ \ \ image_0.png  for 0\
+|                     |                | \ \ \ \ image_1.png  for 1\
+|                     |                | \ \ \ \ image_2.png  for 2\
+|                     |                | \ \ \ \ ...\
+|                     |                | \ \ \ \ image_9.png  for 9\
+|                     |                | \
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
-|ranges               |String          | 
+|ranges               |String          | <<[Required]>>
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
-|namePrefix           |String          | The name prefix for each images.
-|                     |                |
-|                     |                | Examples:
-|                     |                |
+|namePrefix           |String          | The name prefix for each images.\
+|                     |                | \
+|                     |                | Examples:\
+|                     |                | \
+|                     |                | \ \ \<namePrefix\>num\</namePrefix\>\
+|                     |                | \
+|                     |                | \ \ Resource name mapping using the example above (fileNamePattern):\
+|                     |                | \
+|                     |                | \ \ \ \ num0 --> image_0.png\
+|                     |                | \ \ \ \ num1 --> image_1.png\
+|                     |                | \ \ \ \ num2 --> image_2.png\
+|                     |                | \ \ \ \ ...\
+|                     |                | \ \ \ \ num9 --> image_9.png\
+|                     |                | \
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 
 * {Canvas}
