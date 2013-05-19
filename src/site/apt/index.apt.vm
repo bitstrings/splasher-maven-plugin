@@ -3,7 +3,7 @@
  ------
  bitstrings.org - Pino Silvaggio
  ------
- 11 May 2013
+ 19 May 2013
  ------
 
  ~~ Licensed to the Apache Software Foundation (ASF) under one
@@ -27,6 +27,7 @@
 Maven Splasher Plugin
 
     The splasher plugin can be used to compose a splash screen. It can complement an existing splash or create one from scratch.
+    (this plugin is m2e aware)
 
 * Goals Overview
 

@@ -130,3 +130,16 @@ Reference - Types and Concepts
  * tanh: hyperbolic tangent
 
 ---
+
+* Font
+
+ When referencing font names (\<fontName\> for example) implies that name can be a face name or a family name.
+
+ Always available family names:
+
+ * Dialog
+ * DialogInput
+ * Monospaced
+ * Serif
+ * SansSerif
+ 
