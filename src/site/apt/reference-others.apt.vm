@@ -1,8 +1,24 @@
 Reference
  
+    [[1]] {{{Resources}Resources}}
+
+        [[A]] {{{LoadFont}LoadFont}}
+
+        [[B]] {{{LoadImage}LoadImage}}
+
+    [[2]] {{{Canvas}Canvas}}
+
+    [[3]] {{{Drawables}Drawables}}
+    
+        [[A]] {{{DrawImage}DrawImage}}
+
+        [[B]] {{{DrawText}DrawText}}
+
+        [[C]] {{{DrawImagesFromText}DrawImagesFromText}}
+ 
 * {Resources}
 
-** LoadFont
+** {LoadFont}
 
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 ||Attribute           ||Type           ||Description                                                                 |
@@ -14,7 +30,7 @@ Reference
 |fontFile             |File            | <<[Required]>> The font file.
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 
-** LoadImage
+** {LoadImage}
 
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 ||Attribute           ||Type           ||Description                                                                 |
@@ -117,18 +133,21 @@ Reference
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 |textColor            |String          | (Default: #000000)
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
-|fontName             |String          | The name of the font.
+|fontName             |String          | The name of the font.\
 |                     |                | (Default: SansSerif)
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 |fontStyle            |String          | Font style: plain, bold, italic\
 |                     |                | They can be combined using comma: bold,italic
 |                     |                | (Default: plain)
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
-|fontSize             |int             | (Default: 12)
+|fontSize             |int             | The point size of the font.\
+|                     |                | (Default: 12)  
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
-|fontAntialias        |String          | (Default: ON)
+|fontAntialias        |String          | Possible values: ON, OFF, GASP, HBGR, HRGB, VBGR, VRGB\
+|                     |                | (Default: ON)
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
-|useBaseline          |boolean         | (Default: false)
+|useBaseline          |boolean         | Set this to true to use the baseline as a base for Y-axis.\
+|                     |                | (Default: false)
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 |position             |String          | \{X\},\{Y\}\
 |                     |                | where \{X\} can be: left, right, center or a math expression\
@@ -153,7 +172,9 @@ Reference
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 |padding              |int             | The padding between characters.
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
-|alignment            |Alignment       | (Default: HORIZONTAL)
+|alignment            |Alignment       | You can write the text either horizontally (HORIZONTAL) 
+|                     |                | or vertically (VERTICAL)\
+|                     |                | (Default: HORIZONTAL)
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 |position             |String          | \{X\},\{Y\}\
 |                     |                | where \{X\} can be: left, right, center or a math expression\
