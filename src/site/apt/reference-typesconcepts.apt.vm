@@ -97,39 +97,52 @@ Reference - Types and Concepts
 
 ** Operators
 
----
-
  * Addition: +
+
  * Substraction: -
+
  * Multiplication: *
+
  * Division: /
+
  * Exponentation: ^
+
  * Modulo: %
 
----
 
 ** Functions
 
----
-
  * abs: absolute value
- * acos: arc cosine
- * asin: arc sine
- * atan: arc tangent
- * cbrt: cubic root
- * ceil: nearest upper integer
- * cos: cosine
- * cosh: hyperbolic cosine
- * exp: euler's number raised to the power (e^x)
- * floor: nearest lower integer
- * log: logarithmus naturalis (base e)
- * sin: sine
- * sinh: hyperbolic sine
- * sqrt: square root
- * tan: tangent
- * tanh: hyperbolic tangent
 
----
+ * acos: arc cosine
+
+ * asin: arc sine
+
+ * atan: arc tangent
+
+ * cbrt: cubic root
+
+ * ceil: nearest upper integer
+
+ * cos: cosine
+
+ * cosh: hyperbolic cosine
+
+ * exp: euler's number raised to the power (e^x)
+
+ * floor: nearest lower integer
+
+ * log: logarithmus naturalis (base e)
+
+ * sin: sine
+
+ * sinh: hyperbolic sine
+
+ * sqrt: square root
+
+ * tan: tangent
+
+ * tanh: hyperbolic tangent
 
 * Font
 
@@ -138,8 +151,12 @@ Reference - Types and Concepts
  Always available family names:
 
  * Dialog
+
  * DialogInput
+
  * Monospaced
+
  * Serif
+
  * SansSerif
  
