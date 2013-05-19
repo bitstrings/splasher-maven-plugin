@@ -1,84 +1,5 @@
 Reference
  
-* {Types}
-
-** Color
-
- You may specify a color using a 24-bit integer in decimal, octal or hexadecimal.
- You can also use a constant.
-
-*** Hexadecimal
-
----
- Syntax:
-
-     #rrggbb or 0xrrggbb
-      
-     where rr,gg,bb are hexadecimal numbers representing red, green and blue.
-      
- Example:
-  
-     #FF0000 = RED
-     #00FF00 = GREEN
-     #FFFFFF = WHITE
----
-
-*** Decimal
-
----
- Syntax:
----
-
-*** Octal
-
----
- Syntax:
----
-
-*** Constant
-
- The constants are those defined by the {{{http://docs.oracle.com/javase/7/docs/api/java/awt/Color.html}java.awt.Color}} class.
-
- Here is a list:
-
----
- BLACK, BLUE, CYAN, DARK_GRAY, GRAY, GREEN, LIGHT_GRAY, MAGENTA, ORANGE, PINK, RED, WHITE, YELLOW
----
-
-** Position
-
----
- Syntax:
- 
-     {X},{Y}
-     
-     where {X} is: 
-     
-     left, right or center
-     
-     and
-     
-     where {Y} is:
-     
-     top, bottom or center
-     
-     or
-     
-     a mathematical expression, including a constant, i.e.: 5, 2+3 or ${position} - 8 + ${offset} 
-     
-     or
-     
-     a combination of a label and an expression, i.e.: center+100
-     
- Example:
- 
-     center,center
-     100,250
-     100,top
-     center-24,bottom-48
-      
----
-
 * {Resources}
 
 ** LoadFont
@@ -108,11 +29,14 @@ Reference
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 |directory            |File            |
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
-|fileNamePattern      |String          |
+|fileNamePattern      |String          | 
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
-|ranges               |String          |
+|ranges               |String          | 
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
-|namePrefix           |String          |
+|namePrefix           |String          | The name prefix for each images.
+|                     |                |
+|                     |                | Examples:
+|                     |                |
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 
 * {Canvas}
@@ -132,7 +56,8 @@ Reference
 |isVisible            |boolean         | Set this to false to skip rendering this component.\
 |                     |                | (Default: true)
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
-|draw                 |List\<Drawable\>| 
+|draw                 |List\<Drawable\>| Drawables.\
+|                     |                | Like: \<drawImage\> and \<drawText\>
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 
 * {Drawables}
@@ -142,9 +67,15 @@ Reference
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 ||Attribute           ||Type           ||Description                                                                 |
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
-|imageName            |String          | <<[Required]>>
+|imageName            |String          | <<[Required]>> The image resource name.
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
-|position             |String          | (Default: 0,0)
+|position             |String          | \{X\},\{Y\}\
+|                     |                | where \{X\} can be: left, right, center or a math expression\
+|                     |                | where \{Y\} can be: top, bottom, center or a math expression\
+|                     |                | \
+|                     |                | (Default: 0,0)\
+|                     |                | \
+|                     |                | See {{{./reference-typesconcepts.html}Types and Concepts}}.
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 |isVisible            |boolean         | Set this to false to skip rendering this component.\
 |                     |                | (Default: true)
@@ -155,21 +86,30 @@ Reference
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 ||Attribute           ||Type           ||Description                                                                 |
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
-|text                 |String          | 
+|text                 |String          | The text to render.
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 |textColor            |String          | (Default: #000000)
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
-|fontName             |String          | (Default: SansSerif)
+|fontName             |String          | The name of the font.
+|                     |                | (Default: SansSerif)
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
-|fontStyle            |String          | (Default: plain)
+|fontStyle            |String          | Font style: plain, bold, italic\
+|                     |                | They can be combined using comma: bold,italic
+|                     |                | (Default: plain)
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
-|fontSize             |String          | (Default: 12)
+|fontSize             |int             | (Default: 12)
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 |fontAntialias        |String          | (Default: ON)
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 |useBaseline          |boolean         | (Default: false)
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
-|position             |String          | (Default: 0,0)
+|position             |String          | \{X\},\{Y\}\
+|                     |                | where \{X\} can be: left, right, center or a math expression\
+|                     |                | where \{Y\} can be: top, bottom, center or a math expression\
+|                     |                | \
+|                     |                | (Default: 0,0)\
+|                     |                | \
+|                     |                | See {{{./reference-typesconcepts.html}Types and Concepts}}.
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 |isVisible            |boolean         | Set this to false to skip rendering this component.\
 |                     |                | (Default: true)
@@ -180,15 +120,21 @@ Reference
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 ||Attribute           ||Type           ||Description                                                                 |
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
-|text                 |String          | 
+|text                 |String          | The text to render using the mapped images. 
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
-|imageNamePrefix      |String          | 
+|imageNamePrefix      |String          | <<[Required]>> The images name prefix.
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
-|padding              |int             | 
+|padding              |int             | The padding between characters.
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 |alignment            |Alignment       | (Default: HORIZONTAL)
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
-|position             |String          | (Default: 0,0)
+|position             |String          | \{X\},\{Y\}\
+|                     |                | where \{X\} can be: left, right, center or a math expression\
+|                     |                | where \{Y\} can be: top, bottom, center or a math expression\
+|                     |                | \
+|                     |                | (Default: 0,0)\
+|                     |                | \
+|                     |                | See {{{./reference-typesconcepts.html}Types and Concepts}}.
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 |isVisible            |boolean         | Set this to false to skip rendering this component.\
 |                     |                | (Default: true)

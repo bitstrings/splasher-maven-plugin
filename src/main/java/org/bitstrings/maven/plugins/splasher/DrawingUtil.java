@@ -297,7 +297,16 @@ public final class DrawingUtil
             }
             catch ( NumberFormatException e )
             {
-                throw new IllegalArgumentException( "Unable to decode color " + colorStr, e );
+                try
+                {
+                    int[] rgb = decodeExpressions( colorStr, 3 );
+
+                    color = new Color( rgb[0], rgb[1], rgb[2] );
+                }
+                catch ( IllegalArgumentException e2 )
+                {
+                    throw new IllegalArgumentException( "Unable to decode color " + colorStr, e );
+                }
             }
         }
 

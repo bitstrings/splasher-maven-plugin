@@ -45,10 +45,9 @@ public class SplasherComposeMojo
 
     /**
      * The canvas.
-     *
-     * <p>
+     * <br>
+     * <br>
      * See <b>Reference: Canvas</b>.
-     * </p>
      */
     @Parameter( required = true )
     private Canvas canvas;
@@ -65,10 +64,8 @@ public class SplasherComposeMojo
      *       &lt;/loadImage&gt;
      *     &lt;/resources&gt;
      * </pre>
-     *
-     * <p>
+     * <br>
      * See <b>Reference: Resources</b>.
-     * </p>
      */
     @Parameter
     private ResourceProvider[] resources;

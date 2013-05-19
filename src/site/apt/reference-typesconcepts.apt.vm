@@ -1,0 +1,132 @@
+Reference - Types and Concepts
+ 
+* Color
+
+ You may specify a color using a 24-bit integer in decimal, octal or hexadecimal.
+ You can also use a constant.
+
+** Hexadecimal
+
+---
+ Syntax:
+
+     #rrggbb or 0xrrggbb
+      
+     where rr,gg,bb are hexadecimal numbers representing red, green and blue.
+      
+ Example:
+  
+     #FF0000  = RED
+     #00FF00  = GREEN
+     #FFFFFF  = WHITE
+     0x0000FF = BLUE 
+---
+
+** Decimal
+
+---
+ Syntax:
+ 
+     n
+     
+     where n is a RGB value consisting of the red component in bits 16-23, the green component in bits 8-15, and the blue component in bits 0-7.
+---
+
+** Constant
+
+ The constants are those defined by the {{{http://docs.oracle.com/javase/7/docs/api/java/awt/Color.html}java.awt.Color}} class.
+
+ Here is a list:
+
+---
+ BLACK, BLUE, CYAN, DARK_GRAY, GRAY, GREEN, LIGHT_GRAY, MAGENTA, ORANGE, PINK, RED, WHITE, YELLOW
+---
+
+* Position
+
+---
+ Syntax:
+ 
+     {X},{Y}
+     
+     where {X} is: 
+     
+     left, right or center
+     
+     and
+     
+     where {Y} is:
+     
+     top, bottom or center
+     
+     or
+     
+     a mathematical expression, including a constant, i.e.: 5, 2+3 or ${position} - 8 + ${offset}
+
+     or
+     
+     a combination of a label and an expression, i.e.: center+100
+     
+ Example:
+ 
+     center,center
+     100,250
+     100,top
+     center-24,bottom-48
+      
+---
+
+* Size
+
+---
+
+ Syntax:
+ 
+     {width},{height}
+     
+     where {width} and {height} are mathematical expressions.
+
+ Example:
+ 
+     640,480
+     1024,${height}*2
+
+---
+
+* {Math Expression}
+
+** Operators
+
+---
+
+ * Addition: +
+ * Substraction: -
+ * Multiplication: *
+ * Division: /
+ * Exponentation: ^
+ * Modulo: %
+
+---
+
+** Functions
+
+---
+
+ * abs: absolute value
+ * acos: arc cosine
+ * asin: arc sine
+ * atan: arc tangent
+ * cbrt: cubic root
+ * ceil: nearest upper integer
+ * cos: cosine
+ * cosh: hyperbolic cosine
+ * exp: euler's number raised to the power (e^x)
+ * floor: nearest lower integer
+ * log: logarithmus naturalis (base e)
+ * sin: sine
+ * sinh: hyperbolic sine
+ * sqrt: square root
+ * tan: tangent
+ * tanh: hyperbolic tangent
+
+---

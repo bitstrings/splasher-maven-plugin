@@ -65,7 +65,7 @@
                             </drawImage>
                             <drawText>
                                 <text>--&gt; Center &lt;--</text>
-                                <textColor>#000000</textColor>
+                                <textColor>BLACK</textColor>
                                 <fontAntialias>HRGB</fontAntialias>
                                 <fontName>font1</fontName>
                                 <fontSize>48</fontSize>
