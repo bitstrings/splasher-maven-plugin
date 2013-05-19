@@ -1,11 +1,31 @@
 Reference - Types and Concepts
  
-* Color
+    [[1]] {{{Color}Color}}
+
+        [[A]] {{{Hexadecimal}Hexadecimal}}
+
+        [[B]] {{{Decimal}Decimal}}
+
+        [[C]] {{{Constant}Constant}}
+
+    [[2]] {{{Position}Position}}
+
+    [[3]] {{{Size}Size}}
+
+    [[4]] {{{Math_Expression}Mathematical Expression}}
+
+        [[A]] {{{Operators}Operators}}
+
+        [[B]] {{{Functions}Functions}}
+
+    [[5]] {{{Font}Font}}
+
+* {Color}
 
  You may specify a color using a 24-bit integer in decimal, octal or hexadecimal.
  You can also use a constant.
 
-** Hexadecimal
+** {Hexadecimal}
 
 ---
  Syntax:
@@ -22,7 +42,7 @@ Reference - Types and Concepts
      0x0000FF = BLUE 
 ---
 
-** Decimal
+** {Decimal}
 
 ---
  Syntax:
@@ -32,7 +52,7 @@ Reference - Types and Concepts
      where n is a RGB value consisting of the red component in bits 16-23, the green component in bits 8-15, and the blue component in bits 0-7.
 ---
 
-** Constant
+** {Constant}
 
  The constants are those defined by the {{{http://docs.oracle.com/javase/7/docs/api/java/awt/Color.html}java.awt.Color}} class.
 
@@ -42,7 +62,7 @@ Reference - Types and Concepts
  BLACK, BLUE, CYAN, DARK_GRAY, GRAY, GREEN, LIGHT_GRAY, MAGENTA, ORANGE, PINK, RED, WHITE, YELLOW
 ---
 
-* Position
+* {Position}
 
 ---
  Syntax:
@@ -76,7 +96,7 @@ Reference - Types and Concepts
       
 ---
 
-* Size
+* {Size}
 
 ---
 
@@ -95,7 +115,7 @@ Reference - Types and Concepts
 
 * {Math Expression}
 
-** Operators
+** {Operators}
 
  * Addition: +
 
@@ -110,7 +130,7 @@ Reference - Types and Concepts
  * Modulo: %
 
 
-** Functions
+** {Functions}
 
  * abs: absolute value
 
@@ -144,9 +164,9 @@ Reference - Types and Concepts
 
  * tanh: hyperbolic tangent
 
-* Font
+* {Font}
 
- When referencing font names (\<fontName\> for example) implies that name can be a face name or a family name.
+ Referencing font names (\<fontName\> for example) implies that the name can be a face name or a family name.
 
  Always available family names:
 
