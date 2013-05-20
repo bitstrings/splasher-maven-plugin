@@ -239,6 +239,8 @@ Reference
 
 * {Layouts}
 
+ Layouts are simply containers that define a set of attributes that the drawables are bound to.
+
 ** {flowLayout}
 
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
