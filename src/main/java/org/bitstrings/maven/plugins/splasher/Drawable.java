@@ -18,6 +18,7 @@ package org.bitstrings.maven.plugins.splasher;
 import static org.bitstrings.maven.plugins.splasher.DrawingUtil.decodePositionAndSetBounds;
 import static org.bitstrings.maven.plugins.splasher.DrawingUtil.getDrawingBounds;
 
+import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
@@ -31,6 +32,11 @@ public abstract class Drawable
      * The drawable position relative to its container.
      */
     private String position = "0,0";
+
+    /**
+     * The transparency value in %, where 0 is completely transparent and 100 is opaque.
+     */
+    private int alpha = 100;
 
     /**
      * Set this to false to skip rendering.
@@ -94,6 +100,8 @@ public abstract class Drawable
         {
             return;
         }
+
+        g.setComposite( AlphaComposite.getInstance( AlphaComposite.SRC_OVER, alpha / 100F) );
 
         render( g );
     }

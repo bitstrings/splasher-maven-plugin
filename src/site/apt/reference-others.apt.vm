@@ -126,6 +126,10 @@ Reference
 |                     |                | \
 |                     |                | See {{{./reference-typesconcepts.html}Types and Concepts}}.
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
+|alpha                |int             | The transparency value in %, 
+|                     |                | where 0 is completely transparent and 100 is opaque.\
+|                     |                | (Default: 100)
+*---------------------+----------------+-----------------------------------------------------------------------------+ 
 |isVisible            |boolean         | Set this to false to skip rendering this component.\
 |                     |                | (Default: true)
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
@@ -155,6 +159,10 @@ Reference
 |                     |                | (Default: 0,0)\
 |                     |                | \
 |                     |                | See {{{./reference-typesconcepts.html}Types and Concepts}}.
+*---------------------+----------------+-----------------------------------------------------------------------------+ 
+|alpha                |int             | The transparency value in %, 
+|                     |                | where 0 is completely transparent and 100 is opaque.\
+|                     |                | (Default: 100)
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 |isVisible            |boolean         | Set this to false to skip rendering this component.\
 |                     |                | (Default: true)
@@ -193,6 +201,10 @@ Reference
 |                     |                | (Default: 0,0)\
 |                     |                | \
 |                     |                | See {{{./reference-typesconcepts.html}Types and Concepts}}.
+*---------------------+----------------+-----------------------------------------------------------------------------+ 
+|alpha                |int             | The transparency value in %, 
+|                     |                | where 0 is completely transparent and 100 is opaque.\
+|                     |                | (Default: 100)
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 |isVisible            |boolean         | Set this to false to skip rendering this component.\
 |                     |                | (Default: true)
@@ -233,6 +245,10 @@ Reference
 |                     |                | \
 |                     |                | See {{{./reference-typesconcepts.html}Types and Concepts}}.
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
+|alpha                |int             | The transparency value in %, 
+|                     |                | where 0 is completely transparent and 100 is opaque.\
+|                     |                | (Default: 100)
+*---------------------+----------------+-----------------------------------------------------------------------------+ 
 |isVisible            |boolean         | Set this to false to skip rendering this component.\
 |                     |                | (Default: true)
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
@@ -255,6 +271,10 @@ Reference
 |isVisible            |boolean         | Set this to false to skip rendering this component.\
 |                     |                | (Default: true)
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
+|alpha                |int             | The transparency value in %, 
+|                     |                | where 0 is completely transparent and 100 is opaque.\
+|                     |                | (Default: 100)
+*---------------------+----------------+-----------------------------------------------------------------------------+ 
 |draw                 |List\<Drawable\>| Drawables.\
 |                     |                | Like: \<drawImage\> and \<drawText\>
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
@@ -266,6 +286,10 @@ Reference
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 |size                 |int             | The size (bounds) of this layout.\
 |                     |                | (Default: 0,0)
+*---------------------+----------------+-----------------------------------------------------------------------------+ 
+|alpha                |int             | The transparency value in %, 
+|                     |                | where 0 is completely transparent and 100 is opaque.\
+|                     |                | (Default: 100)
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 |isVisible            |boolean         | Set this to false to skip rendering this component.\
 |                     |                | (Default: true)
