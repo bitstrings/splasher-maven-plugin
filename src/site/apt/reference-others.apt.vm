@@ -6,17 +6,19 @@ Reference
 
         [[B]] {{{loadImage}loadImage}}
 
-    [[2]] {{{canvas}canvas}}
+        [[C]] {{{loadAlphaNumImages}loadAlphaNumImages}}
 
-    [[3]] {{{Drawables}Drawables}}
+    [[2]] {{{Drawables}Drawables}}
     
-        [[A]] {{{drawImage}drawImage}}
-
-        [[B]] {{{drawText}drawText}}
-
-        [[C]] {{{drawImagesFromText}drawImagesFromText}}
+        [[A]] {{{canvas}canvas}}
         
-    [[4]] {{{Layouts}Layouts}}
+        [[B]] {{{drawImage}drawImage}}
+
+        [[C]] {{{drawText}drawText}}
+
+        [[D]] {{{drawImagesFromText}drawImagesFromText}}
+        
+    [[3]] {{{Layouts}Layouts}}
 
         [[A]] {{{flowLayout}flowLayout}}
 
@@ -46,7 +48,7 @@ Reference
 |imageFile            |File            | <<[Required]>> The image file.
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 
-** LoadAlphaNumImages
+** {loadAlphaNumImages}
 
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 ||Attribute           ||Type           ||Description                                                                 |
@@ -70,7 +72,11 @@ Reference
 |                     |                | \ \ \ \ image_9.png  for 9\
 |                     |                | \
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
-|ranges               |String          | <<[Required]>>
+|ranges               |String          | <<[Required]>>\
+|                     |                | A range can be a single character or two characters separated by '-'.\
+|                     |                | The range a-d is equivalent to a,b,c,d.\
+|                     |                | You can specify multiple ranges using comma: a, w-z, 0-9.\
+|                     |                | Note: a range is based on the unicode standard order. 
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 |namePrefix           |String          | The name prefix for each images.\
 |                     |                | \
@@ -88,7 +94,9 @@ Reference
 |                     |                | \
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 
-* {canvas}
+* {Drawables}
+
+** {canvas}
 
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 ||Attribute           ||Type           ||Description                                                                 |
@@ -109,9 +117,7 @@ Reference
 |                     |                | Like: \<drawImage\> and \<drawText\>
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 
-* {Drawables}
-
-** drawImage
+** {drawImage}
 
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 ||Attribute           ||Type           ||Description                                                                 |
@@ -130,14 +136,15 @@ Reference
 |                     |                | (Default: true)
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 
-** drawText
+** {drawText}
 
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 ||Attribute           ||Type           ||Description                                                                 |
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 |text                 |String          | The text to render.
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
-|textColor            |String          | (Default: #000000)
+|textColor            |String          | The text color.\
+|                     |                | (Default: #000000)
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 |fontName             |String          | The name of the font.\
 |                     |                | (Default: SansSerif)
@@ -167,7 +174,9 @@ Reference
 |                     |                | (Default: true)
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 
-** drawImagesFromText
+** {drawImagesFromText}
+
+ The bounds are defined by the total width of each image including padding and the height equals the tallest image.
 
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 ||Attribute           ||Type           ||Description                                                                 |
@@ -190,12 +199,22 @@ Reference
 |                     |                | \
 |                     |                | See {{{./reference-typesconcepts.html}Types and Concepts}}.
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
+|imagePosition        |String          | The position of each image relative to its bounds.\ 
+|                     |                | \
+|                     |                | \{X\},\{Y\}\
+|                     |                | where \{X\} can be: left, right, center or a math expression\
+|                     |                | where \{Y\} can be: top, bottom, center or a math expression\
+|                     |                | \
+|                     |                | (Default: left,bottom)\
+|                     |                | \
+|                     |                | See {{{./reference-typesconcepts.html}Types and Concepts}}.
+*---------------------+----------------+-----------------------------------------------------------------------------+ 
 |isVisible            |boolean         | Set this to false to skip rendering this component.\
 |                     |                | (Default: true)
 *---------------------+----------------+-----------------------------------------------------------------------------+ 
 
-* Layouts
+* {Layouts}
 
-** flowLayout
+** {flowLayout}
 
-** positionalLayout
+** {positionalLayout}

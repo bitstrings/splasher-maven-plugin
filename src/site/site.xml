@@ -38,7 +38,6 @@
 
         <menu name="Reference">
             <item name="Types and Concepts" href="reference-typesconcepts.html" />
-            <item name="Canvas" href="reference-others.html#Canvas" />
             <item name="Resources" href="reference-others.html#Resources" />
             <item name="Drawables" href="reference-others.html#Drawables" />
             <item name="Layouts" href="reference-others.html#Layouts" />

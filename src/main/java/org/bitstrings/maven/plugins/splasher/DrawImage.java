@@ -56,9 +56,7 @@ public class DrawImage
     {
         dwImage = dwContext.getImage( imageName );
 
-        dwBounds.width = dwImage.getWidth();
-
-        dwBounds.height = dwImage.getHeight();
+        dwBounds.setSize( dwImage.getWidth(), dwImage.getHeight() );
 
         super.init( g );
     }

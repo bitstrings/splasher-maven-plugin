@@ -35,6 +35,8 @@ import de.congrace.exp4j.ExpressionBuilder;
 
 public final class DrawingUtil
 {
+    public static final Dimension DIMENSION_1X1 = new Dimension( 1, 1 );
+
     public static final String POSITION_CENTER_STR = "center";
 
     public static final String POSITION_LEFT_STR = "left";
@@ -164,6 +166,12 @@ public final class DrawingUtil
         }
 
         return parsedSeries;
+    }
+
+    public static int[] decodePosition( String position, Dimension containerDimension )
+        throws IllegalArgumentException
+    {
+        return decodePosition( position, DIMENSION_1X1, containerDimension );
     }
 
     public static int[] decodePosition( String position, Dimension dimension, Dimension containerDimension )

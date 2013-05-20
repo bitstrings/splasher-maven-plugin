@@ -47,7 +47,7 @@ public class SplasherComposeMojo
      * The canvas.
      * <br>
      * <br>
-     * See <b>Reference: Canvas</b>.
+     * See <b>Reference: Drawables</b>.
      */
     @Parameter( required = true )
     private Canvas canvas;

@@ -20,6 +20,8 @@ public class DrawImagesFromText
 
     private Alignment alignment = Alignment.HORIZONTAL;
 
+    private String imagePosition = "left,bottom";
+
     // ]--
 
     protected FlowLayout drawImagesFromText;
@@ -29,9 +31,19 @@ public class DrawImagesFromText
         return text;
     }
 
+    public void setText( String text )
+    {
+        this.text = text;
+    }
+
     public String getImageNamePrefix()
     {
         return imageNamePrefix;
+    }
+
+    public void setImageNamePrefix( String imageNamePrefix )
+    {
+        this.imageNamePrefix = imageNamePrefix;
     }
 
     public int getPadding()
@@ -39,9 +51,29 @@ public class DrawImagesFromText
         return padding;
     }
 
+    public void setPadding( int padding )
+    {
+        this.padding = padding;
+    }
+
     public Alignment getAlignment()
     {
         return alignment;
+    }
+
+    public void setAlignment( Alignment alignment )
+    {
+        this.alignment = alignment;
+    }
+
+    public String getImagePosition()
+    {
+        return imagePosition;
+    }
+
+    public void setImagePosition( String imagePosition )
+    {
+        this.imagePosition = imagePosition;
     }
 
     @Override
@@ -62,6 +94,8 @@ public class DrawImagesFromText
             DrawImage drawImage = new DrawImage();
 
             drawImage.setImageName( imageNamePrefix + text.charAt( i ) );
+
+            drawImage.setPosition( imagePosition );
 
             drawables.add( drawImage );
         }
