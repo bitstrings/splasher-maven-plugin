@@ -24,10 +24,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.bitstrings.maven.plugins.splasher.its</groupId>
-    <artifactId>text</artifactId>
+    <artifactId>drawTextAndImages</artifactId>
     <version>1-SNAPSHOT</version>
 
-    <name>IT : text</name>
+    <name>IT : draw text and images</name>
 
     <packaging>pom</packaging>
 
@@ -47,6 +47,10 @@
                             <imageFile>@basedir@/src/it/resources/crosshair.png</imageFile>
                             <name>crosshair</name>
                         </loadImage>
+                        <loadImage>
+                            <imageFile>@basedir@/src/it/resources/red-indicator.png</imageFile>
+                            <name>indicator</name>
+                        </loadImage>
                         <loadFont>
                             <fontFile>@basedir@/src/it/resources/FreeMono.ttf</fontFile>
                             <name>font1</name>
@@ -63,8 +67,16 @@
                                 <imageName>crosshair</imageName>
                                 <position>center,center</position>
                             </drawImage>
+                            <drawImage>
+                                <imageName>indicator</imageName>
+                                <position>right,top</position>
+                            </drawImage>
+                            <drawImage>
+                                <imageName>indicator</imageName>
+                                <position>left,bottom</position>
+                            </drawImage>
                             <drawText>
-                                <text>--&gt; Center &lt;--</text>
+                                <text>--&gt; CENTER &lt;--</text>
                                 <textColor>BLACK</textColor>
                                 <fontAntialias>HRGB</fontAntialias>
                                 <fontName>font1</fontName>
@@ -73,16 +85,16 @@
                             </drawText>
                             <drawText>
                                 <text>:Top Left:</text>
-                                <textColor>#000000</textColor>
-                                <fontName>FreeMono</fontName>
+                                <textColor>#0000FF</textColor>
+                                <fontName>Dialog</fontName>
                                 <fontSize>48</fontSize>
                                 <position>left,top</position>
                             </drawText>
                             <drawText>
                                 <text>:Bottom Right:</text>
-                                <textColor>#000077</textColor>
+                                <textColor>255,0,0</textColor>
                                 <fontName>Serif</fontName>
-                                <fontStyle>italic,bold</fontStyle>
+                                <fontStyle>bold,italic</fontStyle>
                                 <fontSize>32</fontSize>
                                 <position>right,bottom</position>
                             </drawText>

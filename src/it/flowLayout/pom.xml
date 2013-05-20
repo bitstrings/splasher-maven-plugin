@@ -45,6 +45,10 @@
 
                     <resources>
                         <loadImage>
+                            <imageFile>@basedir@/src/it/resources/red-indicator.png</imageFile>
+                            <name>indicator</name>
+                        </loadImage>
+                        <loadImage>
                             <imageFile>@basedir@/src/it/resources/red_box.png</imageFile>
                             <name>redbox</name>
                         </loadImage>
@@ -66,6 +70,8 @@
                                 <position>center,center</position>
                                 <alpha>25</alpha>
                             </drawImage>
+                            
+                            <!-- normal -->
                             <flowLayout>
                                 <padding>4</padding>
                                 <position>center,center</position>
@@ -78,6 +84,54 @@
                                     </drawImage>
                                     <drawImage>
                                         <imageName>redbox</imageName>
+                                    </drawImage>
+                                    <drawImage>
+                                        <imageName>redbox</imageName>
+                                    </drawImage>
+                                    <drawImage>
+                                        <imageName>redbox</imageName>
+                                    </drawImage>
+                                </draw>
+                            </flowLayout>
+                            
+                            <!-- bottom -->
+                            <flowLayout>
+                                <padding>4</padding>
+                                <position>center,bottom-64</position>
+                                <draw>
+                                    <drawImage>
+                                        <imageName>redbox</imageName>
+                                    </drawImage>
+                                    <drawImage>
+                                        <imageName>redbox</imageName>
+                                    </drawImage>
+                                    <drawImage>
+                                        <imageName>indicator</imageName>
+                                        <position>center,bottom</position>
+                                    </drawImage>
+                                    <drawImage>
+                                        <imageName>redbox</imageName>
+                                    </drawImage>
+                                    <drawImage>
+                                        <imageName>redbox</imageName>
+                                    </drawImage>
+                                </draw>
+                            </flowLayout>
+
+                            <!-- top -->
+                            <flowLayout>
+                                <padding>4</padding>
+                                <position>center,top+64</position>
+                                <draw>
+                                    <drawImage>
+                                        <imageName>redbox</imageName>
+                                    </drawImage>
+                                    <drawImage>
+                                        <imageName>redbox</imageName>
+                                    </drawImage>
+                                    <drawImage>
+                                        <imageName>indicator</imageName>
+                                        <position>center,top</position>
                                     </drawImage>
                                     <drawImage>
                                         <imageName>redbox</imageName>
