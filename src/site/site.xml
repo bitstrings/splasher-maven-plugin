@@ -44,8 +44,10 @@
         </menu>
 
         <menu name="Examples">
-            <item name="Text using font" href="examples.html#textfont" />
-            <item name="Text using images" href="examples.html#textimages" />
+            <item name="Text using font" href="examples.html#Text_using_font" />
+            <item name="Text using images" href="examples.html#Text_using_images" />
+            <item name="Transparency" href="examples.html#Transparency" />
+            <item name="Layout" href="examples.html#Layout" />
         </menu>
 
         <menu ref="reports"/>

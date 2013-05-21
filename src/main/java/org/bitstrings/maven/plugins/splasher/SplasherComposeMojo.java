@@ -38,7 +38,7 @@ import org.codehaus.plexus.util.FileUtils;
 /**
  * Compose a splash screen.
  */
-@Mojo( name = "compose", defaultPhase=GENERATE_RESOURCES, threadSafe = true )
+@Mojo( name = "compose", defaultPhase = GENERATE_RESOURCES, threadSafe = true )
 public class SplasherComposeMojo
     extends AbstractMojo
 {

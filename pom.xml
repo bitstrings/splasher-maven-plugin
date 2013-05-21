@@ -237,7 +237,7 @@
                                     <localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>
                                     <goals>
                                         <goal>clean</goal>
-                                        <goal>${project.groupId}:${project.artifactId}:${project.version}:compose</goal>
+                                        <goal>package</goal>
                                     </goals>
                                     <settingsFile>src/it/settings.xml</settingsFile>
                                     <debug>true</debug>
