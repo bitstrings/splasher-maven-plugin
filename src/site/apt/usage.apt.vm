@@ -1,0 +1,124 @@
+Usage
+
+* Compose an image file
+
+ Specify an output file:
+ 
++-------------+
+<outputImageFile>image.png</outputImageFile>
++-------------+
+
+ Define resources (which is optional):
+ 
++-------------+
+<resources>
+    <loadImage>
+        <imageFile>src/main/splasher/crosshair.png</imageFile>
+        <name>crosshair</name>
+    </loadImage>
+</resources>
++-------------+
+
+ Draw something on the canvas:
+ 
++-------------+
+<canvas>
+    <size>640x480</size>
+    <backgroundColor>WHITE</backgroundColor>
+    <draw>
+        <drawImage>
+            <imageName>crosshair</imageName>
+            <position>center,center</position>
+        </drawImage>
+    </draw>
+</canvas>
++-------------+
+
+ <<Note>>: You must either define the size of your canvas or use the implicit size of your background image (see {{{./reference-others.html#canvas}Canvas}}).
+
+** Canvas: no background image
+
++-------------+
+<build>
+    <plugins>
+        <plugin>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>${project.artifactId}</artifactId>
+            <version>${project.version}</version>
+            <executions>
+                <execution>
+                    <id>splash</id>
+                    <phase>generate-resources</phase>
+                    <goals>
+                        <goal>compose</goal>
+                    </goals>
+                    <configuration>
+                        <outputImageFile>image.png</outputImageFile>
+                        <resources>
+                            <loadImage>
+                                <imageFile>src/main/splasher/crosshair.png</imageFile>
+                                <name>crosshair</name>
+                            </loadImage>
+                        </resources>
+                        <canvas>
+                            <size>640x480</size>
+                            <backgroundColor>WHITE</backgroundColor>
+                            <draw>
+                                <drawImage>
+                                    <imageName>crosshair</imageName>
+                                    <position>center,center</position>
+                                </drawImage>
+                            </draw>
+                        </canvas>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
++-------------+
+
+** Canvas: with background image
+
++-------------+
+<build>
+    <plugins>
+        <plugin>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>${project.artifactId}</artifactId>
+            <version>${project.version}</version>
+            <executions>
+                <execution>
+                    <id>splash-bg</id>
+                    <phase>generate-resources</phase>
+                    <goals>
+                        <goal>compose</goal>
+                    </goals>
+                    <configuration>
+                        <outputImageFile>image.png</outputImageFile>
+                        <resources>
+                            <loadImage>
+                                <imageFile>src/main/splasher/splash.png</imageFile>
+                                <name>splash</name>
+                            </loadImage>
+                            <loadImage>
+                                <imageFile>src/main/splasher/crosshair.png</imageFile>
+                                <name>crosshair</name>
+                            </loadImage>
+                        </resources>
+                        <canvas>
+                            <backgroundImageName>splash</backgroundImageName>
+                            <draw>
+                                <drawImage>
+                                    <imageName>crosshair</imageName>
+                                    <position>center,center</position>
+                                </drawImage>
+                            </draw>
+                        </canvas>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
++-------------+

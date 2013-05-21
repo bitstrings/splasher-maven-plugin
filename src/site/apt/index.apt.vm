@@ -27,7 +27,6 @@
 Maven Splasher Plugin
 
     The splasher plugin can be used to compose a splash screen. It can complement an existing splash or create one from scratch.
-    (this plugin is m2e aware)
 
 * Goals Overview
 
