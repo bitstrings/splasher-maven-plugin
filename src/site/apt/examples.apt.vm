@@ -2,7 +2,7 @@ Examples
 
 * {Text using font}
 
- You may load fonts without a name which will simply load the font into the system registry and use its metadata.
+ You may load fonts without a name which will simply load the font into the system registry and use its metadata.\
  \
  See {{{./reference-typesconcepts.html#Font}Font}}.
 
