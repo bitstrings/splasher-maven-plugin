@@ -41,107 +41,116 @@
                 <groupId>@project.groupId@</groupId>
                 <artifactId>@project.artifactId@</artifactId>
                 <version>@project.version@</version>
-                <configuration>
-
-                    <resources>
-                        <loadAlphaNumImages>
-                            <directory>@basedir@/src/it/resources</directory>
-                            <fileNamePattern>num%n.png</fileNamePattern>
-                            <ranges>1-5</ranges>
-                            <namePrefix>num</namePrefix>
-                        </loadAlphaNumImages>
-                        <loadAlphaNumImages>
-                            <directory>@basedir@/src/it/resources</directory>
-                            <fileNamePattern>num_small%n.png</fileNamePattern>
-                            <ranges>0-9</ranges>
-                            <namePrefix>num_small</namePrefix>
-                        </loadAlphaNumImages>
-                        <loadImage>
-                            <imageFile>@basedir@/src/it/resources/num_smallDOT.png</imageFile>
-                            <name>num_small.</name>
-                        </loadImage>
-                        <loadImage>
-                            <imageFile>@basedir@/src/it/resources/crosshair.png</imageFile>
-                            <name>crosshair</name>
-                        </loadImage>
-                        <loadImage>
-                            <imageFile>@basedir@/src/it/resources/red_box.png</imageFile>
-                            <name>redbox</name>
-                        </loadImage>
-                    </resources>
-
-                    <outputImageFile>image.png</outputImageFile>
-
-                    <canvas>
-                        <size>640x480</size>
-                        <backgroundColor>#E9E9E9</backgroundColor>
-
-                        <draw>
-                            <drawImage>
-                                <imageName>crosshair</imageName>
-                                <position>center,center</position>
-                            </drawImage>
-                            <drawImage>
-                                <imageName>redbox</imageName>
-                                <position>right,top</position>
-                            </drawImage>
-                            <drawImage>
-                                <imageName>redbox</imageName>
-                                <position>right,bottom</position>
-                            </drawImage>
-                            <drawImagesFromText>
-                                <text>12345</text>
-                                <imageNamePrefix>num</imageNamePrefix>
-                                <alignment>HORIZONTAL</alignment>
-                                <padding>12</padding>
-                                <position>center,top</position>
-                            </drawImagesFromText>
-
-                            <drawImagesFromText>
-                                <text>54321</text>
-                                <imageNamePrefix>num</imageNamePrefix>
-                                <alignment>VERTICAL</alignment>
-                                <padding>12</padding>
-                                <position>left,center</position>
-                            </drawImagesFromText>
-
-                            <flowLayout>
-                                <padding>12</padding>
-                                <position>center,bottom</position>
+                <executions>
+                    <execution>
+                        <id>splash</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>compose</goal>
+                        </goals>
+                        <configuration>
+        
+                            <resources>
+                                <loadAlphaNumImages>
+                                    <directory>@basedir@/src/it/resources</directory>
+                                    <fileNamePattern>num%n.png</fileNamePattern>
+                                    <ranges>1-5</ranges>
+                                    <namePrefix>num</namePrefix>
+                                </loadAlphaNumImages>
+                                <loadAlphaNumImages>
+                                    <directory>@basedir@/src/it/resources</directory>
+                                    <fileNamePattern>num_small%n.png</fileNamePattern>
+                                    <ranges>0-9</ranges>
+                                    <namePrefix>num_small</namePrefix>
+                                </loadAlphaNumImages>
+                                <loadImage>
+                                    <imageFile>@basedir@/src/it/resources/num_smallDOT.png</imageFile>
+                                    <name>num_small.</name>
+                                </loadImage>
+                                <loadImage>
+                                    <imageFile>@basedir@/src/it/resources/crosshair.png</imageFile>
+                                    <name>crosshair</name>
+                                </loadImage>
+                                <loadImage>
+                                    <imageFile>@basedir@/src/it/resources/red_box.png</imageFile>
+                                    <name>redbox</name>
+                                </loadImage>
+                            </resources>
+        
+                            <outputImageFile>image.png</outputImageFile>
+        
+                            <canvas>
+                                <size>640x480</size>
+                                <backgroundColor>#E9E9E9</backgroundColor>
+        
                                 <draw>
-                                    <drawImage>num1</drawImage>
-                                    <drawImage>num2</drawImage>
-                                    <drawImage>num3</drawImage>
-                                    <drawImage>num4</drawImage>
-                                    <drawImage>num5</drawImage>
+                                    <drawImage>
+                                        <imageName>crosshair</imageName>
+                                        <position>center,center</position>
+                                    </drawImage>
+                                    <drawImage>
+                                        <imageName>redbox</imageName>
+                                        <position>right,top</position>
+                                    </drawImage>
+                                    <drawImage>
+                                        <imageName>redbox</imageName>
+                                        <position>right,bottom</position>
+                                    </drawImage>
+                                    <drawImagesFromText>
+                                        <text>12345</text>
+                                        <imageNamePrefix>num</imageNamePrefix>
+                                        <alignment>HORIZONTAL</alignment>
+                                        <padding>12</padding>
+                                        <position>center,top</position>
+                                    </drawImagesFromText>
+        
+                                    <drawImagesFromText>
+                                        <text>54321</text>
+                                        <imageNamePrefix>num</imageNamePrefix>
+                                        <alignment>VERTICAL</alignment>
+                                        <padding>12</padding>
+                                        <position>left,center</position>
+                                    </drawImagesFromText>
+        
+                                    <flowLayout>
+                                        <padding>12</padding>
+                                        <position>center,bottom</position>
+                                        <draw>
+                                            <drawImage>num1</drawImage>
+                                            <drawImage>num2</drawImage>
+                                            <drawImage>num3</drawImage>
+                                            <drawImage>num4</drawImage>
+                                            <drawImage>num5</drawImage>
+                                        </draw>
+                                    </flowLayout>
+        
+                                    <drawImagesFromText>
+                                        <text>0123456789</text>
+                                        <imageNamePrefix>num_small</imageNamePrefix>
+                                        <alignment>VERTICAL</alignment>
+                                        <padding>4</padding>
+                                        <position>right,center</position>
+                                    </drawImagesFromText>
+                                    <drawImagesFromText>
+                                        <text>3.0.0</text>
+                                        <imageNamePrefix>num_small</imageNamePrefix>
+                                        <alignment>HORIZONTAL</alignment>
+                                        <padding>2</padding>
+                                        <position>right-24,top+64</position>
+                                    </drawImagesFromText>
+                                    <drawImagesFromText>
+                                        <text>1.2</text>
+                                        <imageNamePrefix>num_small</imageNamePrefix>
+                                        <alignment>HORIZONTAL</alignment>
+                                        <padding>2</padding>
+                                        <position>right-24,top+80</position>
+                                    </drawImagesFromText>
                                 </draw>
-                            </flowLayout>
-
-                            <drawImagesFromText>
-                                <text>0123456789</text>
-                                <imageNamePrefix>num_small</imageNamePrefix>
-                                <alignment>VERTICAL</alignment>
-                                <padding>4</padding>
-                                <position>right,center</position>
-                            </drawImagesFromText>
-                            <drawImagesFromText>
-                                <text>3.0.0</text>
-                                <imageNamePrefix>num_small</imageNamePrefix>
-                                <alignment>HORIZONTAL</alignment>
-                                <padding>2</padding>
-                                <position>right-24,top+64</position>
-                            </drawImagesFromText>
-                            <drawImagesFromText>
-                                <text>1.2</text>
-                                <imageNamePrefix>num_small</imageNamePrefix>
-                                <alignment>HORIZONTAL</alignment>
-                                <padding>2</padding>
-                                <position>right-24,top+80</position>
-                            </drawImagesFromText>
-                        </draw>
-                    </canvas>
-
-                </configuration>
+                            </canvas>
+        
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
