@@ -15,6 +15,8 @@
  */
 package org.bitstrings.maven.plugins.splasher;
 
+import static org.apache.maven.plugins.annotations.LifecyclePhase.GENERATE_RESOURCES;
+
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
@@ -36,7 +38,7 @@ import org.codehaus.plexus.util.FileUtils;
 /**
  * Compose a splash screen.
  */
-@Mojo( name = "compose", threadSafe = true )
+@Mojo( name = "compose", defaultPhase=GENERATE_RESOURCES, threadSafe = true )
 public class SplasherComposeMojo
     extends AbstractMojo
 {
